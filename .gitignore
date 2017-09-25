@@ -3,4 +3,3 @@ package-lock.json
 app/**/*.js
 app/**/*.js.map
 css/style.css
-app/templates/*.tpl

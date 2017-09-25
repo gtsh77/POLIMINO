@@ -1,0 +1,20 @@
+body {
+	background: #212121;
+}
+
+.main {
+	text-align: center;
+}
+
+.main table {
+	border-collapse: collapse;
+	display: inline-block;
+	margin: 0 auto;
+}
+
+.main table td {
+	width: 20px;
+	height: 20px;
+	background: #afafaf;
+	border: 1px solid #000;
+}
