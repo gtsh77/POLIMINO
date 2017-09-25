@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 const appRoutes: Routes = [
   {
     path: '**',
-    redirectTo: '/players',
+    redirectTo: '/main',
     pathMatch: 'full'
   }
 ];

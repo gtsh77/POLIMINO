@@ -2,11 +2,11 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent }  from './app.component';
-import { PlayersModule }         from './players/players.module';
+import { MainModule }         from './main/main.module';
 import { routing, appRoutingProviders }  from './app.routing';
 
 @NgModule({
-  imports:      [ BrowserModule, PlayersModule, routing ],
+  imports:      [ BrowserModule, MainModule, routing ],
   declarations: [ AppComponent ],
   providers: [ appRoutingProviders ],
   bootstrap:    [ AppComponent ]
