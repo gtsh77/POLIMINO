@@ -21,7 +21,7 @@ export class MainBaseComponent {
 
 	public ngOnInit(): void {
 		window.scope = this;
-		this.move = this.createFigure('F');
+		//this.move = this.createFigure('F');
 	}
 
 	// public createPlayField(): void {
@@ -60,11 +60,35 @@ export class MainBaseComponent {
 		}
 		else if(type === 'L'){
 			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
-			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','f').data('row',1);
-			$('.block').eq(12).addClass(`figure_block figure_${hash}`).data('type','f').data('row',2);
-			$('.block').eq(24).addClass(`figure_block figure_${hash}`).data('type','f').data('row',3);
-			$('.block').eq(36).addClass(`figure_block figure_${hash}`).data('type','f').data('row',4);
-			$('.block').eq(37).addClass(`figure_block figure_${hash}`).data('type','f').data('row',4);			
+			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','l').data('row',1);
+			$('.block').eq(12).addClass(`figure_block figure_${hash}`).data('type','l').data('row',2);
+			$('.block').eq(24).addClass(`figure_block figure_${hash}`).data('type','l').data('row',3);
+			$('.block').eq(36).addClass(`figure_block figure_${hash}`).data('type','l').data('row',4);
+			$('.block').eq(37).addClass(`figure_block figure_${hash}`).data('type','l').data('row',4);			
+		}
+		else if(type === 'N'){
+			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
+			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','n').data('row',1);
+			$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','n').data('row',2);
+			$('.block').eq(24).addClass(`figure_block figure_${hash}`).data('type','n').data('row',3);
+			$('.block').eq(25).addClass(`figure_block figure_${hash}`).data('type','n').data('row',3);
+			$('.block').eq(36).addClass(`figure_block figure_${hash}`).data('type','n').data('row',4);			
+		}
+		else if(type === 'P'){
+			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
+			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','P').data('row',1);
+			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','P').data('row',1);
+			$('.block').eq(12).addClass(`figure_block figure_${hash}`).data('type','P').data('row',2);
+			$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','P').data('row',2);
+			$('.block').eq(24).addClass(`figure_block figure_${hash}`).data('type','P').data('row',3);			
+		}
+		else if(type === 'T'){
+			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
+			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','T').data('row',1);
+			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','T').data('row',1);
+			$('.block').eq(2).addClass(`figure_block figure_${hash}`).data('type','T').data('row',1);
+			$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','T').data('row',2);
+			$('.block').eq(25).addClass(`figure_block figure_${hash}`).data('type','T').data('row',3);			
 		}
 		else {}
 		return setInterval(() => {
