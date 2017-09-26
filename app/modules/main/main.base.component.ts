@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 
 interface ISettings {
 	maxRows: number;
@@ -52,43 +52,43 @@ export class MainBaseComponent {
 		}
 		else if(type === 'F'){
 			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
-			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','f').data('row',1);
-			$('.block').eq(2).addClass(`figure_block figure_${hash}`).data('type','f').data('row',1);
-			$('.block').eq(12).addClass(`figure_block figure_${hash}`).data('type','f').data('row',2);
-			$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','f').data('row',2);
-			$('.block').eq(25).addClass(`figure_block figure_${hash}`).data('type','f').data('row',3);			
+			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','f').data('row',1).data('column',2);
+			$('.block').eq(2).addClass(`figure_block figure_${hash}`).data('type','f').data('row',1).data('column',3);
+			$('.block').eq(12).addClass(`figure_block figure_${hash}`).data('type','f').data('row',2).data('column',1);
+			$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','f').data('row',2).data('column',2);
+			$('.block').eq(25).addClass(`figure_block figure_${hash}`).data('type','f').data('row',3).data('column',2);			
 		}
 		else if(type === 'L'){
 			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
-			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','l').data('row',1);
-			$('.block').eq(12).addClass(`figure_block figure_${hash}`).data('type','l').data('row',2);
-			$('.block').eq(24).addClass(`figure_block figure_${hash}`).data('type','l').data('row',3);
-			$('.block').eq(36).addClass(`figure_block figure_${hash}`).data('type','l').data('row',4);
-			$('.block').eq(37).addClass(`figure_block figure_${hash}`).data('type','l').data('row',4);			
+			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','l').data('row',1).data('column',1);
+			$('.block').eq(12).addClass(`figure_block figure_${hash}`).data('type','l').data('row',2).data('column',1);
+			$('.block').eq(24).addClass(`figure_block figure_${hash}`).data('type','l').data('row',3).data('column',1);
+			$('.block').eq(36).addClass(`figure_block figure_${hash}`).data('type','l').data('row',4).data('column',1);
+			$('.block').eq(37).addClass(`figure_block figure_${hash}`).data('type','l').data('row',4).data('column',2);			
 		}
 		else if(type === 'N'){
 			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
-			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','n').data('row',1);
-			$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','n').data('row',2);
-			$('.block').eq(24).addClass(`figure_block figure_${hash}`).data('type','n').data('row',3);
-			$('.block').eq(25).addClass(`figure_block figure_${hash}`).data('type','n').data('row',3);
-			$('.block').eq(36).addClass(`figure_block figure_${hash}`).data('type','n').data('row',4);			
+			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','n').data('row',1).data('column',2);
+			$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','n').data('row',2).data('column',2);
+			$('.block').eq(24).addClass(`figure_block figure_${hash}`).data('type','n').data('row',3).data('column',2);
+			$('.block').eq(25).addClass(`figure_block figure_${hash}`).data('type','n').data('row',3).data('column',1);
+			$('.block').eq(36).addClass(`figure_block figure_${hash}`).data('type','n').data('row',4).data('column',1);			
 		}
 		else if(type === 'P'){
 			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
-			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','P').data('row',1);
-			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','P').data('row',1);
-			$('.block').eq(12).addClass(`figure_block figure_${hash}`).data('type','P').data('row',2);
-			$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','P').data('row',2);
-			$('.block').eq(24).addClass(`figure_block figure_${hash}`).data('type','P').data('row',3);			
+			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','P').data('row',1).data('column',1);
+			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','P').data('row',1).data('column',2);
+			$('.block').eq(12).addClass(`figure_block figure_${hash}`).data('type','P').data('row',2).data('column',1);
+			$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','P').data('row',2).data('column',2);
+			$('.block').eq(24).addClass(`figure_block figure_${hash}`).data('type','P').data('row',3).data('column',1);			
 		}
 		else if(type === 'T'){
 			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
-			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','T').data('row',1);
-			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','T').data('row',1);
-			$('.block').eq(2).addClass(`figure_block figure_${hash}`).data('type','T').data('row',1);
-			$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','T').data('row',2);
-			$('.block').eq(25).addClass(`figure_block figure_${hash}`).data('type','T').data('row',3);			
+			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','T').data('row',1).data('column',1);
+			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','T').data('row',1).data('column',2);
+			$('.block').eq(2).addClass(`figure_block figure_${hash}`).data('type','T').data('row',1).data('column',3);
+			$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','T').data('row',2).data('column',2);
+			$('.block').eq(25).addClass(`figure_block figure_${hash}`).data('type','T').data('row',3).data('column',2);			
 		}
 		else {}
 		return setInterval(() => {
@@ -107,6 +107,7 @@ export class MainBaseComponent {
 			let row: number = curBlock.data('row');
 			let newBlock: JQuery = $('.block').eq((curBlock.index() + (this.settings.maxColumns * row)));
 			if((!newBlock.hasClass(`figure_${this.curFigureActiveId}`) && newBlock.hasClass('figure_block')) || row === this.settings.maxRows){
+				this.curFigureActiveId = null;
 				clearInterval(this.move);
 				this.move = null;
 				return;
@@ -125,10 +126,16 @@ export class MainBaseComponent {
 		}
 	}
 
-	public moveRightFigure(): void {
+	public controlKey(direction: string): void {
+		if(direction === 'left') this.moveFigureLeft();
+		else if(direction === 'right') this.moveFigureRight();
+		else return;
+	}
+
+	public moveFigureRight(): void {
 		console.info('moveRight');
 		//сохраним тип фигуры
-		let figureType: string = $(`.figure_${this.curFigureActiveId}`).data('type');		
+		let figureType: string = $(`.figure_${this.curFigureActiveId}`).data('type');
 		;
 		//проверка можно ли сделать движение по всем частям фигуры
 		for(let i:number = 0; i < 5; i++){
@@ -141,37 +148,37 @@ export class MainBaseComponent {
 		for(let i:number = 0; i < 5; i++){
 			let curBlock: JQuery = $(`.figure_${this.curFigureActiveId}`).eq(4 - i);
 			let column: number = curBlock.data('column');
-			let row: number = curBlock.data('row');
+			let row: number = curBlock.data('row') - 1;
 			let newBlock: JQuery = $('.block').eq(curBlock.index() + (this.settings.maxColumns * row) + 1);
 			//очистим текущий квадрат и уберем класс
 			curBlock.removeClass(`figure_block figure_${this.curFigureActiveId}`);
 			//покрасим новый квадрат и добавим класс
-			newBlock.addClass(`figure_block figure_${this.curFigureActiveId}`).data('type',figureType).data('column',(column + 1)).data('row',(row));
+			newBlock.addClass(`figure_block figure_${this.curFigureActiveId}`).data('type',figureType).data('column',(column + 1)).data('row',(row + 1));
 		}
 	}
 
-	public moveLeftFigure(): void {
+	public moveFigureLeft(): void {
 		console.info('moveLeft');
 		//сохраним тип фигуры
-		let figureType: string = $(`.figure_${this.curFigureActiveId}`).data('type');		
+		let figureType: string = $(`.figure_${this.curFigureActiveId}`).data('type');
 		;
 		//проверка можно ли сделать движение по всем частям фигуры
 		for(let i:number = 0; i < 5; i++){
-			let curBlock: JQuery = $(`.figure_${this.curFigureActiveId}`).eq(4 - i);
+			let curBlock: JQuery = $(`.figure_${this.curFigureActiveId}`).eq(0 + i);
 			let column: number = curBlock.data('column');
 			let newBlock: JQuery = $('.block').eq((curBlock.index() - 1));
 			if((!newBlock.hasClass(`figure_${this.curFigureActiveId}`) && newBlock.hasClass('figure_block')) || column === 1) return;
 		}
 		//'передвинем' фигуру по частям по очереди начиная с конца
 		for(let i:number = 0; i < 5; i++){
-			let curBlock: JQuery = $(`.figure_${this.curFigureActiveId}`).eq(4 - i);
+			let curBlock: JQuery = $(`.figure_${this.curFigureActiveId}`).eq(0 + i);
 			let column: number = curBlock.data('column');
-			let row: number = curBlock.data('row');
+			let row: number = curBlock.data('row') - 1;
 			let newBlock: JQuery = $('.block').eq(curBlock.index() + (this.settings.maxColumns * row) - 1);
 			//очистим текущий квадрат и уберем класс 
 			curBlock.removeClass(`figure_block figure_${this.curFigureActiveId}`);
 			//покрасим новый квадрат и добавим класс
-			newBlock.addClass(`figure_block figure_${this.curFigureActiveId}`).data('type',figureType).data('column',(column - 1)).data('row',(row));
+			newBlock.addClass(`figure_block figure_${this.curFigureActiveId}`).data('type',figureType).data('column',(column - 1)).data('row',(row + 1));
 		}
 	}
 }
