@@ -21,9 +21,7 @@ export class MainBaseComponent {
 
 	public ngOnInit(): void {
 		window.scope = this;
-		//this.createPlayField();
-		this.createFigureF();
-		//this.createFigureI();
+		this.move = this.createFigure('F');
 	}
 
 	// public createPlayField(): void {
@@ -39,36 +37,37 @@ export class MainBaseComponent {
 	// 	}	
 	// }
 
-	public createFigureI(): void {
+	public createFigure(type: string): any {
 		//создадим уникальный id
 		let hash: string = chance.hash({length: 8});
 		//объявим фигуру активной
 		this.curFigureActiveId = hash;
-		//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
-		$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','i').data('row',1);
-		$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','i').data('row',1);
-		$('.block').eq(2).addClass(`figure_block figure_${hash}`).data('type','i').data('row',1);
-		$('.block').eq(3).addClass(`figure_block figure_${hash}`).data('type','i').data('row',1);
-		$('.block').eq(4).addClass(`figure_block figure_${hash}`).data('type','i').data('row',1);
-
-		this.move = setInterval(() => {
-			this.moveFigure();
-		},250);
-	}
-
-	public createFigureF(): void {
-		//создадим уникальный id
-		let hash: string = chance.hash({length: 8});
-		//объявим фигуру активной
-		this.curFigureActiveId = hash;
-		//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
-		$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','f').data('row',1);
-		$('.block').eq(2).addClass(`figure_block figure_${hash}`).data('type','f').data('row',1);
-		$('.block').eq(12).addClass(`figure_block figure_${hash}`).data('type','f').data('row',2);
-		$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','f').data('row',2);
-		$('.block').eq(25).addClass(`figure_block figure_${hash}`).data('type','f').data('row',3);
-
-		this.move = setInterval(() => {
+		if(type === 'I'){
+			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
+			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','i').data('row',1);
+			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','i').data('row',1);
+			$('.block').eq(2).addClass(`figure_block figure_${hash}`).data('type','i').data('row',1);
+			$('.block').eq(3).addClass(`figure_block figure_${hash}`).data('type','i').data('row',1);
+			$('.block').eq(4).addClass(`figure_block figure_${hash}`).data('type','i').data('row',1);			
+		}
+		else if(type === 'F'){
+			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
+			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','f').data('row',1);
+			$('.block').eq(2).addClass(`figure_block figure_${hash}`).data('type','f').data('row',1);
+			$('.block').eq(12).addClass(`figure_block figure_${hash}`).data('type','f').data('row',2);
+			$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','f').data('row',2);
+			$('.block').eq(25).addClass(`figure_block figure_${hash}`).data('type','f').data('row',3);			
+		}
+		else if(type === 'L'){
+			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
+			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','f').data('row',1);
+			$('.block').eq(12).addClass(`figure_block figure_${hash}`).data('type','f').data('row',2);
+			$('.block').eq(24).addClass(`figure_block figure_${hash}`).data('type','f').data('row',3);
+			$('.block').eq(36).addClass(`figure_block figure_${hash}`).data('type','f').data('row',4);
+			$('.block').eq(37).addClass(`figure_block figure_${hash}`).data('type','f').data('row',4);			
+		}
+		else {}
+		return setInterval(() => {
 			this.moveFigure();
 		},250);
 	}
@@ -86,35 +85,19 @@ export class MainBaseComponent {
 			if((!newBlock.hasClass(`figure_${this.curFigureActiveId}`) && newBlock.hasClass('figure_block')) || row === this.settings.maxRows){
 				clearInterval(this.move);
 				this.move = null;
-				return;				
+				return;
 			}
 		}
-		//выполним перерисовку
-		if(figureType === 'i'){
-			//'передвинем' фигуру по частям по очереди начиная с конца
-			for(let i:number = 0; i < 5; i++){
-				let curBlock: JQuery = $(`.figure_${this.curFigureActiveId}`).eq(4 - i);
-				let row: number = curBlock.data('row');
-				let newBlock: JQuery = $('.block').eq((curBlock.index() + (this.settings.maxColumns * row)));
-				//очистим текущий квадрат и уберем класс
-				curBlock.removeClass(`figure_block figure_${this.curFigureActiveId}`);
-				//покрасим новый квадрат и добавим класс
-				newBlock.addClass(`figure_block figure_${this.curFigureActiveId}`).data('type','i').data('row',(row + 1));	
-			}
+		//'передвинем' фигуру по частям по очереди начиная с конца
+		for(let i:number = 0; i < 5; i++){
+			let curBlock: JQuery = $(`.figure_${this.curFigureActiveId}`).eq(4 - i);
+			let row: number = curBlock.data('row');
+			let newBlock: JQuery = $('.block').eq((curBlock.index() + (this.settings.maxColumns * row)));
+			//очистим текущий квадрат и уберем класс
+			curBlock.removeClass(`figure_block figure_${this.curFigureActiveId}`);
+			//покрасим новый квадрат и добавим класс
+			newBlock.addClass(`figure_block figure_${this.curFigureActiveId}`).data('type',figureType).data('row',(row + 1));	
 		}
-		else if(figureType === 'f'){
-			//'передвинем' фигуру по частям по очереди начиная с конца
-			for(let i:number = 0; i < 5; i++){
-				let curBlock: JQuery = $(`.figure_${this.curFigureActiveId}`).eq(4 - i);
-				let row: number = curBlock.data('row');
-				let newBlock: JQuery = $('.block').eq((curBlock.index() + (this.settings.maxColumns * row)));
-				//очистим текущий квадрат и уберем класс
-				curBlock.removeClass(`figure_block figure_${this.curFigureActiveId}`);
-				//покрасим новый квадрат и добавим класс
-				newBlock.addClass(`figure_block figure_${this.curFigureActiveId}`).data('type','f').data('row',(row + 1));	
-			}
-		}
-		else {}
 	}
 }
 
