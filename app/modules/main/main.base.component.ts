@@ -14,7 +14,7 @@ export class MainBaseComponent {
 
 	private curFigureActiveId: string = null;
 	private settings: ISettings = {
-		'maxRows': 25,
+		'maxRows': 20,
 		'maxColumns': 12
 	}
 	private move: any = null;
@@ -42,53 +42,149 @@ export class MainBaseComponent {
 		let hash: string = chance.hash({length: 8});
 		//объявим фигуру активной
 		this.curFigureActiveId = hash;
-		if(type === 'I'){
+		if(type === 'b'){
 			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
-			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','i').data('row',1).data('column',1);
-			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','i').data('row',1).data('column',2);
-			$('.block').eq(2).addClass(`figure_block figure_${hash}`).data('type','i').data('row',1).data('column',3);
-			$('.block').eq(3).addClass(`figure_block figure_${hash}`).data('type','i').data('row',1).data('column',4);
-			$('.block').eq(4).addClass(`figure_block figure_${hash}`).data('type','i').data('row',1).data('column',5);			
+			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','b').data('row',1).data('column',1);
+			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','b').data('row',1).data('column',2);
+			$('.block').eq(2).addClass(`figure_block figure_${hash}`).data('type','b').data('row',1).data('column',3);
+			$('.block').eq(3).addClass(`figure_block figure_${hash}`).data('type','b').data('row',1).data('column',4);
+			$('.block').eq(4).addClass(`figure_block figure_${hash}`).data('type','b').data('row',1).data('column',5);		
 		}
-		else if(type === 'F'){
+		else if(type === 'a'){
 			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
+			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','a').data('row',1).data('column',2);
+			$('.block').eq(2).addClass(`figure_block figure_${hash}`).data('type','a').data('row',1).data('column',3);
+			$('.block').eq(12).addClass(`figure_block figure_${hash}`).data('type','a').data('row',2).data('column',1);
+			$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','a').data('row',2).data('column',2);
+			$('.block').eq(25).addClass(`figure_block figure_${hash}`).data('type','a').data('row',3).data('column',2);		
+		}
+		else if(type === 'a2'){
+			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
+			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','a2').data('row',1).data('column',1);
+			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','a2').data('row',1).data('column',2);
+			$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','a2').data('row',2).data('column',2);
+			$('.block').eq(14).addClass(`figure_block figure_${hash}`).data('type','a2').data('row',2).data('column',3);
+			$('.block').eq(25).addClass(`figure_block figure_${hash}`).data('type','a2').data('row',3).data('column',);		
+		}
+		else if(type === 'c'){
+			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
+			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','c').data('row',1).data('column',1);
+			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','c').data('row',1).data('column',2);
+			$('.block').eq(2).addClass(`figure_block figure_${hash}`).data('type','c').data('row',1).data('column',3);
+			$('.block').eq(3).addClass(`figure_block figure_${hash}`).data('type','c').data('row',1).data('column',4);
+			$('.block').eq(15).addClass(`figure_block figure_${hash}`).data('type','c').data('row',2).data('column',4);
+		}
+		else if(type === 'c2'){
+			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
+			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','c2').data('row',1).data('column',1);
+			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','c2').data('row',1).data('column',2);
+			$('.block').eq(2).addClass(`figure_block figure_${hash}`).data('type','c2').data('row',1).data('column',3);
+			$('.block').eq(3).addClass(`figure_block figure_${hash}`).data('type','c2').data('row',1).data('column',4);
+			$('.block').eq(12).addClass(`figure_block figure_${hash}`).data('type','c2').data('row',2).data('column',1);
+		}
+		else if(type === 'd'){
+			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
+			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','d').data('row',1).data('column',1);
+			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','d').data('row',1).data('column',2);
+			$('.block').eq(2).addClass(`figure_block figure_${hash}`).data('type','d').data('row',1).data('column',3);
+			$('.block').eq(14).addClass(`figure_block figure_${hash}`).data('type','d').data('row',2).data('column',3);
+			$('.block').eq(15).addClass(`figure_block figure_${hash}`).data('type','d').data('row',2).data('column',4);	
+		}
+		else if(type === 'd2'){
+			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
+			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','d2').data('row',1).data('column',2);
+			$('.block').eq(2).addClass(`figure_block figure_${hash}`).data('type','d2').data('row',1).data('column',3);
+			$('.block').eq(3).addClass(`figure_block figure_${hash}`).data('type','d2').data('row',1).data('column',4);
+			$('.block').eq(12).addClass(`figure_block figure_${hash}`).data('type','d2').data('row',2).data('column',1);
+			$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','d2').data('row',2).data('column',2);	
+		}
+		else if(type === 'e'){
+			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
+			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','e').data('row',1).data('column',1);
+			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','e').data('row',1).data('column',2);
+			$('.block').eq(2).addClass(`figure_block figure_${hash}`).data('type','e').data('row',1).data('column',3);
+			$('.block').eq(12).addClass(`figure_block figure_${hash}`).data('type','e').data('row',2).data('column',1);
+			$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','e').data('row',2).data('column',2);		
+		}
+		else if(type === 'e2'){
+			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
+			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','e2').data('row',1).data('column',1);
+			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','e2').data('row',1).data('column',2);
+			$('.block').eq(2).addClass(`figure_block figure_${hash}`).data('type','e2').data('row',1).data('column',3);
+			$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','e2').data('row',2).data('column',2);
+			$('.block').eq(14).addClass(`figure_block figure_${hash}`).data('type','e2').data('row',2).data('column',3);		
+		}
+		else if(type === 'f'){
+			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
+			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','f').data('row',1).data('column',1);
 			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','f').data('row',1).data('column',2);
 			$('.block').eq(2).addClass(`figure_block figure_${hash}`).data('type','f').data('row',1).data('column',3);
-			$('.block').eq(12).addClass(`figure_block figure_${hash}`).data('type','f').data('row',2).data('column',1);
 			$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','f').data('row',2).data('column',2);
-			$('.block').eq(25).addClass(`figure_block figure_${hash}`).data('type','f').data('row',3).data('column',2);			
+			$('.block').eq(25).addClass(`figure_block figure_${hash}`).data('type','f').data('row',3).data('column',2);		
 		}
-		else if(type === 'L'){
+		else if(type === 'g'){
 			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
-			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','l').data('row',1).data('column',1);
+			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','g').data('row',1).data('column',1);
+			$('.block').eq(2).addClass(`figure_block figure_${hash}`).data('type','g').data('row',1).data('column',3);
+			$('.block').eq(12).addClass(`figure_block figure_${hash}`).data('type','g').data('row',2).data('column',1);
+			$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','g').data('row',2).data('column',2);
+			$('.block').eq(14).addClass(`figure_block figure_${hash}`).data('type','g').data('row',2).data('column',3);		
+		}
+		else if(type === 'h'){
+			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
+			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','g').data('row',1).data('column',1);
+			$('.block').eq(12).addClass(`figure_block figure_${hash}`).data('type','g').data('row',2).data('column',1);
+			$('.block').eq(24).addClass(`figure_block figure_${hash}`).data('type','g').data('row',3).data('column',1);
+			$('.block').eq(25).addClass(`figure_block figure_${hash}`).data('type','g').data('row',3).data('column',2);
+			$('.block').eq(26).addClass(`figure_block figure_${hash}`).data('type','g').data('row',3).data('column',3);		
+		}
+		else if(type === 'k'){
+			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
+			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','k').data('row',1).data('column',1);
+			$('.block').eq(12).addClass(`figure_block figure_${hash}`).data('type','k').data('row',2).data('column',1);
+			$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','k').data('row',2).data('column',2);
+			$('.block').eq(25).addClass(`figure_block figure_${hash}`).data('type','k').data('row',3).data('column',2);
+			$('.block').eq(26).addClass(`figure_block figure_${hash}`).data('type','k').data('row',3).data('column',3);		
+		}
+		else if(type === 'l'){
+			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
+			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','l').data('row',1).data('column',2);
 			$('.block').eq(12).addClass(`figure_block figure_${hash}`).data('type','l').data('row',2).data('column',1);
-			$('.block').eq(24).addClass(`figure_block figure_${hash}`).data('type','l').data('row',3).data('column',1);
-			$('.block').eq(36).addClass(`figure_block figure_${hash}`).data('type','l').data('row',4).data('column',1);
-			$('.block').eq(37).addClass(`figure_block figure_${hash}`).data('type','l').data('row',4).data('column',2);			
+			$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','l').data('row',2).data('column',2);
+			$('.block').eq(14).addClass(`figure_block figure_${hash}`).data('type','l').data('row',2).data('column',3);
+			$('.block').eq(25).addClass(`figure_block figure_${hash}`).data('type','l').data('row',3).data('column',2);		
 		}
-		else if(type === 'N'){
+		else if(type === 'm'){
 			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
-			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','n').data('row',1).data('column',2);
+			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','m').data('row',1).data('column',1);
+			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','m').data('row',1).data('column',2);
+			$('.block').eq(2).addClass(`figure_block figure_${hash}`).data('type','m').data('row',1).data('column',3);
+			$('.block').eq(3).addClass(`figure_block figure_${hash}`).data('type','m').data('row',1).data('column',4);
+			$('.block').eq(14).addClass(`figure_block figure_${hash}`).data('type','m').data('row',2).data('column',3);		
+		}
+		else if(type === 'm2'){
+			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
+			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','m2').data('row',1).data('column',1);
+			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','m2').data('row',1).data('column',2);
+			$('.block').eq(2).addClass(`figure_block figure_${hash}`).data('type','m2').data('row',1).data('column',3);
+			$('.block').eq(3).addClass(`figure_block figure_${hash}`).data('type','m2').data('row',1).data('column',4);
+			$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','m2').data('row',2).data('column',2);		
+		}
+		else if(type === 'n'){
+			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
+			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','n').data('row',1).data('column',1);
+			$('.block').eq(12).addClass(`figure_block figure_${hash}`).data('type','n').data('row',2).data('column',1);
 			$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','n').data('row',2).data('column',2);
-			$('.block').eq(24).addClass(`figure_block figure_${hash}`).data('type','n').data('row',3).data('column',2);
-			$('.block').eq(25).addClass(`figure_block figure_${hash}`).data('type','n').data('row',3).data('column',1);
-			$('.block').eq(36).addClass(`figure_block figure_${hash}`).data('type','n').data('row',4).data('column',1);			
+			$('.block').eq(14).addClass(`figure_block figure_${hash}`).data('type','n').data('row',2).data('column',3);
+			$('.block').eq(26).addClass(`figure_block figure_${hash}`).data('type','n').data('row',3).data('column',3);		
 		}
-		else if(type === 'P'){
+		else if(type === 'n2'){
 			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
-			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','P').data('row',1).data('column',1);
-			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','P').data('row',1).data('column',2);
-			$('.block').eq(12).addClass(`figure_block figure_${hash}`).data('type','P').data('row',2).data('column',1);
-			$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','P').data('row',2).data('column',2);
-			$('.block').eq(24).addClass(`figure_block figure_${hash}`).data('type','P').data('row',3).data('column',1);			
-		}
-		else if(type === 'T'){
-			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
-			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','T').data('row',1).data('column',1);
-			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','T').data('row',1).data('column',2);
-			$('.block').eq(2).addClass(`figure_block figure_${hash}`).data('type','T').data('row',1).data('column',3);
-			$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','T').data('row',2).data('column',2);
-			$('.block').eq(25).addClass(`figure_block figure_${hash}`).data('type','T').data('row',3).data('column',2);			
+			$('.block').eq(2).addClass(`figure_block figure_${hash}`).data('type','n2').data('row',1).data('column',3);
+			$('.block').eq(12).addClass(`figure_block figure_${hash}`).data('type','n2').data('row',2).data('column',1);
+			$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','n2').data('row',2).data('column',2);
+			$('.block').eq(14).addClass(`figure_block figure_${hash}`).data('type','n2').data('row',2).data('column',3);
+			$('.block').eq(24).addClass(`figure_block figure_${hash}`).data('type','n2').data('row',3).data('column',1);		
 		}
 		else {}
 		return setInterval(() => {
