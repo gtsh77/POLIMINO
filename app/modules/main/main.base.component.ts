@@ -44,11 +44,11 @@ export class MainBaseComponent {
 		this.curFigureActiveId = hash;
 		if(type === 'I'){
 			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
-			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','i').data('row',1);
-			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','i').data('row',1);
-			$('.block').eq(2).addClass(`figure_block figure_${hash}`).data('type','i').data('row',1);
-			$('.block').eq(3).addClass(`figure_block figure_${hash}`).data('type','i').data('row',1);
-			$('.block').eq(4).addClass(`figure_block figure_${hash}`).data('type','i').data('row',1);			
+			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','i').data('row',1).data('column',1);
+			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','i').data('row',1).data('column',2);
+			$('.block').eq(2).addClass(`figure_block figure_${hash}`).data('type','i').data('row',1).data('column',3);
+			$('.block').eq(3).addClass(`figure_block figure_${hash}`).data('type','i').data('row',1).data('column',4);
+			$('.block').eq(4).addClass(`figure_block figure_${hash}`).data('type','i').data('row',1).data('column',5);			
 		}
 		else if(type === 'F'){
 			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
@@ -93,7 +93,7 @@ export class MainBaseComponent {
 		else {}
 		return setInterval(() => {
 			this.moveFigure();
-		},250);
+		},500);
 	}
 
 	public moveFigure(): void {
@@ -115,12 +115,63 @@ export class MainBaseComponent {
 		//'передвинем' фигуру по частям по очереди начиная с конца
 		for(let i:number = 0; i < 5; i++){
 			let curBlock: JQuery = $(`.figure_${this.curFigureActiveId}`).eq(4 - i);
+			let column: number = curBlock.data('column');
 			let row: number = curBlock.data('row');
 			let newBlock: JQuery = $('.block').eq((curBlock.index() + (this.settings.maxColumns * row)));
 			//очистим текущий квадрат и уберем класс
 			curBlock.removeClass(`figure_block figure_${this.curFigureActiveId}`);
 			//покрасим новый квадрат и добавим класс
-			newBlock.addClass(`figure_block figure_${this.curFigureActiveId}`).data('type',figureType).data('row',(row + 1));	
+			newBlock.addClass(`figure_block figure_${this.curFigureActiveId}`).data('type',figureType).data('column',column).data('row',(row + 1));
+		}
+	}
+
+	public moveRightFigure(): void {
+		console.info('moveRight');
+		//сохраним тип фигуры
+		let figureType: string = $(`.figure_${this.curFigureActiveId}`).data('type');		
+		;
+		//проверка можно ли сделать движение по всем частям фигуры
+		for(let i:number = 0; i < 5; i++){
+			let curBlock: JQuery = $(`.figure_${this.curFigureActiveId}`).eq(4 - i);
+			let column: number = curBlock.data('column');
+			let newBlock: JQuery = $('.block').eq((curBlock.index() + 1));
+			if((!newBlock.hasClass(`figure_${this.curFigureActiveId}`) && newBlock.hasClass('figure_block')) || column === this.settings.maxColumns) return;
+		}
+		//'передвинем' фигуру по частям по очереди начиная с конца
+		for(let i:number = 0; i < 5; i++){
+			let curBlock: JQuery = $(`.figure_${this.curFigureActiveId}`).eq(4 - i);
+			let column: number = curBlock.data('column');
+			let row: number = curBlock.data('row');
+			let newBlock: JQuery = $('.block').eq(curBlock.index() + (this.settings.maxColumns * row) + 1);
+			//очистим текущий квадрат и уберем класс
+			curBlock.removeClass(`figure_block figure_${this.curFigureActiveId}`);
+			//покрасим новый квадрат и добавим класс
+			newBlock.addClass(`figure_block figure_${this.curFigureActiveId}`).data('type',figureType).data('column',(column + 1)).data('row',(row));
+		}
+	}
+
+	public moveLeftFigure(): void {
+		console.info('moveLeft');
+		//сохраним тип фигуры
+		let figureType: string = $(`.figure_${this.curFigureActiveId}`).data('type');		
+		;
+		//проверка можно ли сделать движение по всем частям фигуры
+		for(let i:number = 0; i < 5; i++){
+			let curBlock: JQuery = $(`.figure_${this.curFigureActiveId}`).eq(4 - i);
+			let column: number = curBlock.data('column');
+			let newBlock: JQuery = $('.block').eq((curBlock.index() - 1));
+			if((!newBlock.hasClass(`figure_${this.curFigureActiveId}`) && newBlock.hasClass('figure_block')) || column === 1) return;
+		}
+		//'передвинем' фигуру по частям по очереди начиная с конца
+		for(let i:number = 0; i < 5; i++){
+			let curBlock: JQuery = $(`.figure_${this.curFigureActiveId}`).eq(4 - i);
+			let column: number = curBlock.data('column');
+			let row: number = curBlock.data('row');
+			let newBlock: JQuery = $('.block').eq(curBlock.index() + (this.settings.maxColumns * row) - 1);
+			//очистим текущий квадрат и уберем класс 
+			curBlock.removeClass(`figure_block figure_${this.curFigureActiveId}`);
+			//покрасим новый квадрат и добавим класс
+			newBlock.addClass(`figure_block figure_${this.curFigureActiveId}`).data('type',figureType).data('column',(column - 1)).data('row',(row));
 		}
 	}
 }
