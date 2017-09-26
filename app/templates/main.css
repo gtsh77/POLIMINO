@@ -12,14 +12,19 @@ body {
 	margin: 0 auto;
 }
 
-.main table td {
+.main table tbody tr td {
 	width: 20px;
 	height: 20px;
 	background: #afafaf;
 	border: 1px solid #000;
 }
 
-.figure {}
 .figure_block {
 	background: #000!important;
 }
+
+/*.hidden td {
+	background: #fff!important;
+}*/
+
+.figure {}
