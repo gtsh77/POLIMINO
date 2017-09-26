@@ -18,3 +18,8 @@ body {
 	background: #afafaf;
 	border: 1px solid #000;
 }
+
+.figure {}
+.figure_block {
+	background: #000!important;
+}
