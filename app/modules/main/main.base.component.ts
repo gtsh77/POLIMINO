@@ -311,7 +311,7 @@ export class MainBaseComponent {
 
 		console.log(newBlock);
 		//проверим можно ли сделать поворот
-		if((!newBlock.hasClass(`figure_${this.curFigureActiveId}`) && newBlock.hasClass('figure_block')) || column === 1) return;
+		if((!newBlock.hasClass(`figure_${this.curFigureActiveId}`) && newBlock.hasClass('figure_block')) ) return;
 		else {
 			//очистим текущий квадрат и уберем класс 
 			curBlock.removeClass(`figure_block figure_${this.curFigureActiveId}`);
@@ -339,10 +339,29 @@ export class MainBaseComponent {
 				this.figureRebuild(figureType,0,-1,-1,0);
 				//второй квадрат
 				this.figureRebuild(figureType,3,this.settings.maxColumns,0,1);
-				//установим инфу по ротации
-				$(`.figure_${this.curFigureActiveId}[center=true]`).attr('rotation',this.calculateRotation(figureCurRotation));
 			}
-		}
+			else if(figureCurRotation === '90'){
+				//первый квадрат
+				this.figureRebuild(figureType,4,this.settings.maxColumns * -1,0,-1);
+				//второй квадрат
+				this.figureRebuild(figureType,4,-1,-1,0);
+			}
+			else if(figureCurRotation === '180'){
+				//первый квадрат
+				this.figureRebuild(figureType,4,1,1,0);
+				//второй квадрат
+				this.figureRebuild(figureType,1,this.settings.maxColumns * -1,0,-1);
+			}
+			else if(figureCurRotation === '270'){
+				//первый квадрат
+				this.figureRebuild(figureType,0,this.settings.maxColumns,0,1);
+				//второй квадрат
+				this.figureRebuild(figureType,0,1,1,0);
+			}
+			else {}
+		}		
+		//установим инфу по ротации
+		$(`.figure_${this.curFigureActiveId}[center=true]`).attr('rotation',this.calculateRotation(figureCurRotation));
 	}
 }
 
