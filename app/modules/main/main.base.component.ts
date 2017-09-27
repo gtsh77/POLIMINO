@@ -42,30 +42,33 @@ export class MainBaseComponent {
 		let hash: string = chance.hash({length: 8});
 		//объявим фигуру активной
 		this.curFigureActiveId = hash;
-		if(type === 'b'){
+		if(type === 'a'){
+			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
+			$('.block').eq(2).addClass(`figure_block figure_${hash}`).data('type','a').data('row',1).data('column',3);
+			$('.block').eq(12).addClass(`figure_block figure_${hash}`).data('type','a').data('row',2).data('column',1);
+			$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','a').data('row',2).data('column',2);
+			$('.block').eq(14).addClass(`figure_block figure_${hash}`).data('type','a').data('row',2).data('column',3);
+			$('.block').eq(25).addClass(`figure_block figure_${hash}`).data('type','a').data('row',3).data('column',2);
+			//установим центр
+			$('.block').eq(13).attr('center','true');
+
+		}
+		else if(type === 'a2'){
+			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
+			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','a').data('row',1).data('column',1);
+			$('.block').eq(12).addClass(`figure_block figure_${hash}`).data('type','a').data('row',2).data('column',1);
+			$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','a').data('row',2).data('column',2);
+			$('.block').eq(14).addClass(`figure_block figure_${hash}`).data('type','a').data('row',2).data('column',3);
+			$('.block').eq(25).addClass(`figure_block figure_${hash}`).data('type','a').data('row',3).data('column',2);		
+		}
+		else if(type === 'b'){
 			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
 			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','b').data('row',1).data('column',1);
 			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','b').data('row',1).data('column',2);
 			$('.block').eq(2).addClass(`figure_block figure_${hash}`).data('type','b').data('row',1).data('column',3);
 			$('.block').eq(3).addClass(`figure_block figure_${hash}`).data('type','b').data('row',1).data('column',4);
 			$('.block').eq(4).addClass(`figure_block figure_${hash}`).data('type','b').data('row',1).data('column',5);		
-		}
-		else if(type === 'a'){
-			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
-			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','a').data('row',1).data('column',2);
-			$('.block').eq(2).addClass(`figure_block figure_${hash}`).data('type','a').data('row',1).data('column',3);
-			$('.block').eq(12).addClass(`figure_block figure_${hash}`).data('type','a').data('row',2).data('column',1);
-			$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','a').data('row',2).data('column',2);
-			$('.block').eq(25).addClass(`figure_block figure_${hash}`).data('type','a').data('row',3).data('column',2);		
-		}
-		else if(type === 'a2'){
-			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
-			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','a2').data('row',1).data('column',1);
-			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','a2').data('row',1).data('column',2);
-			$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','a2').data('row',2).data('column',2);
-			$('.block').eq(14).addClass(`figure_block figure_${hash}`).data('type','a2').data('row',2).data('column',3);
-			$('.block').eq(25).addClass(`figure_block figure_${hash}`).data('type','a2').data('row',3).data('column',);		
-		}
+		}		
 		else if(type === 'c'){
 			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
 			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','c').data('row',1).data('column',1);
@@ -195,8 +198,7 @@ export class MainBaseComponent {
 	public moveFigure(): void {
 		console.info('move');
 		//сохраним тип фигуры
-		let figureType: string = $(`.figure_${this.curFigureActiveId}`).data('type');		
-		;
+		let figureType: string = $(`.figure_${this.curFigureActiveId}`).data('type');
 		//проверка можно ли сделать движение по всем частям фигуры
 		for(let i:number = 0; i < 5; i++){
 			let curBlock: JQuery = $(`.figure_${this.curFigureActiveId}`).eq(4 - i);
@@ -215,10 +217,18 @@ export class MainBaseComponent {
 			let column: number = curBlock.data('column');
 			let row: number = curBlock.data('row');
 			let newBlock: JQuery = $('.block').eq((curBlock.index() + (this.settings.maxColumns * row)));
+			let isCenter: string = curBlock.attr('center') || null;
 			//очистим текущий квадрат и уберем класс
 			curBlock.removeClass(`figure_block figure_${this.curFigureActiveId}`);
 			//покрасим новый квадрат и добавим класс
 			newBlock.addClass(`figure_block figure_${this.curFigureActiveId}`).data('type',figureType).data('column',column).data('row',(row + 1));
+			//если центр фигуры уберем центр и добавим в новый блок
+			if(isCenter){
+				curBlock.removeAttr('center');
+				newBlock.attr('center',true);
+				newBlock.attr('rotation',curBlock.attr('rotation'));
+				curBlock.removeAttr('rotation');				
+			}			
 		}
 	}
 
@@ -232,7 +242,6 @@ export class MainBaseComponent {
 		console.info('moveRight');
 		//сохраним тип фигуры
 		let figureType: string = $(`.figure_${this.curFigureActiveId}`).data('type');
-		;
 		//проверка можно ли сделать движение по всем частям фигуры
 		for(let i:number = 0; i < 5; i++){
 			let curBlock: JQuery = $(`.figure_${this.curFigureActiveId}`).eq(4 - i);
@@ -246,10 +255,18 @@ export class MainBaseComponent {
 			let column: number = curBlock.data('column');
 			let row: number = curBlock.data('row') - 1;
 			let newBlock: JQuery = $('.block').eq(curBlock.index() + (this.settings.maxColumns * row) + 1);
+			let isCenter: string = curBlock.attr('center') || null;
 			//очистим текущий квадрат и уберем класс
 			curBlock.removeClass(`figure_block figure_${this.curFigureActiveId}`);
 			//покрасим новый квадрат и добавим класс
 			newBlock.addClass(`figure_block figure_${this.curFigureActiveId}`).data('type',figureType).data('column',(column + 1)).data('row',(row + 1));
+			//если центр фигуры уберем центр и добавим в новый блок
+			if(isCenter){
+				curBlock.removeAttr('center');
+				newBlock.attr('center',true);
+				newBlock.attr('rotation',curBlock.attr('rotation'));
+				curBlock.removeAttr('rotation');				
+			}			
 		}
 	}
 
@@ -257,7 +274,6 @@ export class MainBaseComponent {
 		console.info('moveLeft');
 		//сохраним тип фигуры
 		let figureType: string = $(`.figure_${this.curFigureActiveId}`).data('type');
-		;
 		//проверка можно ли сделать движение по всем частям фигуры
 		for(let i:number = 0; i < 5; i++){
 			let curBlock: JQuery = $(`.figure_${this.curFigureActiveId}`).eq(0 + i);
@@ -271,10 +287,61 @@ export class MainBaseComponent {
 			let column: number = curBlock.data('column');
 			let row: number = curBlock.data('row') - 1;
 			let newBlock: JQuery = $('.block').eq(curBlock.index() + (this.settings.maxColumns * row) - 1);
+			let isCenter: string = curBlock.attr('center') || null;
 			//очистим текущий квадрат и уберем класс 
 			curBlock.removeClass(`figure_block figure_${this.curFigureActiveId}`);
 			//покрасим новый квадрат и добавим класс
 			newBlock.addClass(`figure_block figure_${this.curFigureActiveId}`).data('type',figureType).data('column',(column - 1)).data('row',(row + 1));
+			//если центр фигуры уберем центр и добавим в новый блок и сохраним ротацию
+			if(isCenter){
+				curBlock.removeAttr('center');
+				newBlock.attr('center',true);
+				newBlock.attr('rotation',curBlock.attr('rotation'));
+				curBlock.removeAttr('rotation');
+			}
+		}
+	}
+
+	public figureRebuild(figureType: string, id: number, idDiff: number, colDiff: number, rowDiff: number): void {
+		//квадрат
+		let curBlock: JQuery = $(`.figure_${this.curFigureActiveId}`).eq(id);
+		let column: number = curBlock.data('column');
+		let row: number = curBlock.data('row') - 1;
+		let newBlock: JQuery = $('.block').eq(curBlock.index() + (this.settings.maxColumns * row) + idDiff);
+
+		console.log(newBlock);
+		//проверим можно ли сделать поворот
+		if((!newBlock.hasClass(`figure_${this.curFigureActiveId}`) && newBlock.hasClass('figure_block')) || column === 1) return;
+		else {
+			//очистим текущий квадрат и уберем класс 
+			curBlock.removeClass(`figure_block figure_${this.curFigureActiveId}`);
+			//покрасим новый квадрат и добавим класс
+			newBlock.addClass(`figure_block figure_${this.curFigureActiveId}`).data('type',figureType).data('column',(column + colDiff)).data('row',row + rowDiff + 1);					
+		}		
+	}
+
+	public calculateRotation(currentVal: any): string {
+		let newVal: number = currentVal * 1 + 90;
+		if(newVal === 360) newVal = 0;
+		return (newVal + '');
+	}
+
+	public rotateFigure(): void {
+		console.info('rotate');
+		//сохраним тип фигуры
+		let figureType: string = $(`.figure_${this.curFigureActiveId}`).data('type');
+		//сохраним градус поворота
+		let figureCurRotation: any = $(`.figure_${this.curFigureActiveId}[center=true]`).attr('rotation') || '0';
+
+		if(figureType === 'a'){
+			if(figureCurRotation === '0'){
+				//первый квадрат
+				this.figureRebuild(figureType,0,-1,-1,0);
+				//второй квадрат
+				this.figureRebuild(figureType,3,this.settings.maxColumns,0,1);
+				//установим инфу по ротации
+				$(`.figure_${this.curFigureActiveId}[center=true]`).attr('rotation',this.calculateRotation(figureCurRotation));
+			}
 		}
 	}
 }
