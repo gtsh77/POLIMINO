@@ -55,19 +55,23 @@ export class MainBaseComponent {
 		}
 		else if(type === 'a2'){
 			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
-			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','a').data('row',1).data('column',1);
-			$('.block').eq(12).addClass(`figure_block figure_${hash}`).data('type','a').data('row',2).data('column',1);
-			$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','a').data('row',2).data('column',2);
-			$('.block').eq(14).addClass(`figure_block figure_${hash}`).data('type','a').data('row',2).data('column',3);
-			$('.block').eq(25).addClass(`figure_block figure_${hash}`).data('type','a').data('row',3).data('column',2);		
+			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','a2').data('row',1).data('column',1);
+			$('.block').eq(12).addClass(`figure_block figure_${hash}`).data('type','a2').data('row',2).data('column',1);
+			$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','a2').data('row',2).data('column',2);
+			$('.block').eq(14).addClass(`figure_block figure_${hash}`).data('type','a2').data('row',2).data('column',3);
+			$('.block').eq(25).addClass(`figure_block figure_${hash}`).data('type','a2').data('row',3).data('column',2);
+			//установим центр
+			$('.block').eq(13).attr('center','true');	
 		}
 		else if(type === 'b'){
 			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
-			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','b').data('row',1).data('column',1);
-			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','b').data('row',1).data('column',2);
-			$('.block').eq(2).addClass(`figure_block figure_${hash}`).data('type','b').data('row',1).data('column',3);
-			$('.block').eq(3).addClass(`figure_block figure_${hash}`).data('type','b').data('row',1).data('column',4);
-			$('.block').eq(4).addClass(`figure_block figure_${hash}`).data('type','b').data('row',1).data('column',5);		
+			$('.block').eq(24).addClass(`figure_block figure_${hash}`).data('type','b').data('row',3).data('column',1);
+			$('.block').eq(25).addClass(`figure_block figure_${hash}`).data('type','b').data('row',3).data('column',2);
+			$('.block').eq(26).addClass(`figure_block figure_${hash}`).data('type','b').data('row',3).data('column',3);
+			$('.block').eq(27).addClass(`figure_block figure_${hash}`).data('type','b').data('row',3).data('column',4);
+			$('.block').eq(28).addClass(`figure_block figure_${hash}`).data('type','b').data('row',3).data('column',5);
+			//установим центр
+			$('.block').eq(26).attr('center','true');						
 		}		
 		else if(type === 'c'){
 			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
@@ -225,7 +229,7 @@ export class MainBaseComponent {
 			//если центр фигуры уберем центр и добавим в новый блок
 			if(isCenter){
 				curBlock.removeAttr('center');
-				newBlock.attr('center',true);
+				newBlock.attr('center','true');
 				newBlock.attr('rotation',curBlock.attr('rotation'));
 				curBlock.removeAttr('rotation');				
 			}			
@@ -264,7 +268,7 @@ export class MainBaseComponent {
 			//если центр фигуры уберем центр и добавим в новый блок
 			if(isCenter){
 				curBlock.removeAttr('center');
-				newBlock.attr('center',true);
+				newBlock.attr('center','true');
 				newBlock.attr('rotation',curBlock.attr('rotation'));
 				curBlock.removeAttr('rotation');				
 			}			
@@ -296,7 +300,7 @@ export class MainBaseComponent {
 			//если центр фигуры уберем центр и добавим в новый блок и сохраним ротацию
 			if(isCenter){
 				curBlock.removeAttr('center');
-				newBlock.attr('center',true);
+				newBlock.attr('center','true');
 				newBlock.attr('rotation',curBlock.attr('rotation'));
 				curBlock.removeAttr('rotation');
 			}
@@ -317,7 +321,7 @@ export class MainBaseComponent {
 			//очистим текущий квадрат и уберем класс 
 			curBlock.removeClass(`figure_block figure_${this.curFigureActiveId}`);
 			//покрасим новый квадрат и добавим класс
-			newBlock.addClass(`figure_block figure_${this.curFigureActiveId}`).data('type',figureType).data('column',(column + colDiff)).data('row',row + rowDiff + 1);					
+			newBlock.addClass(`figure_block figure_${this.curFigureActiveId}`).data('type',figureType).data('column',(column + colDiff)).data('row',row + rowDiff + 1);
 		}		
 	}
 
@@ -360,7 +364,62 @@ export class MainBaseComponent {
 				this.figureRebuild(figureType,0,1,1,0);
 			}
 			else {}
-		}		
+		}
+		else if(figureType === 'a2'){
+			if(figureCurRotation === '0'){
+				//первый квадрат
+				this.figureRebuild(figureType,0,1,1,0);
+				//второй квадрат
+				this.figureRebuild(figureType,1,this.settings.maxColumns,0,1);
+			}
+			else if(figureCurRotation === '90'){
+				//первый квадрат
+				this.figureRebuild(figureType,3,this.settings.maxColumns * -1,0,-1);
+				//второй квадрат
+				this.figureRebuild(figureType,4,1,1,0);
+			}
+			else if(figureCurRotation === '180'){
+				//первый квадрат
+				this.figureRebuild(figureType,3,this.settings.maxColumns * -1,0,-1);
+				//второй квадрат
+				this.figureRebuild(figureType,4,-1,-1,0);
+			}
+			else if(figureCurRotation === '270'){
+				//первый квадрат
+				this.figureRebuild(figureType,0,-1,-1,0);
+				//второй квадрат
+				this.figureRebuild(figureType,1,this.settings.maxColumns,0,1);
+			}
+			else {}
+		}
+		else if(figureType === 'b'){
+			if(figureCurRotation === '0'){
+				this.figureRebuild(figureType,0,(this.settings.maxColumns * -2) + 2,2,-2);
+				this.figureRebuild(figureType,1,(this.settings.maxColumns * -1) + 1,1,-1);
+				this.figureRebuild(figureType,3,this.settings.maxColumns -1,-1,1);
+				this.figureRebuild(figureType,3,(this.settings.maxColumns *2) -2,-2,2);
+			}
+			else if(figureCurRotation === '90'){
+				this.figureRebuild(figureType,0,(this.settings.maxColumns * 2) - 2,-2,2);
+				this.figureRebuild(figureType,0,this.settings.maxColumns - 1,-1,1);
+				this.figureRebuild(figureType,3,(this.settings.maxColumns * -1) +1,1,-1);
+				this.figureRebuild(figureType,4,(this.settings.maxColumns * -2) +2,2,-2);
+			}
+			if(figureCurRotation === '180'){
+				this.figureRebuild(figureType,0,(this.settings.maxColumns * -2) + 2,2,-2);
+				this.figureRebuild(figureType,1,(this.settings.maxColumns * -1) + 1,1,-1);
+				this.figureRebuild(figureType,3,this.settings.maxColumns -1,-1,1);
+				this.figureRebuild(figureType,3,(this.settings.maxColumns *2) -2,-2,2);
+			}
+			else if(figureCurRotation === '270'){
+				this.figureRebuild(figureType,0,(this.settings.maxColumns * 2) - 2,-2,2);
+				this.figureRebuild(figureType,0,this.settings.maxColumns - 1,-1,1);
+				this.figureRebuild(figureType,3,(this.settings.maxColumns * -1) +1,1,-1);
+				this.figureRebuild(figureType,4,(this.settings.maxColumns * -2) +2,2,-2);
+			}
+			else {}
+		}
+		else {}		
 		//установим инфу по ротации
 		$(`.figure_${this.curFigureActiveId}[center=true]`).attr('rotation',this.calculateRotation(figureCurRotation));
 	}
