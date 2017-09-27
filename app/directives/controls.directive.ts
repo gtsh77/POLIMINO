@@ -16,6 +16,10 @@ export class ControlsDirective {
 				e.preventDefault();
 				this.controlKey.emit('right');
 			}
+			else if(e.keyCode === 38){
+				e.preventDefault();
+				this.controlKey.emit('transform');
+			}
 			else return;
 	}
 }

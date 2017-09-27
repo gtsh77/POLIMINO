@@ -235,6 +235,7 @@ export class MainBaseComponent {
 	public controlKey(direction: string): void {
 		if(direction === 'left') this.moveFigureLeft();
 		else if(direction === 'right') this.moveFigureRight();
+		else if(direction === 'transform') this.rotateFigure();
 		else return;
 	}
 
