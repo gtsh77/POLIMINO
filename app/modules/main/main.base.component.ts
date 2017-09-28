@@ -18,9 +18,11 @@ export class MainBaseComponent {
 		'maxColumns': 12
 	}
 	private move: any = null;
+	private rcFigures: string[] = ['a','a2','c','c2','l'];
 
 	public ngOnInit(): void {
 		window.scope = this;
+		window.this = this;
 		//this.move = this.createFigure('F');
 	}
 
@@ -78,19 +80,23 @@ export class MainBaseComponent {
 		}		
 		else if(type === 'c'){
 			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
-			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','c').data('row',1).data('column',1);
-			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','c').data('row',1).data('column',2);
-			$('.block').eq(2).addClass(`figure_block figure_${hash}`).data('type','c').data('row',1).data('column',3);
-			$('.block').eq(3).addClass(`figure_block figure_${hash}`).data('type','c').data('row',1).data('column',4);
-			$('.block').eq(15).addClass(`figure_block figure_${hash}`).data('type','c').data('row',2).data('column',4);
+			$('.block').eq(4).addClass(`figure_block figure_${hash}`).data('type','c').data('row',1).data('column',5);
+			$('.block').eq(5).addClass(`figure_block figure_${hash}`).data('type','c').data('row',1).data('column',6);
+			$('.block').eq(6).addClass(`figure_block figure_${hash}`).data('type','c').data('row',1).data('column',7);
+			$('.block').eq(7).addClass(`figure_block figure_${hash}`).data('type','c').data('row',1).data('column',8);
+			$('.block').eq(19).addClass(`figure_block figure_${hash}`).data('type','c').data('row',2).data('column',8);
+			$('.block').eq(5).attr('center','true');
+			$('.block').eq(5).attr('limit','2');			
 		}
 		else if(type === 'c2'){
 			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
-			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','c2').data('row',1).data('column',1);
-			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','c2').data('row',1).data('column',2);
-			$('.block').eq(2).addClass(`figure_block figure_${hash}`).data('type','c2').data('row',1).data('column',3);
-			$('.block').eq(3).addClass(`figure_block figure_${hash}`).data('type','c2').data('row',1).data('column',4);
-			$('.block').eq(12).addClass(`figure_block figure_${hash}`).data('type','c2').data('row',2).data('column',1);
+			$('.block').eq(4).addClass(`figure_block figure_${hash}`).data('type','c2').data('row',1).data('column',5);
+			$('.block').eq(5).addClass(`figure_block figure_${hash}`).data('type','c2').data('row',1).data('column',6);
+			$('.block').eq(6).addClass(`figure_block figure_${hash}`).data('type','c2').data('row',1).data('column',7);
+			$('.block').eq(7).addClass(`figure_block figure_${hash}`).data('type','c2').data('row',1).data('column',8);
+			$('.block').eq(16).addClass(`figure_block figure_${hash}`).data('type','c2').data('row',2).data('column',5);
+			$('.block').eq(6).attr('center','true');
+			$('.block').eq(6).attr('limit','2');
 		}
 		else if(type === 'd'){
 			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
@@ -158,11 +164,13 @@ export class MainBaseComponent {
 		}
 		else if(type === 'l'){
 			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
-			$('.block').eq(1).addClass(`figure_block figure_${hash}`).data('type','l').data('row',1).data('column',2);
-			$('.block').eq(12).addClass(`figure_block figure_${hash}`).data('type','l').data('row',2).data('column',1);
-			$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','l').data('row',2).data('column',2);
-			$('.block').eq(14).addClass(`figure_block figure_${hash}`).data('type','l').data('row',2).data('column',3);
-			$('.block').eq(25).addClass(`figure_block figure_${hash}`).data('type','l').data('row',3).data('column',2);		
+			$('.block').eq(5).addClass(`figure_block figure_${hash}`).data('type','l').data('row',1).data('column',6);
+			$('.block').eq(16).addClass(`figure_block figure_${hash}`).data('type','l').data('row',2).data('column',5);
+			$('.block').eq(17).addClass(`figure_block figure_${hash}`).data('type','l').data('row',2).data('column',6);
+			$('.block').eq(18).addClass(`figure_block figure_${hash}`).data('type','l').data('row',2).data('column',7);
+			$('.block').eq(29).addClass(`figure_block figure_${hash}`).data('type','l').data('row',3).data('column',6);
+			$('.block').eq(17).attr('center','true');
+			$('.block').eq(17).attr('limit','0');					
 		}
 		else if(type === 'm'){
 			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
@@ -197,9 +205,11 @@ export class MainBaseComponent {
 			$('.block').eq(24).addClass(`figure_block figure_${hash}`).data('type','n2').data('row',3).data('column',1);		
 		}
 		else {}
-		return setInterval(() => {
 			this.moveFigure();
-		},500);
+			this.moveFigure();
+		// return setInterval(() => {
+		// 	this.moveFigure();
+		// },500);
 	}
 
 	public moveFigure(): void {
@@ -435,6 +445,61 @@ export class MainBaseComponent {
 			}
 			else {}
 		}
+		else if(figureType === 'c'){
+			if(degree === '0'){
+				this.figureRebuild(figureType,0,(this.settings.maxColumns * -1) + 1,+1,-1);
+				this.figureRebuild(figureType,2,(this.settings.maxColumns * 1) - 1,-1,+1);
+				this.figureRebuild(figureType,2,(this.settings.maxColumns * 2) -2,-2,+2);
+				this.figureRebuild(figureType,3,(this.settings.maxColumns * 1) -3,-3,+1);
+			}
+			else if(degree === '90'){
+				this.figureRebuild(figureType,0,(this.settings.maxColumns * 1) + 1,+1,+1);
+				this.figureRebuild(figureType,2,(this.settings.maxColumns * -1) - 1,-1,-1);
+				this.figureRebuild(figureType,4,(this.settings.maxColumns * -2) -2,-2,-2);
+				this.figureRebuild(figureType,4,(this.settings.maxColumns * -3) -1,-1,-3);
+			}
+			else if(degree === '180'){
+				this.figureRebuild(figureType,0,(this.settings.maxColumns * -1) + 3,+3,-1);
+				this.figureRebuild(figureType,1,(this.settings.maxColumns * -2) + 2,+2,-2);
+				this.figureRebuild(figureType,2,(this.settings.maxColumns * -1) +1,+1,-1);
+				this.figureRebuild(figureType,4,(this.settings.maxColumns * 1) -1,-1,+1);
+			}
+			else if(degree === '270'){
+				this.figureRebuild(figureType,0,(this.settings.maxColumns * 3) + 2,+2,+3);
+				this.figureRebuild(figureType,0,(this.settings.maxColumns * 2) + 1,+1,+2);
+				this.figureRebuild(figureType,0,(this.settings.maxColumns * 1) + 1,+1,+1);
+				this.figureRebuild(figureType,3,(this.settings.maxColumns * -1) -1,-1,-1);
+			}
+			else {}
+		}
+		else if(figureType === 'c2'){
+			if(degree === '0'){
+				this.figureRebuild(figureType,0,(this.settings.maxColumns * -2) + 2,+2,-2);
+				this.figureRebuild(figureType,1,(this.settings.maxColumns * -1) +1,+1,-1);
+				this.figureRebuild(figureType,3,(this.settings.maxColumns * 1) -1,-1,+1);
+				this.figureRebuild(figureType,3,(this.settings.maxColumns * -3) +1,+1,-3);
+			}
+			else if(degree === '90'){
+				this.figureRebuild(figureType,0,(this.settings.maxColumns * 1) + 3,+3,+1);
+				this.figureRebuild(figureType,0,(this.settings.maxColumns * 2) +2,+2,+1);
+				this.figureRebuild(figureType,0,(this.settings.maxColumns * 1) +1,+1,+1);
+				this.figureRebuild(figureType,4,(this.settings.maxColumns * -1) -1,-1,-1);
+			}
+			else if(degree === '180'){
+				this.figureRebuild(figureType,1,(this.settings.maxColumns * -1) + 1,+1,-1);
+				this.figureRebuild(figureType,3,(this.settings.maxColumns * 1) - 1,-1,+1);
+				this.figureRebuild(figureType,3,(this.settings.maxColumns * 3) -2,-2,+3);
+				this.figureRebuild(figureType,1,(this.settings.maxColumns * 3) -1,-1,+3);
+			}
+			else if(degree === '270'){
+				this.figureRebuild(figureType,0,(this.settings.maxColumns * 1) + 1,+1,+1);
+				this.figureRebuild(figureType,2,(this.settings.maxColumns * -1) - 1,-1,-1);
+				this.figureRebuild(figureType,3,(this.settings.maxColumns * -2) - 2,-2,-2);
+				this.figureRebuild(figureType,4,(this.settings.maxColumns * -1) -3,-3,-1);
+			}
+			else {}
+		}
+		else if(figureType === 'l') return;
 		else {}		
 		//установим инфу по ротации
 		$(`.figure_${this.curFigureActiveId}[center=true]`).attr('rotation',this.calculateRotation(degree));
