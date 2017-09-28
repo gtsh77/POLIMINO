@@ -44,24 +44,26 @@ export class MainBaseComponent {
 		this.curFigureActiveId = hash;
 		if(type === 'a'){
 			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
-			$('.block').eq(2).addClass(`figure_block figure_${hash}`).data('type','a').data('row',1).data('column',3);
-			$('.block').eq(12).addClass(`figure_block figure_${hash}`).data('type','a').data('row',2).data('column',1);
-			$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','a').data('row',2).data('column',2);
-			$('.block').eq(14).addClass(`figure_block figure_${hash}`).data('type','a').data('row',2).data('column',3);
-			$('.block').eq(25).addClass(`figure_block figure_${hash}`).data('type','a').data('row',3).data('column',2);
+			$('.block').eq(6).addClass(`figure_block figure_${hash}`).data('type','a').data('row',1).data('column',7);
+			$('.block').eq(16).addClass(`figure_block figure_${hash}`).data('type','a').data('row',2).data('column',5);
+			$('.block').eq(17).addClass(`figure_block figure_${hash}`).data('type','a').data('row',2).data('column',6);
+			$('.block').eq(18).addClass(`figure_block figure_${hash}`).data('type','a').data('row',2).data('column',7);
+			$('.block').eq(29).addClass(`figure_block figure_${hash}`).data('type','a').data('row',3).data('column',6);
 			//установим центр
-			$('.block').eq(13).attr('center','true');
+			$('.block').eq(17).attr('center','true');
+			$('.block').eq(17).attr('limit','0');
 
 		}
 		else if(type === 'a2'){
 			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
-			$('.block').eq(0).addClass(`figure_block figure_${hash}`).data('type','a2').data('row',1).data('column',1);
-			$('.block').eq(12).addClass(`figure_block figure_${hash}`).data('type','a2').data('row',2).data('column',1);
-			$('.block').eq(13).addClass(`figure_block figure_${hash}`).data('type','a2').data('row',2).data('column',2);
-			$('.block').eq(14).addClass(`figure_block figure_${hash}`).data('type','a2').data('row',2).data('column',3);
-			$('.block').eq(25).addClass(`figure_block figure_${hash}`).data('type','a2').data('row',3).data('column',2);
+			$('.block').eq(4).addClass(`figure_block figure_${hash}`).data('type','a2').data('row',1).data('column',5);
+			$('.block').eq(16).addClass(`figure_block figure_${hash}`).data('type','a2').data('row',2).data('column',5);
+			$('.block').eq(17).addClass(`figure_block figure_${hash}`).data('type','a2').data('row',2).data('column',6);
+			$('.block').eq(18).addClass(`figure_block figure_${hash}`).data('type','a2').data('row',2).data('column',7);
+			$('.block').eq(29).addClass(`figure_block figure_${hash}`).data('type','a2').data('row',3).data('column',5);
 			//установим центр
-			$('.block').eq(13).attr('center','true');	
+			$('.block').eq(17).attr('center','true');
+			$('.block').eq(17).attr('limit','0');
 		}
 		else if(type === 'b'){
 			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
