@@ -19,10 +19,13 @@ export class MainBaseComponent {
 	}
 	private move: any = null;
 	private rcFigures: string[] = ['a','a2','c','c2','l'];
+	private bag: string[] = [];
+	private speed: number = 500;
 
 	public ngOnInit(): void {
 		window.scope = this;
 		window.this = this;
+		//this.createNextFigure();
 		//this.move = this.createFigure('F');
 	}
 
@@ -38,6 +41,30 @@ export class MainBaseComponent {
 	// 		elTbody.appendChild(elTr);
 	// 	}	
 	// }
+
+	public createNextFigure(): void {
+		if(!this.bag.length) this.generateBag();
+		this.move = this.createFigure(this.bag[0]);
+		this.bag.shift();
+	}	
+
+	public generateBag(): void {
+		let arr: string[] = [];
+
+		//наполним временной массив
+		for(let a in this.rcFigures){
+			arr.push(this.rcFigures[a]);
+		}
+
+		//рандомно наполним
+		while(arr.length){
+			let num: number = Math.round(Math.random()* (arr.length - 1));
+			this.bag.push(arr[num]);
+			arr.splice(num,1);
+		}
+	}
+
+
 
 	public createFigure(type: string): any {
 		//создадим уникальный id
@@ -205,11 +232,11 @@ export class MainBaseComponent {
 			$('.block').eq(24).addClass(`figure_block figure_${hash}`).data('type','n2').data('row',3).data('column',1);		
 		}
 		else {}
+			// this.moveFigure();
+			// this.moveFigure();
+		return setInterval(() => {
 			this.moveFigure();
-			this.moveFigure();
-		// return setInterval(() => {
-		// 	this.moveFigure();
-		// },500);
+		},this.speed);
 	}
 
 	public moveFigure(): void {
@@ -221,12 +248,22 @@ export class MainBaseComponent {
 			let curBlock: JQuery = $(`.figure_${this.curFigureActiveId}`).eq(4 - i);
 			let row: number = curBlock.data('row');
 			let newBlock: JQuery = $('.block').eq((curBlock.index() + (this.settings.maxColumns * row)));
+			//конец игры
+			// if($('.field').find('tr').first().children().hasClass('figure_block')){
+			// 	this.curFigureActiveId = null;
+			// 	clearInterval(this.move);
+			// 	this.move = null;
+			// 	return;
+			// }
+			//новая фигура
 			if((!newBlock.hasClass(`figure_${this.curFigureActiveId}`) && newBlock.hasClass('figure_block')) || row === this.settings.maxRows){
 				this.curFigureActiveId = null;
 				clearInterval(this.move);
 				this.move = null;
+				this.createNextFigure();
 				return;
 			}
+			else {}
 		}
 		//'передвинем' фигуру по частям по очереди начиная с конца
 		for(let i:number = 0; i < 5; i++){
