@@ -65,14 +65,14 @@ export class MainBaseComponent {
 		}
 		else if(type === 'b'){
 			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
-			$('.block').eq(24).addClass(`figure_block figure_${hash}`).data('type','b').data('row',3).data('column',1);
-			$('.block').eq(25).addClass(`figure_block figure_${hash}`).data('type','b').data('row',3).data('column',2);
-			$('.block').eq(26).addClass(`figure_block figure_${hash}`).data('type','b').data('row',3).data('column',3);
-			$('.block').eq(27).addClass(`figure_block figure_${hash}`).data('type','b').data('row',3).data('column',4);
-			$('.block').eq(28).addClass(`figure_block figure_${hash}`).data('type','b').data('row',3).data('column',5);
+			$('.block').eq(3).addClass(`figure_block figure_${hash}`).data('type','b').data('row',1).data('column',4);
+			$('.block').eq(4).addClass(`figure_block figure_${hash}`).data('type','b').data('row',1).data('column',5);
+			$('.block').eq(5).addClass(`figure_block figure_${hash}`).data('type','b').data('row',1).data('column',6);
+			$('.block').eq(6).addClass(`figure_block figure_${hash}`).data('type','b').data('row',1).data('column',7);
+			$('.block').eq(7).addClass(`figure_block figure_${hash}`).data('type','b').data('row',1).data('column',8);
 			//установим центр
-			$('.block').eq(26).attr('center','true');
-			$('.block').eq(26).attr('limit','2');
+			$('.block').eq(5).attr('center','true');
+			$('.block').eq(5).attr('limit','2');
 		}		
 		else if(type === 'c'){
 			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
@@ -346,9 +346,12 @@ export class MainBaseComponent {
 		let figureCurRotation: any = $(`.figure_${this.curFigureActiveId}[center=true]`).attr('rotation') || '0';
 		let figureCurLimit: any = $(`.figure_${this.curFigureActiveId}[center=true]`).attr('limit');
 		let figureCenterLoc: any = $(`.figure_${this.curFigureActiveId}[center=true]`).index() +1;
+		let figureCenterRow: any = $(`.figure_${this.curFigureActiveId}[center=true]`).data('row');
 
-		if(figureCenterLoc <= figureCurLimit || figureCenterLoc > (this.settings.maxColumns - figureCurLimit)) return;
+		//если слишком близко к границам поля, то отменим поворот
+		if(figureCenterLoc <= figureCurLimit || figureCenterLoc > (this.settings.maxColumns - figureCurLimit) || figureCenterRow <= figureCurLimit) return;
 
+		//для каждего типа свой алгоритм перерисовки блоков
 		if(figureType === 'a'){
 			if(figureCurRotation === '0'){
 				//первый квадрат
