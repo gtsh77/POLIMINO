@@ -323,13 +323,13 @@ export class MainBaseComponent {
 
 		console.log(newBlock);
 		//проверим можно ли сделать поворот
-		if((!newBlock.hasClass(`figure_${this.curFigureActiveId}`) && newBlock.hasClass('figure_block')) ) return;
-		else {
+		//if((!newBlock.hasClass(`figure_${this.curFigureActiveId}`) && newBlock.hasClass('figure_block')) ) return;
+		//else {
 			//очистим текущий квадрат и уберем класс 
 			curBlock.removeClass(`figure_block figure_${this.curFigureActiveId}`);
 			//покрасим новый квадрат и добавим класс
 			newBlock.addClass(`figure_block figure_${this.curFigureActiveId}`).data('type',figureType).data('column',(column + colDiff)).data('row',row + rowDiff + 1);
-		}		
+		//}		
 	}
 
 	public calculateRotation(currentVal: any): string {
@@ -343,35 +343,35 @@ export class MainBaseComponent {
 		//сохраним тип фигуры
 		let figureType: string = $(`.figure_${this.curFigureActiveId}`).data('type');
 		//сохраним градус поворота
-		let figureCurRotation: any = $(`.figure_${this.curFigureActiveId}[center=true]`).attr('rotation') || '0';
-		let figureCurLimit: any = $(`.figure_${this.curFigureActiveId}[center=true]`).attr('limit');
-		let figureCenterLoc: any = $(`.figure_${this.curFigureActiveId}[center=true]`).index() +1;
-		let figureCenterRow: any = $(`.figure_${this.curFigureActiveId}[center=true]`).data('row');
+		let degree: any = $(`.figure_${this.curFigureActiveId}[center=true]`).attr('rotation') || '0';
+		let limit: any = $(`.figure_${this.curFigureActiveId}[center=true]`).attr('limit');
+		let centersIndex: any = $(`.figure_${this.curFigureActiveId}[center=true]`).index() +1;
+		let centersRow: any = $(`.figure_${this.curFigureActiveId}[center=true]`).data('row');
 
 		//если слишком близко к границам поля, то отменим поворот
-		if(figureCenterLoc <= figureCurLimit || figureCenterLoc > (this.settings.maxColumns - figureCurLimit) || figureCenterRow <= figureCurLimit) return;
+		if(centersIndex <= limit || centersIndex > (this.settings.maxColumns - limit) || centersRow <= limit || centersRow > (this.settings.maxRows - limit) ) return;
 
 		//для каждего типа свой алгоритм перерисовки блоков
 		if(figureType === 'a'){
-			if(figureCurRotation === '0'){
+			if(degree === '0'){
 				//первый квадрат
 				this.figureRebuild(figureType,0,-1,-1,0);
 				//второй квадрат
 				this.figureRebuild(figureType,3,this.settings.maxColumns,0,1);
 			}
-			else if(figureCurRotation === '90'){
+			else if(degree === '90'){
 				//первый квадрат
 				this.figureRebuild(figureType,4,this.settings.maxColumns * -1,0,-1);
 				//второй квадрат
 				this.figureRebuild(figureType,4,-1,-1,0);
 			}
-			else if(figureCurRotation === '180'){
+			else if(degree === '180'){
 				//первый квадрат
 				this.figureRebuild(figureType,4,1,1,0);
 				//второй квадрат
 				this.figureRebuild(figureType,1,this.settings.maxColumns * -1,0,-1);
 			}
-			else if(figureCurRotation === '270'){
+			else if(degree === '270'){
 				//первый квадрат
 				this.figureRebuild(figureType,0,this.settings.maxColumns,0,1);
 				//второй квадрат
@@ -380,25 +380,25 @@ export class MainBaseComponent {
 			else {}
 		}
 		else if(figureType === 'a2'){
-			if(figureCurRotation === '0'){
+			if(degree === '0'){
 				//первый квадрат
 				this.figureRebuild(figureType,0,1,1,0);
 				//второй квадрат
 				this.figureRebuild(figureType,1,this.settings.maxColumns,0,1);
 			}
-			else if(figureCurRotation === '90'){
+			else if(degree === '90'){
 				//первый квадрат
 				this.figureRebuild(figureType,3,this.settings.maxColumns * -1,0,-1);
 				//второй квадрат
 				this.figureRebuild(figureType,4,1,1,0);
 			}
-			else if(figureCurRotation === '180'){
+			else if(degree === '180'){
 				//первый квадрат
 				this.figureRebuild(figureType,3,this.settings.maxColumns * -1,0,-1);
 				//второй квадрат
 				this.figureRebuild(figureType,4,-1,-1,0);
 			}
-			else if(figureCurRotation === '270'){
+			else if(degree === '270'){
 				//первый квадрат
 				this.figureRebuild(figureType,0,-1,-1,0);
 				//второй квадрат
@@ -407,25 +407,25 @@ export class MainBaseComponent {
 			else {}
 		}
 		else if(figureType === 'b'){
-			if(figureCurRotation === '0'){
+			if(degree === '0'){
 				this.figureRebuild(figureType,0,(this.settings.maxColumns * -2) + 2,2,-2);
 				this.figureRebuild(figureType,1,(this.settings.maxColumns * -1) + 1,1,-1);
 				this.figureRebuild(figureType,3,this.settings.maxColumns -1,-1,1);
 				this.figureRebuild(figureType,3,(this.settings.maxColumns *2) -2,-2,2);
 			}
-			else if(figureCurRotation === '90'){
+			else if(degree === '90'){
 				this.figureRebuild(figureType,0,(this.settings.maxColumns * 2) - 2,-2,2);
 				this.figureRebuild(figureType,0,this.settings.maxColumns - 1,-1,1);
 				this.figureRebuild(figureType,3,(this.settings.maxColumns * -1) +1,1,-1);
 				this.figureRebuild(figureType,4,(this.settings.maxColumns * -2) +2,2,-2);
 			}
-			if(figureCurRotation === '180'){
+			if(degree === '180'){
 				this.figureRebuild(figureType,0,(this.settings.maxColumns * -2) + 2,2,-2);
 				this.figureRebuild(figureType,1,(this.settings.maxColumns * -1) + 1,1,-1);
 				this.figureRebuild(figureType,3,this.settings.maxColumns -1,-1,1);
 				this.figureRebuild(figureType,3,(this.settings.maxColumns *2) -2,-2,2);
 			}
-			else if(figureCurRotation === '270'){
+			else if(degree === '270'){
 				this.figureRebuild(figureType,0,(this.settings.maxColumns * 2) - 2,-2,2);
 				this.figureRebuild(figureType,0,this.settings.maxColumns - 1,-1,1);
 				this.figureRebuild(figureType,3,(this.settings.maxColumns * -1) +1,1,-1);
@@ -435,7 +435,7 @@ export class MainBaseComponent {
 		}
 		else {}		
 		//установим инфу по ротации
-		$(`.figure_${this.curFigureActiveId}[center=true]`).attr('rotation',this.calculateRotation(figureCurRotation));
+		$(`.figure_${this.curFigureActiveId}[center=true]`).attr('rotation',this.calculateRotation(degree));
 	}
 }
 
