@@ -20,7 +20,7 @@ export class MainBaseComponent {
 	private move: any = null;
 	private rcFigures: string[] = ['a','a2','c','c2','l'];
 	private bag: string[] = [];
-	private speed: number = 500;
+	private speed: number = 750;
 
 	public ngOnInit(): void {
 		window.scope = this;
@@ -518,14 +518,14 @@ export class MainBaseComponent {
 			}
 			else if(degree === '90'){
 				this.figureRebuild(figureType,0,(this.settings.maxColumns * 1) + 3,+3,+1);
-				this.figureRebuild(figureType,0,(this.settings.maxColumns * 2) +2,+2,+1);
+				this.figureRebuild(figureType,0,(this.settings.maxColumns * 2) +2,+2,+2);
 				this.figureRebuild(figureType,0,(this.settings.maxColumns * 1) +1,+1,+1);
 				this.figureRebuild(figureType,4,(this.settings.maxColumns * -1) -1,-1,-1);
 			}
 			else if(degree === '180'){
 				this.figureRebuild(figureType,1,(this.settings.maxColumns * -1) + 1,+1,-1);
 				this.figureRebuild(figureType,3,(this.settings.maxColumns * 1) - 1,-1,+1);
-				this.figureRebuild(figureType,3,(this.settings.maxColumns * 3) -2,-2,+3);
+				this.figureRebuild(figureType,3,(this.settings.maxColumns * 2) -2,-2,+2);
 				this.figureRebuild(figureType,1,(this.settings.maxColumns * 3) -1,-1,+3);
 			}
 			else if(degree === '270'){
