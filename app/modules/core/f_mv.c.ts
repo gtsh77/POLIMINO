@@ -8,8 +8,9 @@ import { f_bag } from './f_bag.c';
 export class f_mv {
 	constructor(private scope: s_gl, private f_cr: f_cr, private f_bag: f_bag){}
 
+	//генерация новой фигуры из сумки в т.ч. самой первой
 	public next(): void {
-		if(!this.scope.bag.length) this.f_bag.generate();
+		if(!this.scope.bag.length) this.scope.bag = this.f_bag.generate();
 		this.scope.curFigureActiveId = this.f_cr.figure(this.scope.bag[0]);
 		this.scope.move = setInterval(() => {
 			this.down();
@@ -17,6 +18,7 @@ export class f_mv {
 		this.scope.bag.shift();
 	}	
 
+	//движение фигуры вниз
 	public down(): void {
 		console.info('down');
 		//сохраним тип фигуры
@@ -66,6 +68,7 @@ export class f_mv {
 		}
 	}	
 
+	//движение фигуры влево
 	public left(): void {
 		console.info('left');
 		//сохраним тип фигуры
@@ -103,6 +106,7 @@ export class f_mv {
 		}
 	}	
 
+	//движение фигуры вправо
 	public right(): void {
 		console.info('right');
 		//сохраним тип фигуры

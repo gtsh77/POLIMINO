@@ -1,0 +1,10 @@
+-rw-r--r-- 1 Shaman 197121   139 сен 29 19:08 core.c.ts
+-rw-r--r-- 1 Shaman 197121   575 сен 29 22:08 core.m.ts
+-rw-r--r-- 1 Shaman 197121   482 сен 29 19:08 core.r.ts
+-rw-r--r-- 1 Shaman 197121   549 сен 29 22:08 f_bag.c.ts
+-rw-r--r-- 1 Shaman 197121 14202 сен 29 21:00 f_cr.c.ts
+-rw-r--r-- 1 Shaman 197121   601 сен 29 20:12 f_ctrl.dr.ts
+-rw-r--r-- 1 Shaman 197121  6810 сен 29 22:02 f_mv.c.ts
+-rw-r--r-- 1 Shaman 197121  8748 сен 29 22:08 f_tr.c.ts
+-rw-r--r-- 1 Shaman 197121   667 сен 29 22:09 main.c.ts
+-rw-r--r-- 1 Shaman 197121   416 сен 29 22:03 s_gl.c.ts

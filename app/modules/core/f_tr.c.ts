@@ -1,0 +1,185 @@
+import { Injectable } from '@angular/core';
+import { s_gl } from './s_gl.c';
+
+@Injectable()
+
+export class f_tr {
+	constructor(private scope: s_gl){}
+	public rebuild(figureType: string, id: number, idDiff: number, colDiff: number, rowDiff: number): void {
+		//квадрат
+		let curBlock: JQuery = $(`.figure_${this.scope.curFigureActiveId}`).eq(id);
+		let column: number = curBlock.data('column');
+		let row: number = curBlock.data('row') - 1;
+		let newBlock: JQuery = $('.block').eq(curBlock.index() + (this.scope.settings.maxColumns * row) + idDiff);
+
+		//проверим можно ли сделать поворот
+		//if((!newBlock.hasClass(`figure_${this.scope.curFigureActiveId}`) && newBlock.hasClass('figure_block')) ) return;
+		//else {
+			//очистим текущий квадрат и уберем класс 
+			curBlock.removeClass(`figure_block figure_${this.scope.curFigureActiveId}`);
+			//покрасим новый квадрат и добавим класс
+			newBlock.addClass(`figure_block figure_${this.scope.curFigureActiveId}`).data('type',figureType).data('column',(column + colDiff)).data('row',row + rowDiff + 1);
+		//}		
+	}
+
+	public rotate(): void {
+		console.info('rotate');
+		//сохраним тип фигуры
+		let figureType: string = $(`.figure_${this.scope.curFigureActiveId}`).data('type');
+		//сохраним градус поворота
+		let degree: any = $(`.figure_${this.scope.curFigureActiveId}[center=true]`).attr('rotation') || '0';
+		let limit: any = $(`.figure_${this.scope.curFigureActiveId}[center=true]`).attr('limit');
+		let centersIndex: any = $(`.figure_${this.scope.curFigureActiveId}[center=true]`).index() +1;
+		let centersRow: any = $(`.figure_${this.scope.curFigureActiveId}[center=true]`).data('row');
+
+		//если слишком близко к границам поля, то отменим поворот
+		if(centersIndex <= limit || centersIndex > (this.scope.settings.maxColumns - limit) || centersRow <= limit || centersRow > (this.scope.settings.maxRows - limit) ) return;
+
+		//для каждего типа свой алгоритм перерисовки блоков
+		if(figureType === 'a'){
+			if(degree === '0'){
+				//первый квадрат
+				this.rebuild(figureType,0,-1,-1,0);
+				//второй квадрат
+				this.rebuild(figureType,3,this.scope.settings.maxColumns,0,1);
+			}
+			else if(degree === '90'){
+				//первый квадрат
+				this.rebuild(figureType,4,this.scope.settings.maxColumns * -1,0,-1);
+				//второй квадрат
+				this.rebuild(figureType,4,-1,-1,0);
+			}
+			else if(degree === '180'){
+				//первый квадрат
+				this.rebuild(figureType,4,1,1,0);
+				//второй квадрат
+				this.rebuild(figureType,1,this.scope.settings.maxColumns * -1,0,-1);
+			}
+			else if(degree === '270'){
+				//первый квадрат
+				this.rebuild(figureType,0,this.scope.settings.maxColumns,0,1);
+				//второй квадрат
+				this.rebuild(figureType,0,1,1,0);
+			}
+			else {}
+		}
+		else if(figureType === 'a2'){
+			if(degree === '0'){
+				//первый квадрат
+				this.rebuild(figureType,0,1,1,0);
+				//второй квадрат
+				this.rebuild(figureType,1,this.scope.settings.maxColumns,0,1);
+			}
+			else if(degree === '90'){
+				//первый квадрат
+				this.rebuild(figureType,3,this.scope.settings.maxColumns * -1,0,-1);
+				//второй квадрат
+				this.rebuild(figureType,4,1,1,0);
+			}
+			else if(degree === '180'){
+				//первый квадрат
+				this.rebuild(figureType,3,this.scope.settings.maxColumns * -1,0,-1);
+				//второй квадрат
+				this.rebuild(figureType,4,-1,-1,0);
+			}
+			else if(degree === '270'){
+				//первый квадрат
+				this.rebuild(figureType,0,-1,-1,0);
+				//второй квадрат
+				this.rebuild(figureType,1,this.scope.settings.maxColumns,0,1);
+			}
+			else {}
+		}
+		else if(figureType === 'b'){
+			if(degree === '0'){
+				this.rebuild(figureType,0,(this.scope.settings.maxColumns * -2) + 2,2,-2);
+				this.rebuild(figureType,1,(this.scope.settings.maxColumns * -1) + 1,1,-1);
+				this.rebuild(figureType,3,this.scope.settings.maxColumns -1,-1,1);
+				this.rebuild(figureType,3,(this.scope.settings.maxColumns *2) -2,-2,2);
+			}
+			else if(degree === '90'){
+				this.rebuild(figureType,0,(this.scope.settings.maxColumns * 2) - 2,-2,2);
+				this.rebuild(figureType,0,this.scope.settings.maxColumns - 1,-1,1);
+				this.rebuild(figureType,3,(this.scope.settings.maxColumns * -1) +1,1,-1);
+				this.rebuild(figureType,4,(this.scope.settings.maxColumns * -2) +2,2,-2);
+			}
+			if(degree === '180'){
+				this.rebuild(figureType,0,(this.scope.settings.maxColumns * -2) + 2,2,-2);
+				this.rebuild(figureType,1,(this.scope.settings.maxColumns * -1) + 1,1,-1);
+				this.rebuild(figureType,3,this.scope.settings.maxColumns -1,-1,1);
+				this.rebuild(figureType,3,(this.scope.settings.maxColumns *2) -2,-2,2);
+			}
+			else if(degree === '270'){
+				this.rebuild(figureType,0,(this.scope.settings.maxColumns * 2) - 2,-2,2);
+				this.rebuild(figureType,0,this.scope.settings.maxColumns - 1,-1,1);
+				this.rebuild(figureType,3,(this.scope.settings.maxColumns * -1) +1,1,-1);
+				this.rebuild(figureType,4,(this.scope.settings.maxColumns * -2) +2,2,-2);
+			}
+			else {}
+		}
+		else if(figureType === 'c'){
+			if(degree === '0'){
+				this.rebuild(figureType,0,(this.scope.settings.maxColumns * -1) + 1,+1,-1);
+				this.rebuild(figureType,2,(this.scope.settings.maxColumns * 1) - 1,-1,+1);
+				this.rebuild(figureType,2,(this.scope.settings.maxColumns * 2) -2,-2,+2);
+				this.rebuild(figureType,3,(this.scope.settings.maxColumns * 1) -3,-3,+1);
+			}
+			else if(degree === '90'){
+				this.rebuild(figureType,0,(this.scope.settings.maxColumns * 1) + 1,+1,+1);
+				this.rebuild(figureType,2,(this.scope.settings.maxColumns * -1) - 1,-1,-1);
+				this.rebuild(figureType,4,(this.scope.settings.maxColumns * -2) -2,-2,-2);
+				this.rebuild(figureType,4,(this.scope.settings.maxColumns * -3) -1,-1,-3);
+			}
+			else if(degree === '180'){
+				this.rebuild(figureType,0,(this.scope.settings.maxColumns * -1) + 3,+3,-1);
+				this.rebuild(figureType,1,(this.scope.settings.maxColumns * -2) + 2,+2,-2);
+				this.rebuild(figureType,2,(this.scope.settings.maxColumns * -1) +1,+1,-1);
+				this.rebuild(figureType,4,(this.scope.settings.maxColumns * 1) -1,-1,+1);
+			}
+			else if(degree === '270'){
+				this.rebuild(figureType,0,(this.scope.settings.maxColumns * 3) + 2,+2,+3);
+				this.rebuild(figureType,0,(this.scope.settings.maxColumns * 2) + 1,+1,+2);
+				this.rebuild(figureType,0,(this.scope.settings.maxColumns * 1) + 1,+1,+1);
+				this.rebuild(figureType,3,(this.scope.settings.maxColumns * -1) -1,-1,-1);
+			}
+			else {}
+		}
+		else if(figureType === 'c2'){
+			if(degree === '0'){
+				this.rebuild(figureType,0,(this.scope.settings.maxColumns * -2) + 2,+2,-2);
+				this.rebuild(figureType,1,(this.scope.settings.maxColumns * -1) +1,+1,-1);
+				this.rebuild(figureType,3,(this.scope.settings.maxColumns * 1) -1,-1,+1);
+				this.rebuild(figureType,3,(this.scope.settings.maxColumns * -3) +1,+1,-3);
+			}
+			else if(degree === '90'){
+				this.rebuild(figureType,0,(this.scope.settings.maxColumns * 1) + 3,+3,+1);
+				this.rebuild(figureType,0,(this.scope.settings.maxColumns * 2) +2,+2,+2);
+				this.rebuild(figureType,0,(this.scope.settings.maxColumns * 1) +1,+1,+1);
+				this.rebuild(figureType,4,(this.scope.settings.maxColumns * -1) -1,-1,-1);
+			}
+			else if(degree === '180'){
+				this.rebuild(figureType,1,(this.scope.settings.maxColumns * -1) + 1,+1,-1);
+				this.rebuild(figureType,3,(this.scope.settings.maxColumns * 1) - 1,-1,+1);
+				this.rebuild(figureType,3,(this.scope.settings.maxColumns * 2) -2,-2,+2);
+				this.rebuild(figureType,1,(this.scope.settings.maxColumns * 3) -1,-1,+3);
+			}
+			else if(degree === '270'){
+				this.rebuild(figureType,0,(this.scope.settings.maxColumns * 1) + 1,+1,+1);
+				this.rebuild(figureType,2,(this.scope.settings.maxColumns * -1) - 1,-1,-1);
+				this.rebuild(figureType,3,(this.scope.settings.maxColumns * -2) - 2,-2,-2);
+				this.rebuild(figureType,4,(this.scope.settings.maxColumns * -1) -3,-3,-1);
+			}
+			else {}
+		}
+		else if(figureType === 'l') return;
+		else {}		
+		//установим инфу по ротации
+		$(`.figure_${this.scope.curFigureActiveId}[center=true]`).attr('rotation',this.getNewRVal(degree));
+	}
+
+	public getNewRVal(currentVal: any): string {
+		let newVal: number = currentVal * 1 + 90;
+		if(newVal === 360) newVal = 0;
+		return (newVal + '');
+	}	
+}

@@ -1,4 +1,5 @@
 import { NgModule }      from '@angular/core';
+import { CommonModule }   from '@angular/common';
 
 import { CoreRouting } from './core.r';
 import { CoreComponent }  from './core.c';
@@ -13,7 +14,7 @@ import { f_ctrl_dr } from './f_ctrl.dr';
 
 
 @NgModule({
-	imports: [ CoreRouting ],
+	imports: [ CoreRouting, CommonModule ],
 	declarations: [ CoreComponent, MainComponent, f_ctrl_dr],
 	providers: [s_gl, f_cr, f_bag, f_tr, f_mv]
 })
