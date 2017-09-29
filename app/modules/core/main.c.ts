@@ -1,10 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { f_cr } from './f_cr.c';
+import { s_gl } from './s_gl.c';
 
-interface ISettings {
-	maxRows: number;
-	maxColumns: number;
-}
 
 @Component({
 	templateUrl: 'app/templates/main.html',
@@ -13,19 +10,7 @@ interface ISettings {
 
 export class MainComponent {
 
-	private curFigureActiveId: string = null;
-	private settings: ISettings = {
-		'maxRows': 20,
-		'maxColumns': 12
-	}
-	private rcFigures: string[] = ['a','a2','c','c2','l'];
-	private bag: string[] = [];	
-	private move: any = null;	
-
-
-	private speed: number = 750;
-
-	constructor(private f_cr: f_cr){}
+	constructor(private scope: s_gl, private f_cr: f_cr){}
 
 	public ngOnInit(): void {
 		window.scope = this;
@@ -35,9 +20,9 @@ export class MainComponent {
 
 	// public createPlayField(): void {
 	// 	let elTbody: Element = document.querySelector('.field');
-	// 	for(let j: number = 0; j < this.settings.maxColumns; j++){
+	// 	for(let j: number = 0; j < this.scope.settings.maxColumns; j++){
 	// 		let elTr: Element = document.createElement('tr');			
-	// 		for(let i: number = 0; i < this.settings.maxColumns; i++){
+	// 		for(let i: number = 0; i < this.scope.settings.maxColumns; i++){
 	// 			let elTd: Element = document.createElement('td');
 	// 			elTd.classList.add('block');
 	// 			elTr.appendChild(elTd);
@@ -49,26 +34,26 @@ export class MainComponent {
 
 
 	public createNextFigure(): void {
-		if(!this.bag.length) this.generateBag();
-		this.curFigureActiveId = this.f_cr.figure(this.bag[0]);
-		this.move = setInterval(() => {
+		if(!this.scope.bag.length) this.generateBag();
+		this.scope.curFigureActiveId = this.f_cr.figure(this.scope.bag[0]);
+		this.scope.move = setInterval(() => {
 			this.moveFigure();
-		},this.speed);
-		this.bag.shift();
+		},this.scope.speed);
+		this.scope.bag.shift();
 	}	
 
 	public generateBag(): void {
 		let arr: string[] = [];
 
 		//наполним временной массив
-		for(let a in this.rcFigures){
-			arr.push(this.rcFigures[a]);
+		for(let a in this.scope.rcFigures){
+			arr.push(this.scope.rcFigures[a]);
 		}
 
 		//рандомно наполним
 		while(arr.length){
 			let num: number = Math.round(Math.random()* (arr.length - 1));
-			this.bag.push(arr[num]);
+			this.scope.bag.push(arr[num]);
 			arr.splice(num,1);
 		}
 	}
@@ -79,7 +64,7 @@ export class MainComponent {
 	// 	//создадим уникальный id
 	// 	let hash: string = chance.hash({length: 8});
 	// 	//объявим фигуру активной
-	// 	this.curFigureActiveId = hash;
+	// 	this.scope.curFigureActiveId = hash;
 	// 	if(type === 'a'){
 	// 		//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
 	// 		$('.block').eq(6).addClass(`figure_block figure_${hash}`).data('type','a').data('row',1).data('column',7);
@@ -245,30 +230,30 @@ export class MainComponent {
 	// 		// this.moveFigure();
 	// 	return setInterval(() => {
 	// 		this.moveFigure();
-	// 	},this.speed);
+	// 	},this.scope.speed);
 	// }
 
 	public moveFigure(): void {
 		console.info('move');
 		//сохраним тип фигуры
-		let figureType: string = $(`.figure_${this.curFigureActiveId}`).data('type');
+		let figureType: string = $(`.figure_${this.scope.curFigureActiveId}`).data('type');
 		//проверка можно ли сделать движение по всем частям фигуры
 		for(let i:number = 0; i < 5; i++){
-			let curBlock: JQuery = $(`.figure_${this.curFigureActiveId}`).eq(4 - i);
+			let curBlock: JQuery = $(`.figure_${this.scope.curFigureActiveId}`).eq(4 - i);
 			let row: number = curBlock.data('row');
-			let newBlock: JQuery = $('.block').eq((curBlock.index() + (this.settings.maxColumns * row)));
+			let newBlock: JQuery = $('.block').eq((curBlock.index() + (this.scope.settings.maxColumns * row)));
 			//конец игры
 			// if($('.field').find('tr').first().children().hasClass('figure_block')){
-			// 	this.curFigureActiveId = null;
+			// 	this.scope.curFigureActiveId = null;
 			// 	clearInterval(this.move);
-			// 	this.move = null;
+			// 	this.scope.move = null;
 			// 	return;
 			// }
 			//новая фигура
-			if((!newBlock.hasClass(`figure_${this.curFigureActiveId}`) && newBlock.hasClass('figure_block')) || row === this.settings.maxRows){
-				this.curFigureActiveId = null;
-				clearInterval(this.move);
-				this.move = null;
+			if((!newBlock.hasClass(`figure_${this.scope.curFigureActiveId}`) && newBlock.hasClass('figure_block')) || row === this.scope.settings.maxRows){
+				this.scope.curFigureActiveId = null;
+				clearInterval(this.scope.move);
+				this.scope.move = null;
 				this.createNextFigure();
 				return;
 			}
@@ -276,15 +261,15 @@ export class MainComponent {
 		}
 		//'передвинем' фигуру по частям по очереди начиная с конца
 		for(let i:number = 0; i < 5; i++){
-			let curBlock: JQuery = $(`.figure_${this.curFigureActiveId}`).eq(4 - i);
+			let curBlock: JQuery = $(`.figure_${this.scope.curFigureActiveId}`).eq(4 - i);
 			let column: number = curBlock.data('column');
 			let row: number = curBlock.data('row');
-			let newBlock: JQuery = $('.block').eq((curBlock.index() + (this.settings.maxColumns * row)));
+			let newBlock: JQuery = $('.block').eq((curBlock.index() + (this.scope.settings.maxColumns * row)));
 			let isCenter: string = curBlock.attr('center') || null;
 			//очистим текущий квадрат и уберем класс
-			curBlock.removeClass(`figure_block figure_${this.curFigureActiveId}`);
+			curBlock.removeClass(`figure_block figure_${this.scope.curFigureActiveId}`);
 			//покрасим новый квадрат и добавим класс
-			newBlock.addClass(`figure_block figure_${this.curFigureActiveId}`).data('type',figureType).data('column',column).data('row',(row + 1));
+			newBlock.addClass(`figure_block figure_${this.scope.curFigureActiveId}`).data('type',figureType).data('column',column).data('row',(row + 1));
 			//если центр фигуры уберем центр и добавим в новый блок
 			if(isCenter){
 				newBlock.attr('center','true');
@@ -307,25 +292,25 @@ export class MainComponent {
 	public moveFigureRight(): void {
 		console.info('moveRight');
 		//сохраним тип фигуры
-		let figureType: string = $(`.figure_${this.curFigureActiveId}`).data('type');
+		let figureType: string = $(`.figure_${this.scope.curFigureActiveId}`).data('type');
 		//проверка можно ли сделать движение по всем частям фигуры
 		for(let i:number = 0; i < 5; i++){
-			let curBlock: JQuery = $(`.figure_${this.curFigureActiveId}`).eq(4 - i);
+			let curBlock: JQuery = $(`.figure_${this.scope.curFigureActiveId}`).eq(4 - i);
 			let column: number = curBlock.data('column');
 			let newBlock: JQuery = $('.block').eq((curBlock.index() + 1));
-			if((!newBlock.hasClass(`figure_${this.curFigureActiveId}`) && newBlock.hasClass('figure_block')) || column === this.settings.maxColumns) return;
+			if((!newBlock.hasClass(`figure_${this.scope.curFigureActiveId}`) && newBlock.hasClass('figure_block')) || column === this.scope.settings.maxColumns) return;
 		}
 		//'передвинем' фигуру по частям по очереди начиная с конца
 		for(let i:number = 0; i < 5; i++){
-			let curBlock: JQuery = $(`.figure_${this.curFigureActiveId}`).eq(4 - i);
+			let curBlock: JQuery = $(`.figure_${this.scope.curFigureActiveId}`).eq(4 - i);
 			let column: number = curBlock.data('column');
 			let row: number = curBlock.data('row') - 1;
-			let newBlock: JQuery = $('.block').eq(curBlock.index() + (this.settings.maxColumns * row) + 1);
+			let newBlock: JQuery = $('.block').eq(curBlock.index() + (this.scope.settings.maxColumns * row) + 1);
 			let isCenter: string = curBlock.attr('center') || null;
 			//очистим текущий квадрат и уберем класс
-			curBlock.removeClass(`figure_block figure_${this.curFigureActiveId}`);
+			curBlock.removeClass(`figure_block figure_${this.scope.curFigureActiveId}`);
 			//покрасим новый квадрат и добавим класс
-			newBlock.addClass(`figure_block figure_${this.curFigureActiveId}`).data('type',figureType).data('column',(column + 1)).data('row',(row + 1));
+			newBlock.addClass(`figure_block figure_${this.scope.curFigureActiveId}`).data('type',figureType).data('column',(column + 1)).data('row',(row + 1));
 			//если центр фигуры уберем центр и добавим в новый блок
 			if(isCenter){
 				newBlock.attr('center','true');
@@ -341,25 +326,25 @@ export class MainComponent {
 	public moveFigureLeft(): void {
 		console.info('moveLeft');
 		//сохраним тип фигуры
-		let figureType: string = $(`.figure_${this.curFigureActiveId}`).data('type');
+		let figureType: string = $(`.figure_${this.scope.curFigureActiveId}`).data('type');
 		//проверка можно ли сделать движение по всем частям фигуры
 		for(let i:number = 0; i < 5; i++){
-			let curBlock: JQuery = $(`.figure_${this.curFigureActiveId}`).eq(0 + i);
+			let curBlock: JQuery = $(`.figure_${this.scope.curFigureActiveId}`).eq(0 + i);
 			let column: number = curBlock.data('column');
 			let newBlock: JQuery = $('.block').eq((curBlock.index() - 1));
-			if((!newBlock.hasClass(`figure_${this.curFigureActiveId}`) && newBlock.hasClass('figure_block')) || column === 1) return;
+			if((!newBlock.hasClass(`figure_${this.scope.curFigureActiveId}`) && newBlock.hasClass('figure_block')) || column === 1) return;
 		}
 		//'передвинем' фигуру по частям по очереди начиная с конца
 		for(let i:number = 0; i < 5; i++){
-			let curBlock: JQuery = $(`.figure_${this.curFigureActiveId}`).eq(0 + i);
+			let curBlock: JQuery = $(`.figure_${this.scope.curFigureActiveId}`).eq(0 + i);
 			let column: number = curBlock.data('column');
 			let row: number = curBlock.data('row') - 1;
-			let newBlock: JQuery = $('.block').eq(curBlock.index() + (this.settings.maxColumns * row) - 1);
+			let newBlock: JQuery = $('.block').eq(curBlock.index() + (this.scope.settings.maxColumns * row) - 1);
 			let isCenter: string = curBlock.attr('center') || null;
 			//очистим текущий квадрат и уберем класс 
-			curBlock.removeClass(`figure_block figure_${this.curFigureActiveId}`);
+			curBlock.removeClass(`figure_block figure_${this.scope.curFigureActiveId}`);
 			//покрасим новый квадрат и добавим класс
-			newBlock.addClass(`figure_block figure_${this.curFigureActiveId}`).data('type',figureType).data('column',(column - 1)).data('row',(row + 1));
+			newBlock.addClass(`figure_block figure_${this.scope.curFigureActiveId}`).data('type',figureType).data('column',(column - 1)).data('row',(row + 1));
 			//если центр фигуры уберем центр и добавим в новый блок и сохраним ротацию
 			if(isCenter){				
 				newBlock.attr('center','true');
@@ -374,19 +359,19 @@ export class MainComponent {
 
 	public figureRebuild(figureType: string, id: number, idDiff: number, colDiff: number, rowDiff: number): void {
 		//квадрат
-		let curBlock: JQuery = $(`.figure_${this.curFigureActiveId}`).eq(id);
+		let curBlock: JQuery = $(`.figure_${this.scope.curFigureActiveId}`).eq(id);
 		let column: number = curBlock.data('column');
 		let row: number = curBlock.data('row') - 1;
-		let newBlock: JQuery = $('.block').eq(curBlock.index() + (this.settings.maxColumns * row) + idDiff);
+		let newBlock: JQuery = $('.block').eq(curBlock.index() + (this.scope.settings.maxColumns * row) + idDiff);
 
 		console.log(newBlock);
 		//проверим можно ли сделать поворот
-		//if((!newBlock.hasClass(`figure_${this.curFigureActiveId}`) && newBlock.hasClass('figure_block')) ) return;
+		//if((!newBlock.hasClass(`figure_${this.scope.curFigureActiveId}`) && newBlock.hasClass('figure_block')) ) return;
 		//else {
 			//очистим текущий квадрат и уберем класс 
-			curBlock.removeClass(`figure_block figure_${this.curFigureActiveId}`);
+			curBlock.removeClass(`figure_block figure_${this.scope.curFigureActiveId}`);
 			//покрасим новый квадрат и добавим класс
-			newBlock.addClass(`figure_block figure_${this.curFigureActiveId}`).data('type',figureType).data('column',(column + colDiff)).data('row',row + rowDiff + 1);
+			newBlock.addClass(`figure_block figure_${this.scope.curFigureActiveId}`).data('type',figureType).data('column',(column + colDiff)).data('row',row + rowDiff + 1);
 		//}		
 	}
 
@@ -399,15 +384,15 @@ export class MainComponent {
 	public rotateFigure(): void {
 		console.info('rotate');
 		//сохраним тип фигуры
-		let figureType: string = $(`.figure_${this.curFigureActiveId}`).data('type');
+		let figureType: string = $(`.figure_${this.scope.curFigureActiveId}`).data('type');
 		//сохраним градус поворота
-		let degree: any = $(`.figure_${this.curFigureActiveId}[center=true]`).attr('rotation') || '0';
-		let limit: any = $(`.figure_${this.curFigureActiveId}[center=true]`).attr('limit');
-		let centersIndex: any = $(`.figure_${this.curFigureActiveId}[center=true]`).index() +1;
-		let centersRow: any = $(`.figure_${this.curFigureActiveId}[center=true]`).data('row');
+		let degree: any = $(`.figure_${this.scope.curFigureActiveId}[center=true]`).attr('rotation') || '0';
+		let limit: any = $(`.figure_${this.scope.curFigureActiveId}[center=true]`).attr('limit');
+		let centersIndex: any = $(`.figure_${this.scope.curFigureActiveId}[center=true]`).index() +1;
+		let centersRow: any = $(`.figure_${this.scope.curFigureActiveId}[center=true]`).data('row');
 
 		//если слишком близко к границам поля, то отменим поворот
-		if(centersIndex <= limit || centersIndex > (this.settings.maxColumns - limit) || centersRow <= limit || centersRow > (this.settings.maxRows - limit) ) return;
+		if(centersIndex <= limit || centersIndex > (this.scope.settings.maxColumns - limit) || centersRow <= limit || centersRow > (this.scope.settings.maxRows - limit) ) return;
 
 		//для каждего типа свой алгоритм перерисовки блоков
 		if(figureType === 'a'){
@@ -415,11 +400,11 @@ export class MainComponent {
 				//первый квадрат
 				this.figureRebuild(figureType,0,-1,-1,0);
 				//второй квадрат
-				this.figureRebuild(figureType,3,this.settings.maxColumns,0,1);
+				this.figureRebuild(figureType,3,this.scope.settings.maxColumns,0,1);
 			}
 			else if(degree === '90'){
 				//первый квадрат
-				this.figureRebuild(figureType,4,this.settings.maxColumns * -1,0,-1);
+				this.figureRebuild(figureType,4,this.scope.settings.maxColumns * -1,0,-1);
 				//второй квадрат
 				this.figureRebuild(figureType,4,-1,-1,0);
 			}
@@ -427,11 +412,11 @@ export class MainComponent {
 				//первый квадрат
 				this.figureRebuild(figureType,4,1,1,0);
 				//второй квадрат
-				this.figureRebuild(figureType,1,this.settings.maxColumns * -1,0,-1);
+				this.figureRebuild(figureType,1,this.scope.settings.maxColumns * -1,0,-1);
 			}
 			else if(degree === '270'){
 				//первый квадрат
-				this.figureRebuild(figureType,0,this.settings.maxColumns,0,1);
+				this.figureRebuild(figureType,0,this.scope.settings.maxColumns,0,1);
 				//второй квадрат
 				this.figureRebuild(figureType,0,1,1,0);
 			}
@@ -442,17 +427,17 @@ export class MainComponent {
 				//первый квадрат
 				this.figureRebuild(figureType,0,1,1,0);
 				//второй квадрат
-				this.figureRebuild(figureType,1,this.settings.maxColumns,0,1);
+				this.figureRebuild(figureType,1,this.scope.settings.maxColumns,0,1);
 			}
 			else if(degree === '90'){
 				//первый квадрат
-				this.figureRebuild(figureType,3,this.settings.maxColumns * -1,0,-1);
+				this.figureRebuild(figureType,3,this.scope.settings.maxColumns * -1,0,-1);
 				//второй квадрат
 				this.figureRebuild(figureType,4,1,1,0);
 			}
 			else if(degree === '180'){
 				//первый квадрат
-				this.figureRebuild(figureType,3,this.settings.maxColumns * -1,0,-1);
+				this.figureRebuild(figureType,3,this.scope.settings.maxColumns * -1,0,-1);
 				//второй квадрат
 				this.figureRebuild(figureType,4,-1,-1,0);
 			}
@@ -460,95 +445,95 @@ export class MainComponent {
 				//первый квадрат
 				this.figureRebuild(figureType,0,-1,-1,0);
 				//второй квадрат
-				this.figureRebuild(figureType,1,this.settings.maxColumns,0,1);
+				this.figureRebuild(figureType,1,this.scope.settings.maxColumns,0,1);
 			}
 			else {}
 		}
 		else if(figureType === 'b'){
 			if(degree === '0'){
-				this.figureRebuild(figureType,0,(this.settings.maxColumns * -2) + 2,2,-2);
-				this.figureRebuild(figureType,1,(this.settings.maxColumns * -1) + 1,1,-1);
-				this.figureRebuild(figureType,3,this.settings.maxColumns -1,-1,1);
-				this.figureRebuild(figureType,3,(this.settings.maxColumns *2) -2,-2,2);
+				this.figureRebuild(figureType,0,(this.scope.settings.maxColumns * -2) + 2,2,-2);
+				this.figureRebuild(figureType,1,(this.scope.settings.maxColumns * -1) + 1,1,-1);
+				this.figureRebuild(figureType,3,this.scope.settings.maxColumns -1,-1,1);
+				this.figureRebuild(figureType,3,(this.scope.settings.maxColumns *2) -2,-2,2);
 			}
 			else if(degree === '90'){
-				this.figureRebuild(figureType,0,(this.settings.maxColumns * 2) - 2,-2,2);
-				this.figureRebuild(figureType,0,this.settings.maxColumns - 1,-1,1);
-				this.figureRebuild(figureType,3,(this.settings.maxColumns * -1) +1,1,-1);
-				this.figureRebuild(figureType,4,(this.settings.maxColumns * -2) +2,2,-2);
+				this.figureRebuild(figureType,0,(this.scope.settings.maxColumns * 2) - 2,-2,2);
+				this.figureRebuild(figureType,0,this.scope.settings.maxColumns - 1,-1,1);
+				this.figureRebuild(figureType,3,(this.scope.settings.maxColumns * -1) +1,1,-1);
+				this.figureRebuild(figureType,4,(this.scope.settings.maxColumns * -2) +2,2,-2);
 			}
 			if(degree === '180'){
-				this.figureRebuild(figureType,0,(this.settings.maxColumns * -2) + 2,2,-2);
-				this.figureRebuild(figureType,1,(this.settings.maxColumns * -1) + 1,1,-1);
-				this.figureRebuild(figureType,3,this.settings.maxColumns -1,-1,1);
-				this.figureRebuild(figureType,3,(this.settings.maxColumns *2) -2,-2,2);
+				this.figureRebuild(figureType,0,(this.scope.settings.maxColumns * -2) + 2,2,-2);
+				this.figureRebuild(figureType,1,(this.scope.settings.maxColumns * -1) + 1,1,-1);
+				this.figureRebuild(figureType,3,this.scope.settings.maxColumns -1,-1,1);
+				this.figureRebuild(figureType,3,(this.scope.settings.maxColumns *2) -2,-2,2);
 			}
 			else if(degree === '270'){
-				this.figureRebuild(figureType,0,(this.settings.maxColumns * 2) - 2,-2,2);
-				this.figureRebuild(figureType,0,this.settings.maxColumns - 1,-1,1);
-				this.figureRebuild(figureType,3,(this.settings.maxColumns * -1) +1,1,-1);
-				this.figureRebuild(figureType,4,(this.settings.maxColumns * -2) +2,2,-2);
+				this.figureRebuild(figureType,0,(this.scope.settings.maxColumns * 2) - 2,-2,2);
+				this.figureRebuild(figureType,0,this.scope.settings.maxColumns - 1,-1,1);
+				this.figureRebuild(figureType,3,(this.scope.settings.maxColumns * -1) +1,1,-1);
+				this.figureRebuild(figureType,4,(this.scope.settings.maxColumns * -2) +2,2,-2);
 			}
 			else {}
 		}
 		else if(figureType === 'c'){
 			if(degree === '0'){
-				this.figureRebuild(figureType,0,(this.settings.maxColumns * -1) + 1,+1,-1);
-				this.figureRebuild(figureType,2,(this.settings.maxColumns * 1) - 1,-1,+1);
-				this.figureRebuild(figureType,2,(this.settings.maxColumns * 2) -2,-2,+2);
-				this.figureRebuild(figureType,3,(this.settings.maxColumns * 1) -3,-3,+1);
+				this.figureRebuild(figureType,0,(this.scope.settings.maxColumns * -1) + 1,+1,-1);
+				this.figureRebuild(figureType,2,(this.scope.settings.maxColumns * 1) - 1,-1,+1);
+				this.figureRebuild(figureType,2,(this.scope.settings.maxColumns * 2) -2,-2,+2);
+				this.figureRebuild(figureType,3,(this.scope.settings.maxColumns * 1) -3,-3,+1);
 			}
 			else if(degree === '90'){
-				this.figureRebuild(figureType,0,(this.settings.maxColumns * 1) + 1,+1,+1);
-				this.figureRebuild(figureType,2,(this.settings.maxColumns * -1) - 1,-1,-1);
-				this.figureRebuild(figureType,4,(this.settings.maxColumns * -2) -2,-2,-2);
-				this.figureRebuild(figureType,4,(this.settings.maxColumns * -3) -1,-1,-3);
+				this.figureRebuild(figureType,0,(this.scope.settings.maxColumns * 1) + 1,+1,+1);
+				this.figureRebuild(figureType,2,(this.scope.settings.maxColumns * -1) - 1,-1,-1);
+				this.figureRebuild(figureType,4,(this.scope.settings.maxColumns * -2) -2,-2,-2);
+				this.figureRebuild(figureType,4,(this.scope.settings.maxColumns * -3) -1,-1,-3);
 			}
 			else if(degree === '180'){
-				this.figureRebuild(figureType,0,(this.settings.maxColumns * -1) + 3,+3,-1);
-				this.figureRebuild(figureType,1,(this.settings.maxColumns * -2) + 2,+2,-2);
-				this.figureRebuild(figureType,2,(this.settings.maxColumns * -1) +1,+1,-1);
-				this.figureRebuild(figureType,4,(this.settings.maxColumns * 1) -1,-1,+1);
+				this.figureRebuild(figureType,0,(this.scope.settings.maxColumns * -1) + 3,+3,-1);
+				this.figureRebuild(figureType,1,(this.scope.settings.maxColumns * -2) + 2,+2,-2);
+				this.figureRebuild(figureType,2,(this.scope.settings.maxColumns * -1) +1,+1,-1);
+				this.figureRebuild(figureType,4,(this.scope.settings.maxColumns * 1) -1,-1,+1);
 			}
 			else if(degree === '270'){
-				this.figureRebuild(figureType,0,(this.settings.maxColumns * 3) + 2,+2,+3);
-				this.figureRebuild(figureType,0,(this.settings.maxColumns * 2) + 1,+1,+2);
-				this.figureRebuild(figureType,0,(this.settings.maxColumns * 1) + 1,+1,+1);
-				this.figureRebuild(figureType,3,(this.settings.maxColumns * -1) -1,-1,-1);
+				this.figureRebuild(figureType,0,(this.scope.settings.maxColumns * 3) + 2,+2,+3);
+				this.figureRebuild(figureType,0,(this.scope.settings.maxColumns * 2) + 1,+1,+2);
+				this.figureRebuild(figureType,0,(this.scope.settings.maxColumns * 1) + 1,+1,+1);
+				this.figureRebuild(figureType,3,(this.scope.settings.maxColumns * -1) -1,-1,-1);
 			}
 			else {}
 		}
 		else if(figureType === 'c2'){
 			if(degree === '0'){
-				this.figureRebuild(figureType,0,(this.settings.maxColumns * -2) + 2,+2,-2);
-				this.figureRebuild(figureType,1,(this.settings.maxColumns * -1) +1,+1,-1);
-				this.figureRebuild(figureType,3,(this.settings.maxColumns * 1) -1,-1,+1);
-				this.figureRebuild(figureType,3,(this.settings.maxColumns * -3) +1,+1,-3);
+				this.figureRebuild(figureType,0,(this.scope.settings.maxColumns * -2) + 2,+2,-2);
+				this.figureRebuild(figureType,1,(this.scope.settings.maxColumns * -1) +1,+1,-1);
+				this.figureRebuild(figureType,3,(this.scope.settings.maxColumns * 1) -1,-1,+1);
+				this.figureRebuild(figureType,3,(this.scope.settings.maxColumns * -3) +1,+1,-3);
 			}
 			else if(degree === '90'){
-				this.figureRebuild(figureType,0,(this.settings.maxColumns * 1) + 3,+3,+1);
-				this.figureRebuild(figureType,0,(this.settings.maxColumns * 2) +2,+2,+2);
-				this.figureRebuild(figureType,0,(this.settings.maxColumns * 1) +1,+1,+1);
-				this.figureRebuild(figureType,4,(this.settings.maxColumns * -1) -1,-1,-1);
+				this.figureRebuild(figureType,0,(this.scope.settings.maxColumns * 1) + 3,+3,+1);
+				this.figureRebuild(figureType,0,(this.scope.settings.maxColumns * 2) +2,+2,+2);
+				this.figureRebuild(figureType,0,(this.scope.settings.maxColumns * 1) +1,+1,+1);
+				this.figureRebuild(figureType,4,(this.scope.settings.maxColumns * -1) -1,-1,-1);
 			}
 			else if(degree === '180'){
-				this.figureRebuild(figureType,1,(this.settings.maxColumns * -1) + 1,+1,-1);
-				this.figureRebuild(figureType,3,(this.settings.maxColumns * 1) - 1,-1,+1);
-				this.figureRebuild(figureType,3,(this.settings.maxColumns * 2) -2,-2,+2);
-				this.figureRebuild(figureType,1,(this.settings.maxColumns * 3) -1,-1,+3);
+				this.figureRebuild(figureType,1,(this.scope.settings.maxColumns * -1) + 1,+1,-1);
+				this.figureRebuild(figureType,3,(this.scope.settings.maxColumns * 1) - 1,-1,+1);
+				this.figureRebuild(figureType,3,(this.scope.settings.maxColumns * 2) -2,-2,+2);
+				this.figureRebuild(figureType,1,(this.scope.settings.maxColumns * 3) -1,-1,+3);
 			}
 			else if(degree === '270'){
-				this.figureRebuild(figureType,0,(this.settings.maxColumns * 1) + 1,+1,+1);
-				this.figureRebuild(figureType,2,(this.settings.maxColumns * -1) - 1,-1,-1);
-				this.figureRebuild(figureType,3,(this.settings.maxColumns * -2) - 2,-2,-2);
-				this.figureRebuild(figureType,4,(this.settings.maxColumns * -1) -3,-3,-1);
+				this.figureRebuild(figureType,0,(this.scope.settings.maxColumns * 1) + 1,+1,+1);
+				this.figureRebuild(figureType,2,(this.scope.settings.maxColumns * -1) - 1,-1,-1);
+				this.figureRebuild(figureType,3,(this.scope.settings.maxColumns * -2) - 2,-2,-2);
+				this.figureRebuild(figureType,4,(this.scope.settings.maxColumns * -1) -3,-3,-1);
 			}
 			else {}
 		}
 		else if(figureType === 'l') return;
 		else {}		
 		//установим инфу по ротации
-		$(`.figure_${this.curFigureActiveId}[center=true]`).attr('rotation',this.calculateRotation(degree));
+		$(`.figure_${this.scope.curFigureActiveId}[center=true]`).attr('rotation',this.calculateRotation(degree));
 	}
 }
 
