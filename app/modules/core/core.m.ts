@@ -8,12 +8,13 @@ import { s_gl } from './s_gl.c';
 import { f_bag } from './f_bag.c';
 import { f_cr } from './f_cr.c';
 import { f_mv } from './f_mv.c';
+import { f_tr } from './f_tr.c';
 import { f_ctrl_dr } from './f_ctrl.dr';
 
 
 @NgModule({
 	imports: [ CoreRouting ],
 	declarations: [ CoreComponent, MainComponent, f_ctrl_dr],
-	providers: [s_gl, f_cr, f_bag, f_mv]
+	providers: [s_gl, f_cr, f_bag, f_tr, f_mv]
 })
 export class CoreModule {}

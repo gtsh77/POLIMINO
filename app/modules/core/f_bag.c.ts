@@ -4,9 +4,7 @@ import { s_gl } from './s_gl.c';
 @Injectable()
 
 export class f_bag {
-
 	constructor(private scope: s_gl){}
-
 	public generate(): void {
 		let arr: string[] = [];
 
