@@ -10,7 +10,7 @@ interface ISettings {
 	styleUrls: ['app/templates/main.css']
 })
 
-export class MainBaseComponent {
+export class MainComponent {
 
 	private curFigureActiveId: string = null;
 	private settings: ISettings = {
@@ -288,7 +288,7 @@ export class MainBaseComponent {
 		}
 	}
 
-	public controlKey(direction: string): void {
+	public f_controls(direction: string): void {
 		if(direction === 'left') this.moveFigureLeft();
 		else if(direction === 'right') this.moveFigureRight();
 		else if(direction === 'transform') this.rotateFigure();
