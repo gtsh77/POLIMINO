@@ -4,14 +4,16 @@ import { CoreRouting } from './core.r';
 import { CoreComponent }  from './core.c';
 import { MainComponent }  from './main.c';
 
-import { f_cr } from './f_cr.c';
 import { s_gl } from './s_gl.c';
+import { f_bag } from './f_bag.c';
+import { f_cr } from './f_cr.c';
+import { f_mv } from './f_mv.c';
 import { f_ctrl_dr } from './f_ctrl.dr';
 
 
 @NgModule({
 	imports: [ CoreRouting ],
 	declarations: [ CoreComponent, MainComponent, f_ctrl_dr],
-	providers: [f_cr, s_gl]
+	providers: [s_gl, f_cr, f_bag, f_mv]
 })
 export class CoreModule {}

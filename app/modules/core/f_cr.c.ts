@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
+import { s_gl } from './s_gl.c';
 
 @Injectable()
 
 export class f_cr {
+
+	constructor(private scope: s_gl){}
+
 	public figure(type: string): string {
 		//создадим уникальный id
 		let hash: string = chance.hash({length: 8});
