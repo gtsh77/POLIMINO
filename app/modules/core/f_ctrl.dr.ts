@@ -5,7 +5,7 @@ import { Directive, HostListener, EventEmitter } from '@angular/core';
 	outputs: ['f_controls_e']
 })
 
-export class F_ControlsDirective {
+export class f_ctrl_dr {
 	f_controls_e = new EventEmitter();
 	@HostListener("document : keydown", ['$event']) onkeypress(e) {  		
 			if(e.keyCode === 37){
