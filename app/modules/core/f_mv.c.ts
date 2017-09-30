@@ -48,46 +48,59 @@ export class f_mv {
 		this.down();
 	}
 
+	public chkForStrike(): void {
+		let numOfRows: number[] = [];
+		$('.field').find('tr').each((n: number, st: Element)=> {
+			let rowBlocks: JQuery = $(st).find('.figure_block');
+			if(rowBlocks.length === this.scope.settings.maxColumns){
+				rowBlocks.removeClass('figure_block');
+				rowBlocks.removeAttr('figure');
+				rowBlocks.removeAttr('center');
+				rowBlocks.removeAttr('rotation');
+				rowBlocks.removeAttr('limit');
+				numOfRows.push(n);
+			}
+		});
+	}
+
 	//движение фигуры вниз
 	public down(): void {
 		console.info('down');
 		//сохраним тип фигуры
-		let figureType: string = $(`.figure_${this.scope.curFigureActiveId}`).data('type');
+		let figureType: string = $(`[figure=${this.scope.curFigureActiveId}]`).data('type');
 		//проверка можно ли сделать движение по всем частям фигуры
 		for(let i:number = 0; i < 5; i++){
-			let curBlock: JQuery = $(`.figure_${this.scope.curFigureActiveId}`).eq(4 - i);
+			let curBlock: JQuery = $(`[figure=${this.scope.curFigureActiveId}]`).eq(4 - i);
 			let row: number = curBlock.data('row');
 			let newBlock: JQuery = $('.block').eq((curBlock.index() + (this.scope.settings.maxColumns * row)));
-			//конец игры
-			// if($('.field').find('tr').first().children().hasClass('figure_block')){
-			// 	this.scope.curFigureActiveId = null;
-			// 	clearInterval(this.move);
-			// 	this.scope.move = null;
-			// 	return;
-			// }
 			//новая фигура
-			if((!newBlock.hasClass(`figure_${this.scope.curFigureActiveId}`) && newBlock.hasClass('figure_block')) || row === this.scope.settings.maxRows){
+			if((newBlock.attr(`figure`) !== this.scope.curFigureActiveId && newBlock.hasClass('figure_block')) || row === this.scope.settings.maxRows){
 				this.scope.curFigureActiveId = null;
 				clearInterval(this.scope.move);
 				this.scope.move = null;
 				clearTimeout(this.scope.downKickTimer);
+				//конец игры?
 				if(this.scope.isNewFigure) console.warn('end_game');
-				else this.next();
+				else {
+					this.chkForStrike();
+					this.next();
+				}
 				return;
 			}
 			else {}
 		}
 		//'передвинем' фигуру по частям по очереди начиная с конца
 		for(let i:number = 0; i < 5; i++){
-			let curBlock: JQuery = $(`.figure_${this.scope.curFigureActiveId}`).eq(4 - i);
+			let curBlock: JQuery = $(`[figure=${this.scope.curFigureActiveId}]`).eq(4 - i);
 			let column: number = curBlock.data('column');
 			let row: number = curBlock.data('row');
 			let newBlock: JQuery = $('.block').eq((curBlock.index() + (this.scope.settings.maxColumns * row)));
 			let isCenter: string = curBlock.attr('center') || null;
 			//очистим текущий квадрат и уберем класс
-			curBlock.removeClass(`figure_block figure_${this.scope.curFigureActiveId}`);
+			curBlock.removeClass(`figure_block`);
+			curBlock.removeAttr('figure');
 			//покрасим новый квадрат и добавим класс
-			newBlock.addClass(`figure_block figure_${this.scope.curFigureActiveId}`).data('type',figureType).data('column',column).data('row',(row + 1));
+			newBlock.addClass(`figure_block`).data('type',figureType).data('column',column).data('row',(row + 1)).attr('figure',`${this.scope.curFigureActiveId}`);
 			//если центр фигуры уберем центр и добавим в новый блок
 			if(isCenter){
 				newBlock.attr('center','true');
@@ -105,26 +118,27 @@ export class f_mv {
 	public left(): void {
 		console.info('left');
 		//сохраним тип фигуры
-		let figureType: string = $(`.figure_${this.scope.curFigureActiveId}`).data('type');
+		let figureType: string = $(`[figure=${this.scope.curFigureActiveId}]`).data('type');
 		//проверка можно ли сделать движение по всем частям фигуры
 		for(let i:number = 0; i < 5; i++){
-			let curBlock: JQuery = $(`.figure_${this.scope.curFigureActiveId}`).eq(0 + i);
+			let curBlock: JQuery = $(`[figure=${this.scope.curFigureActiveId}]`).eq(0 + i);
 			let row: number = curBlock.data('row');
 			let newBlock: JQuery = $('.block').eq((curBlock.index() + (this.scope.settings.maxColumns * row) - 1));
 			let column: number = curBlock.data('column');
-			if((!newBlock.hasClass(`figure_${this.scope.curFigureActiveId}`) && newBlock.hasClass('figure_block')) || column === 1) return;
+			if((newBlock.attr(`figure`) !== this.scope.curFigureActiveId && newBlock.hasClass('figure_block')) || column === 1) return;
 		}
 		//'передвинем' фигуру по частям по очереди начиная с конца
 		for(let i:number = 0; i < 5; i++){
-			let curBlock: JQuery = $(`.figure_${this.scope.curFigureActiveId}`).eq(0 + i);
+			let curBlock: JQuery = $(`[figure=${this.scope.curFigureActiveId}]`).eq(0 + i);
 			let column: number = curBlock.data('column');
 			let row: number = curBlock.data('row') - 1;
 			let newBlock: JQuery = $('.block').eq(curBlock.index() + (this.scope.settings.maxColumns * row) - 1);
 			let isCenter: string = curBlock.attr('center') || null;
 			//очистим текущий квадрат и уберем класс 
-			curBlock.removeClass(`figure_block figure_${this.scope.curFigureActiveId}`);
+			curBlock.removeClass(`figure_block`);
+			curBlock.removeAttr('figure');
 			//покрасим новый квадрат и добавим класс
-			newBlock.addClass(`figure_block figure_${this.scope.curFigureActiveId}`).data('type',figureType).data('column',(column - 1)).data('row',(row + 1));
+			newBlock.addClass(`figure_block figure_${this.scope.curFigureActiveId}`).data('type',figureType).data('column',(column - 1)).data('row',(row + 1)).attr('figure',`${this.scope.curFigureActiveId}`);
 			//если центр фигуры уберем центр и добавим в новый блок и сохраним ротацию
 			if(isCenter){				
 				newBlock.attr('center','true');
@@ -141,26 +155,27 @@ export class f_mv {
 	public right(): void {
 		console.info('right');
 		//сохраним тип фигуры
-		let figureType: string = $(`.figure_${this.scope.curFigureActiveId}`).data('type');
+		let figureType: string = $(`[figure=${this.scope.curFigureActiveId}]`).data('type');
 		//проверка можно ли сделать движение по всем частям фигуры
 		for(let i:number = 0; i < 5; i++){
-			let curBlock: JQuery = $(`.figure_${this.scope.curFigureActiveId}`).eq(4 - i);
+			let curBlock: JQuery = $(`[figure=${this.scope.curFigureActiveId}]`).eq(4 - i);
 			let row: number = curBlock.data('row') - 1;
 			let column: number = curBlock.data('column');
 			let newBlock: JQuery = $('.block').eq((curBlock.index() + (this.scope.settings.maxColumns * row) + 1));
-			if((!newBlock.hasClass(`figure_${this.scope.curFigureActiveId}`) && newBlock.hasClass('figure_block')) || column === this.scope.settings.maxColumns) return;
+			if((newBlock.attr(`figure`) !== this.scope.curFigureActiveId && newBlock.hasClass('figure_block')) || column === this.scope.settings.maxColumns) return;
 		}
 		//'передвинем' фигуру по частям по очереди начиная с конца
 		for(let i:number = 0; i < 5; i++){
-			let curBlock: JQuery = $(`.figure_${this.scope.curFigureActiveId}`).eq(4 - i);
+			let curBlock: JQuery = $(`[figure=${this.scope.curFigureActiveId}]`).eq(4 - i);
 			let column: number = curBlock.data('column');
 			let row: number = curBlock.data('row') - 1;
 			let newBlock: JQuery = $('.block').eq(curBlock.index() + (this.scope.settings.maxColumns * row) + 1);
 			let isCenter: string = curBlock.attr('center') || null;
 			//очистим текущий квадрат и уберем класс
-			curBlock.removeClass(`figure_block figure_${this.scope.curFigureActiveId}`);
+			curBlock.removeClass(`figure_block`);
+			curBlock.removeAttr('figure');
 			//покрасим новый квадрат и добавим класс
-			newBlock.addClass(`figure_block figure_${this.scope.curFigureActiveId}`).data('type',figureType).data('column',(column + 1)).data('row',(row + 1));
+			newBlock.addClass(`figure_block figure_${this.scope.curFigureActiveId}`).data('type',figureType).data('column',(column + 1)).data('row',(row + 1)).attr('figure',`${this.scope.curFigureActiveId}`);
 			//если центр фигуры уберем центр и добавим в новый блок
 			if(isCenter){
 				newBlock.attr('center','true');

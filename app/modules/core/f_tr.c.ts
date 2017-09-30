@@ -15,43 +15,44 @@ interface rebuild_args {
 export class f_tr {
 	constructor(private scope: s_gl){}
 	public rebuild(data: rebuild_args[]): void {
-		let degree: any = $(`.figure_${this.scope.curFigureActiveId}[center=true]`).attr('rotation') || '0';
+		let degree: any = $(`[figure=${this.scope.curFigureActiveId}][center=true]`).attr('rotation') || '0';
 		//полная проверка перед перерисовкой первого блока
 		for(let i: number = 0; i < data.length; i++){
 			if(data[i].skip_chk_step) continue;
-			let curBlock: JQuery = $(`.figure_${this.scope.curFigureActiveId}`).eq(data[i].id);
+			let curBlock: JQuery = $(`[figure=${this.scope.curFigureActiveId}]`).eq(data[i].id);
 			let column: number = curBlock.data('column');
 			let row: number = curBlock.data('row') - 1;
 			let newBlock: JQuery = $('.block').eq(curBlock.index() + (this.scope.settings.maxColumns * row) + data[i].id_diff);
-			if((!newBlock.hasClass(`figure_${this.scope.curFigureActiveId}`) && newBlock.hasClass('figure_block'))){
+			if(newBlock.attr(`figure`) !== this.scope.curFigureActiveId && newBlock.hasClass('figure_block')){
 				console.warn('cant_rotate (figure)');
 				return;
 			}
 		}
 		for(let j: number = 0; j < data.length; j++){
-			let curBlock: JQuery = $(`.figure_${this.scope.curFigureActiveId}`).eq(data[j].id);
+			let curBlock: JQuery = $(`[figure=${this.scope.curFigureActiveId}]`).eq(data[j].id);
 			let column: number = curBlock.data('column');
 			let row: number = curBlock.data('row') - 1;
 			let newBlock: JQuery = $('.block').eq(curBlock.index() + (this.scope.settings.maxColumns * row) + data[j].id_diff);
 			console.log(newBlock[0]);
-			curBlock.removeClass(`figure_block figure_${this.scope.curFigureActiveId}`);
+			curBlock.removeClass(`figure_block`);
+			curBlock.removeAttr('figure');
 			//покрасим новый квадрат и добавим класс
-			newBlock.addClass(`figure_block figure_${this.scope.curFigureActiveId}`).data('type',data[j].f_type).data('column',(column + data[j].col_diff)).data('row',row + data[j].row_diff + 1);
+			newBlock.addClass(`figure_block`).data('type',data[j].f_type).data('column',(column + data[j].col_diff)).data('row',row + data[j].row_diff + 1).attr('figure',`${this.scope.curFigureActiveId}`);
 		}
 		//установим инфу по ротации
-		$(`.figure_${this.scope.curFigureActiveId}[center=true]`).attr('rotation',this.getNewRVal(degree));
+		$(`[figure=${this.scope.curFigureActiveId}][center=true]`).attr('rotation',this.getNewRVal(degree));
 		console.info('rotated');
 	
 	}
 
 	public rotate(): void {
 		//сохраним тип фигуры
-		let figureType: string = $(`.figure_${this.scope.curFigureActiveId}`).data('type');
+		let figureType: string = $(`[figure=${this.scope.curFigureActiveId}]`).data('type');
 		//сохраним градус поворота
-		let degree: any = $(`.figure_${this.scope.curFigureActiveId}[center=true]`).attr('rotation') || '0';
-		let limit: any = $(`.figure_${this.scope.curFigureActiveId}[center=true]`).attr('limit');
-		let centersIndex: any = $(`.figure_${this.scope.curFigureActiveId}[center=true]`).index() +1;
-		let centersRow: any = $(`.figure_${this.scope.curFigureActiveId}[center=true]`).data('row');
+		let degree: any = $(`[figure=${this.scope.curFigureActiveId}][center=true]`).attr('rotation') || '0';
+		let limit: any = $(`[figure=${this.scope.curFigureActiveId}][center=true]`).attr('limit');
+		let centersIndex: any = $(`[figure=${this.scope.curFigureActiveId}][center=true]`).index() +1;
+		let centersRow: any = $(`[figure=${this.scope.curFigureActiveId}][center=true]`).data('row');
 
 		//если слишком близко к границам поля, то отменим поворот
 		if(centersIndex <= limit || centersIndex > (this.scope.settings.maxColumns - limit) || centersRow <= limit || centersRow > (this.scope.settings.maxRows - limit) ){
