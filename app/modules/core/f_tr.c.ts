@@ -124,32 +124,80 @@ export class f_tr {
 			}
 			else {}
 		}
-		// else if(figureType === 'a2'){
-		// 	if(degree === '0'){
-		// 		//первый квадрат
-		// 		this.rebuild(figureType,0,1,1,0);
-		// 		//второй квадрат
-		// 		this.rebuild(figureType,1,this.scope.settings.maxColumns,0,1);
-		// 	}
-		// 	else if(degree === '90'){
-		// 		//первый квадрат
-		// 		this.rebuild(figureType,3,this.scope.settings.maxColumns * -1,0,-1);
-		// 		//второй квадрат
-		// 		this.rebuild(figureType,4,1,1,0);
-		// 	}
-		// 	else if(degree === '180'){
-		// 		//первый квадрат
-		// 		this.rebuild(figureType,3,this.scope.settings.maxColumns * -1,0,-1);
-		// 		//второй квадрат
-		// 		this.rebuild(figureType,4,-1,-1,0);
-		// 	}
-		// 	else if(degree === '270'){
-		// 		//первый квадрат
-		// 		this.rebuild(figureType,0,-1,-1,0);
-		// 		//второй квадрат
-		// 		this.rebuild(figureType,1,this.scope.settings.maxColumns,0,1);
-		// 	}
-		// 	else {}
+		else if(figureType === 'a2'){
+			if(degree === '0'){
+				this.rebuild([
+					{
+						f_type: figureType,
+						id: 0,
+						id_diff: 1,
+						col_diff: 1,
+						row_diff: 0
+					},
+					{
+						f_type: figureType,
+						id: 1,
+						id_diff: this.scope.settings.maxColumns,
+						col_diff: 0,
+						row_diff: 1
+					}
+				]);				
+			}
+			else if(degree === '90'){
+				this.rebuild([
+					{
+						f_type: figureType,
+						id: 3,
+						id_diff: this.scope.settings.maxColumns * -1,
+						col_diff: 0,
+						row_diff: -1
+					},
+					{
+						f_type: figureType,
+						id: 4,
+						id_diff: 1,
+						col_diff: 1,
+						row_diff: 0
+					}
+				]);				
+			}
+			else if(degree === '180'){
+				this.rebuild([
+					{
+						f_type: figureType,
+						id: 3,
+						id_diff: this.scope.settings.maxColumns * -1,
+						col_diff: 0,
+						row_diff: -1
+					},
+					{
+						f_type: figureType,
+						id: 4,
+						id_diff: -1,
+						col_diff: -1,
+						row_diff: 0
+					}
+				]);				
+			}
+			else if(degree === '270'){
+				this.rebuild([
+					{
+						f_type: figureType,
+						id: 0,
+						id_diff: -1,
+						col_diff: -1,
+						row_diff: 0
+					},
+					{
+						f_type: figureType,
+						id: 1,
+						id_diff: this.scope.settings.maxColumns,
+						col_diff: 0,
+						row_diff: 1
+					}
+				]);				
+			}
+			else {}
 		// }
 		// else if(figureType === 'b'){
 		// 	if(degree === '0'){
