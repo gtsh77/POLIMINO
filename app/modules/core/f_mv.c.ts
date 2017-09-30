@@ -36,6 +36,19 @@ export class f_mv {
 		
 	}
 
+	public downKick(): void {
+		console.info('downKick');
+		this.stopTimer();
+		if(this.scope.downKickTimer) clearTimeout(this.scope.downKickTimer);		
+		this.scope.downKickTimer = setTimeout(() => {
+			this.down();
+			this.scope.move = setInterval(() => {
+				this.down();
+			},this.scope.speed);
+		},this.scope.speed);
+		this.down();
+	}
+
 	//движение фигуры вниз
 	public down(): void {
 		console.info('down');

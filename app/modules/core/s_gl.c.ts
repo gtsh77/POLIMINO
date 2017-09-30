@@ -17,4 +17,5 @@ export class s_gl {
 	public bag: string[] = [];	
 	public move: any = null;
 	public speed: number = 750;
+	public downKickTimer: any = null;
 }

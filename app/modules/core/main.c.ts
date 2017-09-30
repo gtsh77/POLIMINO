@@ -19,6 +19,7 @@ export class MainComponent {
 		if(direction === 'left') this.f_mv.left();
 		else if(direction === 'right') this.f_mv.right();
 		else if(direction === 'transform') this.f_tr.rotate();
+		else if(direction === 'downkick') this.f_mv.downKick();
 		else return;
 	}
 }

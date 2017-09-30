@@ -20,6 +20,10 @@ export class f_ctrl_dr {
 				e.preventDefault();
 				this.f_controls_e.emit('transform');
 			}
+			else if(e.keyCode === 40){
+				e.preventDefault();
+				this.f_controls_e.emit('downkick');
+			}
 			else return;
 	}
 }
