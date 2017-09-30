@@ -7,6 +7,7 @@ interface rebuild_args {
 	id_diff: number;
 	col_diff: number; 
 	row_diff: number;
+	skip_chk_step?: boolean;
 }
 
 @Injectable()
@@ -17,6 +18,7 @@ export class f_tr {
 		let degree: any = $(`.figure_${this.scope.curFigureActiveId}[center=true]`).attr('rotation') || '0';
 		//полная проверка перед перерисовкой первого блока
 		for(let i: number = 0; i < data.length; i++){
+			if(data[i].skip_chk_step) continue;
 			let curBlock: JQuery = $(`.figure_${this.scope.curFigureActiveId}`).eq(data[i].id);
 			let column: number = curBlock.data('column');
 			let row: number = curBlock.data('row') - 1;
@@ -603,6 +605,276 @@ export class f_tr {
 			else {}
 		}
 		else if(figureType === 'l') return;
+		else if(figureType === 'd'){
+			if(degree === '0'){
+				this.rebuild([
+					{
+						f_type: figureType,
+						id: 0,
+						id_diff: (this.scope.settings.maxColumns * -2) + 2,
+						col_diff: +2,
+						row_diff: -2
+					},
+					{
+						f_type: figureType,
+						id: 1,
+						id_diff: (this.scope.settings.maxColumns * -1) + 1,
+						col_diff: +1,
+						row_diff: -1
+					},
+					{
+						skip_chk_step: true,
+						f_type: figureType,
+						id: 3,
+						id_diff: (this.scope.settings.maxColumns * -1) - 1,
+						col_diff: -1,
+						row_diff: -1
+					},
+					{
+						f_type: figureType,
+						id: 4,
+						id_diff: - 2,
+						col_diff: -2,
+						row_diff: 0
+					}
+				]);
+			}
+			else if(degree === '90'){
+				this.rebuild([
+					{
+						f_type: figureType,
+						id: 0,
+						id_diff: (this.scope.settings.maxColumns * 2) + 2,
+						col_diff: +2,
+						row_diff: +2
+					},
+					{
+						f_type: figureType,
+						id: 0,
+						id_diff: (this.scope.settings.maxColumns * 1) + 1,
+						col_diff: +1,
+						row_diff: +1
+					},
+					{
+						skip_chk_step: true,
+						f_type: figureType,
+						id: 0,
+						id_diff: (this.scope.settings.maxColumns * -1) + 1,
+						col_diff: +1,
+						row_diff: -1
+					},
+					{
+						f_type: figureType,
+						id: 4,
+						id_diff: (this.scope.settings.maxColumns * -2),
+						col_diff: 0,
+						row_diff: -2
+					}
+				]);
+			}
+			else if(degree === '180'){
+				this.rebuild([
+					{
+						f_type: figureType,
+						id: 4,
+						id_diff: (this.scope.settings.maxColumns * 2) -2,
+						col_diff: -2,
+						row_diff: +2
+					},
+					{
+						f_type: figureType,
+						id: 3,
+						id_diff: (this.scope.settings.maxColumns * 1) - 1,
+						col_diff: -1,
+						row_diff: +1
+					},
+					{
+						skip_chk_step: true,
+						f_type: figureType,
+						id: 1,
+						id_diff: (this.scope.settings.maxColumns * 1) + 1,
+						col_diff: +1,
+						row_diff: +1
+					},
+					{
+						f_type: figureType,
+						id: 0,
+						id_diff: +2,
+						col_diff: +2,
+						row_diff: 0
+					}
+				]);
+			}
+			else if(degree === '270'){
+				this.rebuild([
+					{
+						f_type: figureType,
+						id: 4,
+						id_diff: (this.scope.settings.maxColumns * -2) - 2,
+						col_diff: -2,
+						row_diff: -2
+					},
+					{
+						f_type: figureType,
+						id: 4,
+						id_diff: (this.scope.settings.maxColumns * -1) - 1,
+						col_diff: -1,
+						row_diff: -1
+					},
+					{
+						skip_chk_step: true,
+						f_type: figureType,
+						id: 4,
+						id_diff: (this.scope.settings.maxColumns * 1) - 1,
+						col_diff: -1,
+						row_diff: +1
+					},
+					{
+						f_type: figureType,
+						id: 0,
+						id_diff: (this.scope.settings.maxColumns * 2),
+						col_diff: 0,
+						row_diff: +2
+					}
+				]);
+			}
+			else {}
+		}	
+		else if(figureType === 'd2'){
+			if(degree === '0'){
+				this.rebuild([
+					{
+						f_type: figureType,
+						id: 3,
+						id_diff: (this.scope.settings.maxColumns * -2),
+						col_diff: 0,
+						row_diff: -2
+					},
+					{
+						f_type: figureType,
+						id: 4,
+						id_diff: (this.scope.settings.maxColumns * -1) - 1,
+						col_diff: -1,
+						row_diff: -1
+					},
+					{
+						skip_chk_step: true,
+						f_type: figureType,
+						id: 3,
+						id_diff: (this.scope.settings.maxColumns * 1) - 1,
+						col_diff: -1,
+						row_diff: +1
+					},
+					{
+						f_type: figureType,
+						id: 3,
+						id_diff: (this.scope.settings.maxColumns * 2) - 2,
+						col_diff: -2,
+						row_diff: +2
+					}
+				]);
+			}
+			else if(degree === '90'){
+				this.rebuild([
+					{
+						f_type: figureType,
+						id: 0,
+						id_diff: +2,
+						col_diff: +2,
+						row_diff: 0
+					},
+					{
+						f_type: figureType,
+						id: 1,
+						id_diff: (this.scope.settings.maxColumns * -1) + 1,
+						col_diff: +1,
+						row_diff: -1
+					},
+					{
+						skip_chk_step: true,
+						f_type: figureType,
+						id: 3,
+						id_diff: (this.scope.settings.maxColumns * -1) - 1,
+						col_diff: -1,
+						row_diff: -1
+					},
+					{
+						f_type: figureType,
+						id: 4,
+						id_diff: (this.scope.settings.maxColumns * -2) - 2,
+						col_diff: -2,
+						row_diff: -2
+					}
+				]);
+			}
+			else if(degree === '180'){
+				this.rebuild([
+					{
+						f_type: figureType,
+						id: 1,
+						id_diff: (this.scope.settings.maxColumns * 2),
+						col_diff: 0,
+						row_diff: +2
+					},
+					{
+						f_type: figureType,
+						id: 0,
+						id_diff: (this.scope.settings.maxColumns * 1) + 1,
+						col_diff: +1,
+						row_diff: +1
+					},
+					{
+						skip_chk_step: true,
+						f_type: figureType,
+						id: 0,
+						id_diff: (this.scope.settings.maxColumns * -2) + 2,
+						col_diff: +2,
+						row_diff: -2
+					},
+					{
+						f_type: figureType,
+						id: 1,
+						id_diff: (this.scope.settings.maxColumns * -1) + 1,
+						col_diff: +1,
+						row_diff: -1
+					}
+				]);
+			}
+			else if(degree === '270'){
+				this.rebuild([
+					{
+						f_type: figureType,
+						id: 4,
+						id_diff: -2,
+						col_diff: -2,
+						row_diff: 0
+					},
+					{
+						f_type: figureType,
+						id: 3,
+						id_diff: (this.scope.settings.maxColumns * 1) - 1,
+						col_diff: -1,
+						row_diff: +1
+					},
+					{
+						skip_chk_step: true,
+						f_type: figureType,
+						id: 0,
+						id_diff: (this.scope.settings.maxColumns * 2) + 2,
+						col_diff: +2,
+						row_diff: +2
+					},
+					{
+						f_type: figureType,
+						id: 0,
+						id_diff: (this.scope.settings.maxColumns * 1) + 1,
+						col_diff: +1,
+						row_diff: +1
+					}
+				]);
+			}
+			else {}
+		}		
 		else {}
 	}
 

@@ -13,7 +13,7 @@ export class s_gl {
 		'maxRows': 20,
 		'maxColumns': 12
 	}
-	public rcFigures: string[] = ['a','a2','c','c2','l'];
+	public rcFigures: string[] = ['a','a2','c','c2','l','d','d2'];
 	public bag: string[] = [];	
 	public move: any = null;
 	public speed: number = 750;
