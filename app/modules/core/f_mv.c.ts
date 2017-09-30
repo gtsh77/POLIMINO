@@ -16,7 +16,24 @@ export class f_mv {
 			this.down();
 		},this.scope.speed);
 		this.scope.bag.shift();
-	}	
+	}
+
+	//методы для отладки фигур
+	public staticFigure(type: string): void {
+		this.scope.curFigureActiveId = this.f_cr.figure(type);
+		this.down();
+		this.down();
+	}
+
+	public stopTimer(): boolean {
+		if(this.scope.move){
+			clearInterval(this.scope.move);
+			this.scope.move = null;		
+			return true;	
+		}
+		else return false;
+		
+	}
 
 	//движение фигуры вниз
 	public down(): void {
@@ -76,9 +93,10 @@ export class f_mv {
 		//проверка можно ли сделать движение по всем частям фигуры
 		for(let i:number = 0; i < 5; i++){
 			let curBlock: JQuery = $(`.figure_${this.scope.curFigureActiveId}`).eq(0 + i);
-			let newBlock: JQuery = $('.block').eq((curBlock.index() - 1));
-			let column: number = curBlock.data('column');			
-			if(newBlock.hasClass('figure_block') || column === 1){
+			let row: number = curBlock.data('row');
+			let newBlock: JQuery = $('.block').eq((curBlock.index() + (this.scope.settings.maxColumns * row) - 1));
+			let column: number = curBlock.data('column');
+			if((!newBlock.hasClass(`figure_${this.scope.curFigureActiveId}`) && newBlock.hasClass('figure_block')) || column === 1){
 				console.log(true);
 				return;
 			}
@@ -114,9 +132,10 @@ export class f_mv {
 		//проверка можно ли сделать движение по всем частям фигуры
 		for(let i:number = 0; i < 5; i++){
 			let curBlock: JQuery = $(`.figure_${this.scope.curFigureActiveId}`).eq(4 - i);
+			let row: number = curBlock.data('row') - 1;
 			let column: number = curBlock.data('column');
-			let newBlock: JQuery = $('.block').eq((curBlock.index() + 1));
-			if(newBlock.hasClass('figure_block') || column === this.scope.settings.maxColumns) return;
+			let newBlock: JQuery = $('.block').eq((curBlock.index() + (this.scope.settings.maxColumns * row) + 1));
+			if((!newBlock.hasClass(`figure_${this.scope.curFigureActiveId}`) && newBlock.hasClass('figure_block')) || column === this.scope.settings.maxColumns) return;
 		}
 		//'передвинем' фигуру по частям по очереди начиная с конца
 		for(let i:number = 0; i < 5; i++){
