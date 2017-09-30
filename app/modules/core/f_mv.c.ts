@@ -19,10 +19,11 @@ export class f_mv {
 	}
 
 	//методы для отладки фигур
-	public staticFigure(type: string): void {
-		this.scope.curFigureActiveId = this.f_cr.figure(type);
+	public staticFigure(type: string): string {
+		let hash: string = this.scope.curFigureActiveId = this.f_cr.figure(type);
 		this.down();
 		this.down();
+		return hash;
 	}
 
 	public stopTimer(): boolean {
@@ -96,10 +97,7 @@ export class f_mv {
 			let row: number = curBlock.data('row');
 			let newBlock: JQuery = $('.block').eq((curBlock.index() + (this.scope.settings.maxColumns * row) - 1));
 			let column: number = curBlock.data('column');
-			if((!newBlock.hasClass(`figure_${this.scope.curFigureActiveId}`) && newBlock.hasClass('figure_block')) || column === 1){
-				console.log(true);
-				return;
-			}
+			if((!newBlock.hasClass(`figure_${this.scope.curFigureActiveId}`) && newBlock.hasClass('figure_block')) || column === 1) return;
 		}
 		//'передвинем' фигуру по частям по очереди начиная с конца
 		for(let i:number = 0; i < 5; i++){
