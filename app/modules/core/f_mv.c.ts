@@ -10,7 +10,7 @@ export class f_mv {
 
 	//генерация новой фигуры из сумки в т.ч. самой первой
 	public next(): void {
-		if(!this.scope.bag.length) this.scope.bag = this.f_bag.generate();
+		if(!this.scope.bag.length) this.scope.bag = this.f_bag.generate();		
 		this.scope.curFigureActiveId = this.f_cr.figure(this.scope.bag[0]);
 		this.scope.move = setInterval(() => {
 			this.down();
@@ -29,17 +29,16 @@ export class f_mv {
 	public stopTimer(): boolean {
 		if(this.scope.move){
 			clearInterval(this.scope.move);
-			this.scope.move = null;		
+			this.scope.move = null;
 			return true;	
 		}
-		else return false;
-		
+		else return false;		
 	}
 
 	public downKick(): void {
 		console.info('downKick');
 		this.stopTimer();
-		if(this.scope.downKickTimer) clearTimeout(this.scope.downKickTimer);		
+		clearTimeout(this.scope.downKickTimer);
 		this.scope.downKickTimer = setTimeout(() => {
 			this.down();
 			this.scope.move = setInterval(() => {
@@ -71,7 +70,9 @@ export class f_mv {
 				this.scope.curFigureActiveId = null;
 				clearInterval(this.scope.move);
 				this.scope.move = null;
-				this.next()
+				clearTimeout(this.scope.downKickTimer);
+				if(this.scope.isNewFigure) console.warn('end_game');
+				else this.next();
 				return;
 			}
 			else {}
@@ -97,6 +98,7 @@ export class f_mv {
 				curBlock.removeAttr('limit');				
 			}			
 		}
+		if(this.scope.isNewFigure) this.scope.isNewFigure = false;
 	}	
 
 	//движение фигуры влево

@@ -176,6 +176,7 @@ export class f_cr {
 			$('.block').eq(24).addClass(`figure_block figure_${hash}`).data('type','n2').data('row',3).data('column',1);		
 		}
 		else {}
+		this.scope.isNewFigure = true;
 		return hash;
 	}
 }

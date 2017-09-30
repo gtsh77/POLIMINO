@@ -9,8 +9,9 @@ interface ISettings {
 
 export class s_gl {
 	public curFigureActiveId: string = null;
+	public isNewFigure: boolean = false;
 	public settings: ISettings = {
-		'maxRows': 20,
+		'maxRows': 24,
 		'maxColumns': 12
 	}
 	public rcFigures: string[] = ['a','a2','c','c2','l','d','d2'];
