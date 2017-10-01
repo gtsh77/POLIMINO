@@ -165,19 +165,23 @@ export class f_cr {
 		}
 		else if(type === 'n'){
 			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
-			$('.block').eq(0).addClass(`figure_block`).data('type','n').data('row',1).data('column',1).attr('figure',`${hash}`);
-			$('.block').eq(12).addClass(`figure_block`).data('type','n').data('row',2).data('column',1).attr('figure',`${hash}`);
-			$('.block').eq(13).addClass(`figure_block`).data('type','n').data('row',2).data('column',2).attr('figure',`${hash}`);
-			$('.block').eq(14).addClass(`figure_block`).data('type','n').data('row',2).data('column',3).attr('figure',`${hash}`);
-			$('.block').eq(26).addClass(`figure_block`).data('type','n').data('row',3).data('column',3).attr('figure',`${hash}`);		
+			$('.block').eq(4).addClass(`figure_block`).data('type','n').data('row',1).data('column',5).attr('figure',`${hash}`);
+			$('.block').eq(16).addClass(`figure_block`).data('type','n').data('row',2).data('column',5).attr('figure',`${hash}`);
+			$('.block').eq(17).addClass(`figure_block`).data('type','n').data('row',2).data('column',6).attr('figure',`${hash}`);
+			$('.block').eq(18).addClass(`figure_block`).data('type','n').data('row',2).data('column',7).attr('figure',`${hash}`);
+			$('.block').eq(30).addClass(`figure_block`).data('type','n').data('row',3).data('column',7).attr('figure',`${hash}`);
+			$('.block').eq(17).attr('center','true');
+			$('.block').eq(17).attr('limit','0');
 		}
 		else if(type === 'n2'){
 			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
-			$('.block').eq(2).addClass(`figure_block`).data('type','n2').data('row',1).data('column',3).attr('figure',`${hash}`);
-			$('.block').eq(12).addClass(`figure_block`).data('type','n2').data('row',2).data('column',1).attr('figure',`${hash}`);
-			$('.block').eq(13).addClass(`figure_block`).data('type','n2').data('row',2).data('column',2).attr('figure',`${hash}`);
-			$('.block').eq(14).addClass(`figure_block`).data('type','n2').data('row',2).data('column',3).attr('figure',`${hash}`);
-			$('.block').eq(24).addClass(`figure_block`).data('type','n2').data('row',3).data('column',1).attr('figure',`${hash}`);		
+			$('.block').eq(6).addClass(`figure_block`).data('type','n2').data('row',1).data('column',7).attr('figure',`${hash}`);
+			$('.block').eq(16).addClass(`figure_block`).data('type','n2').data('row',2).data('column',5).attr('figure',`${hash}`);
+			$('.block').eq(17).addClass(`figure_block`).data('type','n2').data('row',2).data('column',6).attr('figure',`${hash}`);
+			$('.block').eq(18).addClass(`figure_block`).data('type','n2').data('row',2).data('column',7).attr('figure',`${hash}`);
+			$('.block').eq(28).addClass(`figure_block`).data('type','n2').data('row',3).data('column',5).attr('figure',`${hash}`);
+			$('.block').eq(17).attr('center','true');
+			$('.block').eq(17).attr('limit','0');
 		}
 		else {}
 		this.scope.isNewFigure = true;
