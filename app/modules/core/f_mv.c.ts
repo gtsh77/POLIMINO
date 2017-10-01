@@ -60,17 +60,23 @@ export class f_mv {
 				rowBlocks.removeAttr('rotation');
 				rowBlocks.removeAttr('limit');
 				numOfRows.push(n);
+				console.log(n);
 			}
 		});
-		if(numOfRows.length) this.rebuildFieldAfterStrike(numOfRows.sort((a,b) => { return b - a;}));
+		if(numOfRows.length) this.rebuildFieldAfterStrike(numOfRows.sort((a,b) => { return a - b;}));
 		
 	}
 
-	public rebuildFieldAfterStrike(row_n): void {
-		let elements: any = document.querySelectorAll('[figure]');
+	public rebuildFieldAfterStrike(row_n: number[]): void {
+		//get figures from every row
 		let elemNew: Element[] = [];
-		for(let a of elements) elemNew.push(a);
-		elemNew.reverse();
+		for(let i: number = row_n[0] - 1; i >= 0; i--){
+			let curTr: any = $('.field').find('tr').eq(i).find('[figure]');
+			let arr: Element[] = [];
+			for(let a of curTr) arr.push(a);
+			arr.reverse();
+			for(let a of arr) elemNew.push(a);
+		}
 		for(let a of elemNew){
 			let curBlock: JQuery = $(a);
 			let figureType = curBlock.data('type');
