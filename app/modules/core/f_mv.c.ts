@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { s_gl } from './s_gl.c';
 import { f_cr } from './f_cr.c';
 import { f_bag } from './f_bag.c';
+import { f_tr } from './f_tr.c';
 
 @Injectable()
 
 export class f_mv {
-	constructor(private scope: s_gl, private f_cr: f_cr, private f_bag: f_bag){}
+	constructor(private scope: s_gl, private f_cr: f_cr, private f_bag: f_bag, private f_tr: f_tr){}
 
 	//генерация новой фигуры из сумки в т.ч. самой первой
 	public next(): void {
@@ -61,6 +62,36 @@ export class f_mv {
 				numOfRows.push(n);
 			}
 		});
+		if(numOfRows.length) this.rebuildFieldAfterStrike(numOfRows.sort((a,b) => { return b - a;}));
+		
+	}
+
+	public rebuildFieldAfterStrike(row_n): void {
+		let elements: any = document.querySelectorAll('[figure]');
+		let elemNew: Element[] = [];
+		for(let a of elements) elemNew.push(a);
+		elemNew.reverse();
+		for(let a of elemNew){
+			let curBlock: JQuery = $(a);
+			let figureType = curBlock.data('type');
+			let figureId = curBlock.attr('figure');			
+			let column: number = curBlock.data('column');
+			let row: number = curBlock.data('row') - 1;
+			let isCenter: string = curBlock.attr('center') || null;
+			let newBlock: JQuery = $('.block').eq(curBlock.index() + (this.scope.settings.maxColumns * row) + this.scope.settings.maxColumns);
+			curBlock.removeClass(`figure_block`);
+			curBlock.removeAttr('figure');
+			//покрасим новый квадрат и добавим класс
+			newBlock.addClass(`figure_block`).data('type',figureType).data('column',column).data('row',row + 2).attr('figure',`${figureId}`);
+			if(isCenter){
+				newBlock.attr('center','true');
+				curBlock.removeAttr('center');
+				newBlock.attr('rotation',curBlock.attr('rotation'));
+				curBlock.removeAttr('rotation');
+				newBlock.attr('limit',curBlock.attr('limit'));
+				curBlock.removeAttr('limit');				
+			}			
+		}
 	}
 
 	//движение фигуры вниз
@@ -138,7 +169,7 @@ export class f_mv {
 			curBlock.removeClass(`figure_block`);
 			curBlock.removeAttr('figure');
 			//покрасим новый квадрат и добавим класс
-			newBlock.addClass(`figure_block figure_${this.scope.curFigureActiveId}`).data('type',figureType).data('column',(column - 1)).data('row',(row + 1)).attr('figure',`${this.scope.curFigureActiveId}`);
+			newBlock.addClass(`figure_block`).data('type',figureType).data('column',(column - 1)).data('row',(row + 1)).attr('figure',`${this.scope.curFigureActiveId}`);
 			//если центр фигуры уберем центр и добавим в новый блок и сохраним ротацию
 			if(isCenter){				
 				newBlock.attr('center','true');
@@ -175,7 +206,7 @@ export class f_mv {
 			curBlock.removeClass(`figure_block`);
 			curBlock.removeAttr('figure');
 			//покрасим новый квадрат и добавим класс
-			newBlock.addClass(`figure_block figure_${this.scope.curFigureActiveId}`).data('type',figureType).data('column',(column + 1)).data('row',(row + 1)).attr('figure',`${this.scope.curFigureActiveId}`);
+			newBlock.addClass(`figure_block`).data('type',figureType).data('column',(column + 1)).data('row',(row + 1)).attr('figure',`${this.scope.curFigureActiveId}`);
 			//если центр фигуры уберем центр и добавим в новый блок
 			if(isCenter){
 				newBlock.attr('center','true');
