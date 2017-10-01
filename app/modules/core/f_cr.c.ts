@@ -123,11 +123,13 @@ export class f_cr {
 		}
 		else if(type === 'h'){
 			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
-			$('.block').eq(0).addClass(`figure_block`).data('type','g').data('row',1).data('column',1).attr('figure',`${hash}`);
-			$('.block').eq(12).addClass(`figure_block`).data('type','g').data('row',2).data('column',1).attr('figure',`${hash}`);
-			$('.block').eq(24).addClass(`figure_block`).data('type','g').data('row',3).data('column',1).attr('figure',`${hash}`);
-			$('.block').eq(25).addClass(`figure_block`).data('type','g').data('row',3).data('column',2).attr('figure',`${hash}`);
-			$('.block').eq(26).addClass(`figure_block`).data('type','g').data('row',3).data('column',3).attr('figure',`${hash}`);		
+			$('.block').eq(4).addClass(`figure_block`).data('type','h').data('row',1).data('column',5).attr('figure',`${hash}`);
+			$('.block').eq(16).addClass(`figure_block`).data('type','h').data('row',2).data('column',5).attr('figure',`${hash}`);
+			$('.block').eq(28).addClass(`figure_block`).data('type','h').data('row',3).data('column',5).attr('figure',`${hash}`);
+			$('.block').eq(29).addClass(`figure_block`).data('type','h').data('row',3).data('column',6).attr('figure',`${hash}`);
+			$('.block').eq(30).addClass(`figure_block`).data('type','h').data('row',3).data('column',7).attr('figure',`${hash}`);
+			$('.block').eq(28).attr('center','true');
+			$('.block').eq(28).attr('limit','2');			
 		}
 		else if(type === 'k'){
 			//стартовая позиция, зададим клеткам ид сущности, тип фигуры и номер строки
