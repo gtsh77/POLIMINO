@@ -875,7 +875,157 @@ export class f_tr {
 				]);
 			}
 			else {}
-		}		
+		}
+		else if(figureType === 'e'){
+			if(degree === '0'){
+				this.rebuild([
+					{
+						f_type: figureType,
+						id: 2,
+						id_diff: (this.scope.settings.maxColumns * -1) - 1,
+						col_diff: -1,
+						row_diff: -1
+					},
+					{
+						f_type: figureType,
+						id: 3,
+						id_diff:  (this.scope.settings.maxColumns * -2),
+						col_diff: 0,
+						row_diff: -2
+					}
+				]);
+			}
+			else if(degree === '90'){
+				this.rebuild([
+					{
+						f_type: figureType,
+						id: 0,
+						id_diff: + 2,
+						col_diff: +2,
+						row_diff: 0
+					},
+					{
+						f_type: figureType,
+						id: 4,
+						id_diff: (this.scope.settings.maxColumns * -1) + 1,
+						col_diff: +1,
+						row_diff: -1
+					}
+				]);
+			}
+			else if(degree === '180'){
+				this.rebuild([
+					{
+						f_type: figureType,
+						id: 1,
+						id_diff: (this.scope.settings.maxColumns * 2),
+						col_diff: 0,
+						row_diff: +2
+					},
+					{
+						f_type: figureType,
+						id: 1,
+						id_diff: (this.scope.settings.maxColumns * 1) + 1,
+						col_diff: +1,
+						row_diff: +1
+					}
+				]);
+			}
+			else if(degree === '270'){
+				this.rebuild([
+					{
+						f_type: figureType,
+						id: 0,
+						id_diff: (this.scope.settings.maxColumns * 1) - 1,
+						col_diff: -1,
+						row_diff: +1
+					},
+					{
+						f_type: figureType,
+						id: 4,
+						id_diff: - 2,
+						col_diff: -2,
+						row_diff: 0
+					}
+				]);
+			}
+			else {}
+		}	
+		else if(figureType === 'e2'){
+			if(degree === '0'){
+				this.rebuild([
+					{
+						f_type: figureType,
+						id: 2,
+						id_diff: (this.scope.settings.maxColumns * -1) - 1,
+						col_diff: -1,
+						row_diff: -1
+					},
+					{
+						f_type: figureType,
+						id: 4,
+						id_diff:  - 2,
+						col_diff: -2,
+						row_diff: 0
+					}
+				]);
+			}
+			else if(degree === '90'){
+				this.rebuild([
+					{
+						f_type: figureType,
+						id: 3,
+						id_diff: (this.scope.settings.maxColumns * -2),
+						col_diff: 0,
+						row_diff: -2
+					},
+					{
+						f_type: figureType,
+						id: 4,
+						id_diff: (this.scope.settings.maxColumns * -1) + 1,
+						col_diff: +1,
+						row_diff: -1
+					}
+				]);
+			}
+			else if(degree === '180'){
+				this.rebuild([
+					{
+						f_type: figureType,
+						id: 0,
+						id_diff: + 2,
+						col_diff: +2,
+						row_diff: 0
+					},
+					{
+						f_type: figureType,
+						id: 2,
+						id_diff: (this.scope.settings.maxColumns * 1) + 1,
+						col_diff: +1,
+						row_diff: +1
+					}
+				]);
+			}
+			else if(degree === '270'){
+				this.rebuild([
+					{
+						f_type: figureType,
+						id: 0,
+						id_diff: (this.scope.settings.maxColumns * 1) - 1,
+						col_diff: -1,
+						row_diff: +1
+					},
+					{
+						f_type: figureType,
+						id: 0,
+						id_diff: (this.scope.settings.maxColumns * 2),
+						col_diff: 0,
+						row_diff: +2
+					}
+				]);
+			}
+			else {}
+		}	
 		else {}
 	}
 
