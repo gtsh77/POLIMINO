@@ -64,7 +64,7 @@ export class f_mv {
 		$('.field').find('tr').each((n: number, st: Element)=> {
 			let rowBlocks: JQuery = $(st).find('.figure_block');
 			if(rowBlocks.length === this.scope.settings.maxColumns){
-				rowBlocks.removeClass('figure_block');
+				rowBlocks.removeClass('figure_block figure_class_1 figure_class_2 figure_class_3');
 				rowBlocks.removeAttr('figure');
 				rowBlocks.removeAttr('center');
 				rowBlocks.removeAttr('rotation');
@@ -93,12 +93,13 @@ export class f_mv {
 			let figureId = curBlock.attr('figure');			
 			let column: number = curBlock.data('column');
 			let row: number = curBlock.data('row') - 1;
+			let color: number = curBlock.data('color');
 			let isCenter: string = curBlock.attr('center') || null;
 			let newBlock: JQuery = $('.block').eq(curBlock.index() + (this.scope.settings.maxColumns * row) + this.scope.settings.maxColumns);
-			curBlock.removeClass(`figure_block`);
+			curBlock.removeClass(`figure_block figure_class_${color}`);
 			curBlock.removeAttr('figure');
 			//покрасим новый квадрат и добавим класс
-			newBlock.addClass(`figure_block`).data('type',figureType).data('column',column).data('row',row + 2).attr('figure',`${figureId}`);
+			newBlock.addClass(`figure_block figure_class_${color}`).data('type',figureType).data('color',color).data('column',column).data('row',row + 2).attr('figure',`${figureId}`);
 			if(isCenter){
 				newBlock.attr('center','true');
 				curBlock.removeAttr('center');
@@ -142,13 +143,14 @@ export class f_mv {
 			let curBlock: JQuery = $(`[figure=${this.scope.curFigureActiveId}]`).eq(4 - i);
 			let column: number = curBlock.data('column');
 			let row: number = curBlock.data('row');
+			let color: number = curBlock.data('color');
 			let newBlock: JQuery = $('.block').eq((curBlock.index() + (this.scope.settings.maxColumns * row)));
 			let isCenter: string = curBlock.attr('center') || null;
 			//очистим текущий квадрат и уберем класс
-			curBlock.removeClass(`figure_block`);
+			curBlock.removeClass(`figure_block figure_class_${color}`);
 			curBlock.removeAttr('figure');
 			//покрасим новый квадрат и добавим класс
-			newBlock.addClass(`figure_block`).data('type',figureType).data('column',column).data('row',(row + 1)).attr('figure',`${this.scope.curFigureActiveId}`);
+			newBlock.addClass(`figure_block figure_class_${color}`).data('type',figureType).data('color',color).data('column',column).data('row',(row + 1)).attr('figure',`${this.scope.curFigureActiveId}`);
 			//если центр фигуры уберем центр и добавим в новый блок
 			if(isCenter){
 				newBlock.attr('center','true');
@@ -180,13 +182,14 @@ export class f_mv {
 			let curBlock: JQuery = $(`[figure=${this.scope.curFigureActiveId}]`).eq(0 + i);
 			let column: number = curBlock.data('column');
 			let row: number = curBlock.data('row') - 1;
+			let color: number = curBlock.data('color');
 			let newBlock: JQuery = $('.block').eq(curBlock.index() + (this.scope.settings.maxColumns * row) - 1);
 			let isCenter: string = curBlock.attr('center') || null;
 			//очистим текущий квадрат и уберем класс 
-			curBlock.removeClass(`figure_block`);
+			curBlock.removeClass(`figure_block figure_class_${color}`);
 			curBlock.removeAttr('figure');
 			//покрасим новый квадрат и добавим класс
-			newBlock.addClass(`figure_block`).data('type',figureType).data('column',(column - 1)).data('row',(row + 1)).attr('figure',`${this.scope.curFigureActiveId}`);
+			newBlock.addClass(`figure_block figure_class_${color}`).data('type',figureType).data('color',color).data('column',(column - 1)).data('row',(row + 1)).attr('figure',`${this.scope.curFigureActiveId}`);
 			//если центр фигуры уберем центр и добавим в новый блок и сохраним ротацию
 			if(isCenter){				
 				newBlock.attr('center','true');
@@ -217,13 +220,14 @@ export class f_mv {
 			let curBlock: JQuery = $(`[figure=${this.scope.curFigureActiveId}]`).eq(4 - i);
 			let column: number = curBlock.data('column');
 			let row: number = curBlock.data('row') - 1;
+			let color: number = curBlock.data('color');
 			let newBlock: JQuery = $('.block').eq(curBlock.index() + (this.scope.settings.maxColumns * row) + 1);
 			let isCenter: string = curBlock.attr('center') || null;
 			//очистим текущий квадрат и уберем класс
-			curBlock.removeClass(`figure_block`);
+			curBlock.removeClass(`figure_block figure_class_${color}`);
 			curBlock.removeAttr('figure');
 			//покрасим новый квадрат и добавим класс
-			newBlock.addClass(`figure_block`).data('type',figureType).data('column',(column + 1)).data('row',(row + 1)).attr('figure',`${this.scope.curFigureActiveId}`);
+			newBlock.addClass(`figure_block figure_class_${color}`).data('type',figureType).data('color',color).data('column',(column + 1)).data('row',(row + 1)).attr('figure',`${this.scope.curFigureActiveId}`);
 			//если центр фигуры уберем центр и добавим в новый блок
 			if(isCenter){
 				newBlock.attr('center','true');

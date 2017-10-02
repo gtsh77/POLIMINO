@@ -32,12 +32,13 @@ export class f_tr {
 			let curBlock: JQuery = $(`[figure=${this.scope.curFigureActiveId}]`).eq(data[j].id);
 			let column: number = curBlock.data('column');
 			let row: number = curBlock.data('row') - 1;
+			let color: number = curBlock.data('color');
 			let newBlock: JQuery = $('.block').eq(curBlock.index() + (this.scope.settings.maxColumns * row) + data[j].id_diff);
 			//console.log(newBlock[0]);
-			curBlock.removeClass(`figure_block`);
+			curBlock.removeClass(`figure_block figure_class_${color}`);
 			curBlock.removeAttr('figure');
 			//покрасим новый квадрат и добавим класс
-			newBlock.addClass(`figure_block`).data('type',data[j].f_type).data('column',(column + data[j].col_diff)).data('row',row + data[j].row_diff + 1).attr('figure',`${this.scope.curFigureActiveId}`);
+			newBlock.addClass(`figure_block figure_class_${color}`).data('type',data[j].f_type).data('color',color).data('column',(column + data[j].col_diff)).data('row',row + data[j].row_diff + 1).attr('figure',`${this.scope.curFigureActiveId}`);
 		}
 		//установим инфу по ротации
 		$(`[figure=${this.scope.curFigureActiveId}][center=true]`).attr('rotation',this.getNewRVal(degree));

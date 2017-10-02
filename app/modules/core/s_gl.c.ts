@@ -25,6 +25,7 @@ export class s_gl {
 		'maxColumns': 12
 	}
 	public rcFigures: string[] = ['a','a2','b','c','c2','d','d2','e','e2','n','n2','m','m2','l','h','f','k','g'];
+	//public rcFigures: string[] = ['a','a2','b'];
 	public bag: string[] = [];	
 	public move: any = null;
 	public speed: number = 1000;

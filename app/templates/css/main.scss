@@ -16,7 +16,6 @@ body {
 
 .field {
 	tr {
-
 		td {
 			padding: 0;
 			border: 2px solid #000;			
@@ -34,22 +33,24 @@ body {
 .level0 {
 	table {
 		tr {
-			td {
-				.figure_class_1 {
+			.figure_class_1 {
+				.block_item {
 					background: url('/assets/blue-glow.png') no-repeat;
-							background-color: #3cbcfc;		
+					background-color: #3cbcfc;							
 				}
-				.figure_class_2 {
-					background: url('/assets/blue-glow.png') no-repeat;	
-					background-color: #2038ec;
-				}
-				.figure_class_3 {
-					border: 2px solid #2038ec;
-					background-color: #fff;
-				}							
 			}
+			.figure_class_2 {
+				.block_item {
+					background: url('/assets/blue-glow.png') no-repeat;	
+					background-color: #2038ec;						
+				}
+			}
+			.figure_class_3 {
+				.block_item {
+					border: 2px solid #2038ec;
+					background-color: #fff;						
+				}
+			}			
 		}
 	}
-
-
 }

@@ -6,14 +6,14 @@ body { background: #252525; }
 /* line 9, main.scss */
 .main table { border-collapse: collapse; display: inline-block; border: 6px solid #9cfcf0; border-radius: 6px; }
 
-/* line 20, main.scss */
+/* line 19, main.scss */
 .field tr td { padding: 0; border: 2px solid #000; }
-/* line 23, main.scss */
+/* line 22, main.scss */
 .field tr td .block_item { width: 15px; height: 15px; background: #000; box-sizing: border-box; }
 
-/* line 38, main.scss */
-.level0 table tr td .figure_class_1 { background: url("/assets/blue-glow.png") no-repeat; background-color: #3cbcfc; }
-/* line 42, main.scss */
-.level0 table tr td .figure_class_2 { background: url("/assets/blue-glow.png") no-repeat; background-color: #2038ec; }
-/* line 46, main.scss */
-.level0 table tr td .figure_class_3 { border: 2px solid #2038ec; background-color: #fff; }
+/* line 37, main.scss */
+.level0 table tr .figure_class_1 .block_item { background: url("/assets/blue-glow.png") no-repeat; background-color: #3cbcfc; }
+/* line 43, main.scss */
+.level0 table tr .figure_class_2 .block_item { background: url("/assets/blue-glow.png") no-repeat; background-color: #2038ec; }
+/* line 49, main.scss */
+.level0 table tr .figure_class_3 .block_item { border: 2px solid #2038ec; background-color: #fff; }
