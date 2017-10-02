@@ -12,7 +12,7 @@ export class MainComponent {
 	public ngOnInit(): void {
 		window.scope = this;
 		window.this = this;
-		this.f_mv.next();
+		//this.f_mv.next();
 	}
 }
 

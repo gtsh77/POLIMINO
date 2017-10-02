@@ -11,11 +11,14 @@ export class f_mv {
 
 	//генерация новой фигуры из сумки в т.ч. самой первой
 	public next(): void {
-		if(!this.scope.bag.length) this.scope.bag = this.f_bag.generate();		
+		if(!this.scope.bag.length) this.scope.bag = this.f_bag.generate();
 		this.scope.curFigureActiveId = this.f_cr.figure(this.scope.bag[0]);
-		this.scope.move = setInterval(() => {
-			this.down();
-		},this.scope.speed);
+		if(!this.scope.move){
+			this.scope.move = setInterval(() => {
+				console.log('nextTimer');
+				this.down();
+			},this.scope.speed);			
+		}
 		this.scope.bag.shift();
 	}
 
@@ -37,14 +40,19 @@ export class f_mv {
 	}
 
 	public downKick(): void {
-		console.info('downKick');
-		this.stopTimer();
+		clearInterval(this.scope.move);
 		clearTimeout(this.scope.downKickTimer);
+		this.scope.move = null;
+		this.scope.downKickTimer = null;
 		this.scope.downKickTimer = setTimeout(() => {
+			console.log('kickCallBack');
 			this.down();
-			this.scope.move = setInterval(() => {
-				this.down();
-			},this.scope.speed);
+			if(!this.scope.move){
+				this.scope.move = setInterval(() => {
+					console.log('kickCallBackTimer');
+					this.down();
+				},this.scope.speed);
+			}
 		},this.scope.speed);
 		this.down();
 	}
@@ -102,7 +110,7 @@ export class f_mv {
 
 	//движение фигуры вниз
 	public down(): void {
-		console.info('down');
+		//console.info('down');
 		//сохраним тип фигуры
 		let figureType: string = $(`[figure=${this.scope.curFigureActiveId}]`).data('type');
 		//проверка можно ли сделать движение по всем частям фигуры
@@ -114,8 +122,9 @@ export class f_mv {
 			if((newBlock.attr(`figure`) !== this.scope.curFigureActiveId && newBlock.hasClass('figure_block')) || row === this.scope.settings.maxRows){
 				this.scope.curFigureActiveId = null;
 				clearInterval(this.scope.move);
-				this.scope.move = null;
 				clearTimeout(this.scope.downKickTimer);
+				this.scope.move = null;
+				this.scope.downKickTimer = null;			
 				//конец игры?
 				if(this.scope.isNewFigure) console.warn('end_game');
 				else {
@@ -153,7 +162,7 @@ export class f_mv {
 
 	//движение фигуры влево
 	public left(): void {
-		console.info('left');
+		//console.info('left');
 		//сохраним тип фигуры
 		let figureType: string = $(`[figure=${this.scope.curFigureActiveId}]`).data('type');
 		//проверка можно ли сделать движение по всем частям фигуры
@@ -190,7 +199,7 @@ export class f_mv {
 
 	//движение фигуры вправо
 	public right(): void {
-		console.info('right');
+		//console.info('right');
 		//сохраним тип фигуры
 		let figureType: string = $(`[figure=${this.scope.curFigureActiveId}]`).data('type');
 		//проверка можно ли сделать движение по всем частям фигуры

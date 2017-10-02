@@ -33,7 +33,7 @@ export class f_tr {
 			let column: number = curBlock.data('column');
 			let row: number = curBlock.data('row') - 1;
 			let newBlock: JQuery = $('.block').eq(curBlock.index() + (this.scope.settings.maxColumns * row) + data[j].id_diff);
-			console.log(newBlock[0]);
+			//console.log(newBlock[0]);
 			curBlock.removeClass(`figure_block`);
 			curBlock.removeAttr('figure');
 			//покрасим новый квадрат и добавим класс
@@ -41,7 +41,7 @@ export class f_tr {
 		}
 		//установим инфу по ротации
 		$(`[figure=${this.scope.curFigureActiveId}][center=true]`).attr('rotation',this.getNewRVal(degree));
-		console.info('rotated');
+		//console.info('rotated');
 	
 	}
 
