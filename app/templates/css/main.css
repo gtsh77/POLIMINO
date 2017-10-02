@@ -1,0 +1,10 @@
+/* line 1, main.scss */
+body { background: #252525; }
+
+/* line 5, main.scss */
+.main table { border-collapse: collapse; margin: 0 auto; }
+
+/* line 13, main.scss */
+.field tr td { width: 15px; height: 15px; border: 1.5px solid #000; background: #000; }
+/* line 20, main.scss */
+.field .figure_block { background: #3cbcfc; }

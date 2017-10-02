@@ -3,8 +3,7 @@ import { f_ctrl } from './f_ctrl.c';
 import { f_mv } from './f_mv.c';
 
 @Component({
-	templateUrl: 'app/templates/main.html',
-	styleUrls: ['app/templates/main.css']
+	templateUrl: 'app/templates/main.html'
 })
 
 export class MainComponent {
