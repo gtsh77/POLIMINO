@@ -1,7 +1,7 @@
 <div class="main" controls (f_controls_e)="f_ctrl.handle($event)">
 	<div class="game theme_nes89">
 		<div class="counter">
-			<span>lines - 000</span>
+			<span>lines - {{f_mv.scope.linesStriked | lines}}</span>
 		</div>
 		<div class="game_box level0">
 			<table>

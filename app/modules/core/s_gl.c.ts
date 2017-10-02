@@ -17,7 +17,8 @@ export class s_gl {
 		}
 	}
 	private cols: number[] = [];
-	private rows: number[] = [];	
+	private rows: number[] = [];
+	public linesStriked: number = 0;
 	public curFigureActiveId: string = null;
 	public isNewFigure: boolean = false;
 	public settings: ISettings = {

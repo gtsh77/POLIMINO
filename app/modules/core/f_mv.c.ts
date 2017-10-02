@@ -70,7 +70,7 @@ export class f_mv {
 				rowBlocks.removeAttr('rotation');
 				rowBlocks.removeAttr('limit');
 				numOfRows.push(n);
-				console.log(n);
+				this.scope.linesStriked++;
 			}
 		});
 		if(numOfRows.length) this.rebuildFieldAfterStrike(numOfRows.sort((a,b) => { return a - b;}));
