@@ -7,6 +7,13 @@ body { background: #252525; }
 .main table { border-collapse: collapse; display: inline-block; border: 6px solid #9cfcf0; border-radius: 6px; }
 
 /* line 20, main.scss */
-.field tr td { width: 15px; height: 15px; border: 1.5px solid #000; background: #000; }
-/* line 27, main.scss */
-.field .figure_block { background: #3cbcfc; }
+.field tr td { padding: 0; border: 2px solid #000; }
+/* line 23, main.scss */
+.field tr td .block_item { width: 15px; height: 15px; background: #000; box-sizing: border-box; }
+
+/* line 38, main.scss */
+.level0 table tr td .figure_class_1 { background: url("/assets/blue-glow.png") no-repeat; background-color: #3cbcfc; }
+/* line 42, main.scss */
+.level0 table tr td .figure_class_2 { background: url("/assets/blue-glow.png") no-repeat; background-color: #2038ec; }
+/* line 46, main.scss */
+.level0 table tr td .figure_class_3 { border: 2px solid #2038ec; background-color: #fff; }

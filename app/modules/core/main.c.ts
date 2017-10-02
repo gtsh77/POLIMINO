@@ -11,7 +11,7 @@ export class MainComponent {
 	constructor(private f_mv: f_mv, private f_ctrl: f_ctrl){}
 	public ngAfterViewInit(): void {
 		window.scope = this;
-		this.f_mv.next();
+		//this.f_mv.next();
 	}
 }
 

@@ -2,7 +2,7 @@ $border: #9cfcf0;
 
 body {
 	background: #252525;
-} 
+}
 
 .main {
 	text-align: center;
@@ -18,13 +18,38 @@ body {
 	tr {
 
 		td {
-			width: 15px;
-			height: 15px;
-			border: 1.5px solid #000;
-			background: #000;
+			padding: 0;
+			border: 2px solid #000;			
+			.block_item {
+				width: 15px;
+				height: 15px;
+				background: #000;
+				box-sizing: border-box;
+				//border: 2px solid transparent;
+			}
 		}
 	}
-	.figure_block {
-		background: #3cbcfc;
+}
+
+.level0 {
+	table {
+		tr {
+			td {
+				.figure_class_1 {
+					background: url('/assets/blue-glow.png') no-repeat;
+							background-color: #3cbcfc;		
+				}
+				.figure_class_2 {
+					background: url('/assets/blue-glow.png') no-repeat;	
+					background-color: #2038ec;
+				}
+				.figure_class_3 {
+					border: 2px solid #2038ec;
+					background-color: #fff;
+				}							
+			}
+		}
 	}
+
+
 }
