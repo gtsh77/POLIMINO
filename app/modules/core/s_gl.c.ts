@@ -8,6 +8,16 @@ interface ISettings {
 @Injectable()
 
 export class s_gl {
+	constructor(){
+		for(let i: number = 0; i < this.settings.maxRows; i++){
+			this.rows.push(0);
+		}
+		for(let i: number = 0; i < this.settings.maxColumns; i++){
+			this.cols.push(0);
+		}
+	}
+	private cols: number[] = [];
+	private rows: number[] = [];	
 	public curFigureActiveId: string = null;
 	public isNewFigure: boolean = false;
 	public settings: ISettings = {
@@ -19,4 +29,5 @@ export class s_gl {
 	public move: any = null;
 	public speed: number = 1000;
 	public downKickTimer: any = null;
+	public isInited: boolean = false;
 }

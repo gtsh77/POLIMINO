@@ -8,11 +8,13 @@ import { f_tr } from './f_tr.c';
 
 export class f_mv {
 	constructor(private scope: s_gl, private f_cr: f_cr, private f_bag: f_bag, private f_tr: f_tr){}
-
 	//генерация новой фигуры из сумки в т.ч. самой первой
 	public next(): void {
+		//генерация сумки
 		if(!this.scope.bag.length) this.scope.bag = this.f_bag.generate();
+		//создание фигуры
 		this.scope.curFigureActiveId = this.f_cr.figure(this.scope.bag[0]);
+		//пуск таймера если нету другого
 		if(!this.scope.move){
 			this.scope.move = setInterval(() => {
 				console.log('nextTimer');

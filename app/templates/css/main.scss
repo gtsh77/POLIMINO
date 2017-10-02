@@ -1,10 +1,17 @@
+$border: #9cfcf0;
+
 body {
 	background: #252525;
 } 
 
-.main table {
-	border-collapse: collapse;
-	margin: 0 auto;
+.main {
+	text-align: center;
+	table {
+		border-collapse: collapse;
+		display: inline-block;
+		border: 6px solid $border;
+		border-radius: 6px;
+	}
 }
 
 .field {
