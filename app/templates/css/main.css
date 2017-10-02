@@ -1,19 +1,53 @@
 /* line 3, main.scss */
-body { background: #252525; }
+html { font-size: 1.0; font-family: 'Roboto Slab', sans-serif; font-weight: 400; }
 
-/* line 7, main.scss */
-.main { text-align: center; }
 /* line 9, main.scss */
+body { background: #252525; margin: 0; }
+
+/* line 14, main.scss */
+.main { font-size: 0; margin-top: 16px; text-align: center; }
+/* line 18, main.scss */
 .main table { border-collapse: collapse; display: inline-block; border: 6px solid #9cfcf0; border-radius: 6px; }
 
-/* line 19, main.scss */
-.field tr td { padding: 0; border: 2px solid #000; }
-/* line 22, main.scss */
-.field tr td .block_item { width: 15px; height: 15px; background: #000; box-sizing: border-box; }
+/* line 26, main.scss */
+.game { display: inline-block; vertical-align: top; }
 
+/* line 31, main.scss */
+.game_box, .next_val { margin-top: 16px; }
+/* line 34, main.scss */
+.game_box tr td, .next_val tr td { padding: 0; border: 2px solid #000; }
 /* line 37, main.scss */
+.game_box tr td .block_item, .next_val tr td .block_item { width: 15px; height: 15px; background: #000; box-sizing: border-box; }
+
+/* line 48, main.scss */
+.indicators { display: inline-block; vertical-align: top; margin-left: 16px; }
+/* line 52, main.scss */
+.indicators .in_block { display: block; background: #000; box-sizing: border-box; border: 3px solid #9cfcf0; border-radius: 3px; padding: 6px; padding-top: 0; margin-top: 16px; }
+/* line 61, main.scss */
+.indicators .in_block:first-child { margin-top: 0; }
+/* line 65, main.scss */
+.indicators span { display: block; font-size: 1.2rem; color: #fcfcfc; text-align: left; text-transform: uppercase; line-height: 1; }
+/* line 73, main.scss */
+.indicators .in_stats { padding-top: 0; }
+/* line 75, main.scss */
+.indicators .in_stats .top_header, .indicators .in_stats .score_header { margin-top: 16px; }
+/* line 80, main.scss */
+.indicators .in_next .next_header { margin-top: 16px; margin-left: 6px; }
+/* line 84, main.scss */
+.indicators .in_next .next_val { border: 0; }
+/* line 89, main.scss */
+.indicators .in_level .level_header { margin-top: 16px; margin-left: 6px; }
+/* line 93, main.scss */
+.indicators .in_level .level_val { margin-left: 32px; }
+
+/* line 100, main.scss */
+.counter { background: #000; width: 218px; box-sizing: border-box; border: 3px solid #9cfcf0; border-radius: 3px; margin: 0 auto; }
+/* line 107, main.scss */
+.counter span { color: #fcfcfc; font-size: 1.4rem; line-height: 1.2; text-transform: uppercase; }
+
+/* line 123, main.scss */
 .level0 table tr .figure_class_1 .block_item { background: url("/assets/blue-glow.png") no-repeat; background-color: #3cbcfc; }
-/* line 43, main.scss */
+/* line 129, main.scss */
 .level0 table tr .figure_class_2 .block_item { background: url("/assets/blue-glow.png") no-repeat; background-color: #2038ec; }
-/* line 49, main.scss */
+/* line 135, main.scss */
 .level0 table tr .figure_class_3 .block_item { border: 2px solid #2038ec; background-color: #fff; }

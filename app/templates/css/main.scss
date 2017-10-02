@@ -1,10 +1,19 @@
 $border: #9cfcf0;
 
+html {
+	font-size: 1.0;
+	font-family: 'Roboto Slab', sans-serif;
+	font-weight: 400;
+}
+
 body {
 	background: #252525;
+	margin: 0;
 }
 
 .main {
+	font-size: 0;
+	margin-top: 16px;
 	text-align: center;
 	table {
 		border-collapse: collapse;
@@ -14,7 +23,13 @@ body {
 	}
 }
 
-.field {
+.game {
+	display: inline-block;
+	vertical-align: top;	
+}
+
+.game_box, .next_val {
+	margin-top: 16px;
 	tr {
 		td {
 			padding: 0;
@@ -27,8 +42,79 @@ body {
 				//border: 2px solid transparent;
 			}
 		}
+	}	
+}
+
+.indicators {
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 16px;
+	.in_block {
+		display: block;
+		background: #000;
+		box-sizing: border-box;
+		border: 3px solid $border;
+		border-radius: 3px;	
+		padding: 6px;
+		padding-top: 0;
+		margin-top: 16px;
+		&:first-child {
+			margin-top: 0;
+		}
+	}
+	span {
+		display: block;
+		font-size: 1.2rem;
+		color: #fcfcfc;
+		text-align: left;
+		text-transform: uppercase;
+		line-height: 1;			
+	}
+	.in_stats {
+		padding-top: 0;
+		.top_header, .score_header {
+			margin-top: 16px;
+		}
+	}
+	.in_next {
+		.next_header {
+			margin-top: 16px;
+			margin-left: 6px;	
+		}
+		.next_val {
+			border: 0;
+		}
+	}
+	.in_level {
+		.level_header {
+			margin-top: 16px;
+			margin-left: 6px;
+		}
+		.level_val {
+			margin-left: 32px;
+		}
+	}
+
+}
+
+.counter {
+	background: #000;
+	width: 218px;
+	box-sizing: border-box;
+	border: 3px solid $border;
+	border-radius: 3px;	
+	margin: 0 auto;
+	span {
+		color: #fcfcfc;
+		font-size: 1.4rem;
+		line-height: 1.2;
+		text-transform: uppercase;
 	}
 }
+
+
+
+
 
 .level0 {
 	table {
