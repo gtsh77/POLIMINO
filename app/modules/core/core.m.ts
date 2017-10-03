@@ -13,11 +13,12 @@ import { f_tr } from './f_tr.c';
 import { f_ctrl_dr } from './f_ctrl.dr';
 import { f_ctrl } from './f_ctrl.c';
 import { f_li } from './f_li.p';
+import { f_le } from './f_le.p';
 
 
 @NgModule({
 	imports: [ CoreRouting, CommonModule ],
-	declarations: [ CoreComponent, MainComponent, f_ctrl_dr, f_li],
+	declarations: [ CoreComponent, MainComponent, f_ctrl_dr, f_li, f_le],
 	providers: [s_gl, f_cr, f_bag, f_tr, f_mv, f_ctrl]
 })
 export class CoreModule {}

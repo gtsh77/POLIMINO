@@ -71,10 +71,17 @@ export class f_mv {
 				rowBlocks.removeAttr('limit');
 				numOfRows.push(n);
 				this.scope.linesStriked++;
+				this.levelUp();
 			}
 		});
-		if(numOfRows.length) this.rebuildFieldAfterStrike(numOfRows.sort((a,b) => { return a - b;}));
-		
+		if(numOfRows.length) this.rebuildFieldAfterStrike(numOfRows.sort((a,b) => { return a - b;}));		
+	}
+
+	public levelUp(): void {
+		$('.game_box').removeClass(`level${this.scope.level}`);
+		this.scope.level++;
+		this.scope.speed -= this.scope.speed/10;
+		$('.game_box').addClass(`level${this.scope.level}`);
 	}
 
 	public rebuildFieldAfterStrike(row_n: number[]): void {

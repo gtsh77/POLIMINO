@@ -19,6 +19,7 @@ export class s_gl {
 	private cols: number[] = [];
 	private rows: number[] = [];
 	public linesStriked: number = 0;
+	public level: number = 0;
 	public curFigureActiveId: string = null;
 	public isNewFigure: boolean = false;
 	public settings: ISettings = {
@@ -27,7 +28,7 @@ export class s_gl {
 	}
 	public rcFigures: string[] = ['a','a2','b','c','c2','d','d2','e','e2','n','n2','m','m2','l','h','f','k','g'];
 	//public rcFigures: string[] = ['a','a2','b'];
-	public bag: string[] = [];	
+	public bag: string[] = [];
 	public move: any = null;
 	public speed: number = 1000;
 	public downKickTimer: any = null;
