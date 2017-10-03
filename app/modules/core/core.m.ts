@@ -18,6 +18,6 @@ import { f_li } from './f_li.p';
 @NgModule({
 	imports: [ CoreRouting, CommonModule ],
 	declarations: [ CoreComponent, MainComponent, f_ctrl_dr, f_li],
-	providers: [s_gl, f_cr, f_bag, f_tr, f_mv, f_ctrl, f_li]
+	providers: [s_gl, f_cr, f_bag, f_tr, f_mv, f_ctrl]
 })
 export class CoreModule {}

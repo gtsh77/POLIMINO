@@ -22,23 +22,17 @@ body { background: #252525; margin: 0; }
 /* line 48, main.scss */
 .indicators { display: inline-block; vertical-align: top; margin-left: 16px; }
 /* line 52, main.scss */
-.indicators .in_block { display: block; background: #000; box-sizing: border-box; border: 3px solid #9cfcf0; border-radius: 3px; padding: 6px; padding-top: 0; margin-top: 16px; }
+.indicators .in_block { display: block; background: #000; box-sizing: border-box; border: 3px solid #9cfcf0; border-radius: 3px; padding: 6px; margin-top: 16px; }
 /* line 61, main.scss */
 .indicators .in_block:first-child { margin-top: 0; }
 /* line 65, main.scss */
 .indicators span { display: block; font-size: 1.2rem; color: #fcfcfc; text-align: left; text-transform: uppercase; line-height: 1; }
-/* line 73, main.scss */
-.indicators .in_stats { padding-top: 0; }
 /* line 75, main.scss */
-.indicators .in_stats .top_header, .indicators .in_stats .score_header { margin-top: 16px; }
-/* line 80, main.scss */
-.indicators .in_next .next_header { margin-top: 16px; margin-left: 6px; }
+.indicators .in_stats .score_header { margin-top: 16px; }
 /* line 84, main.scss */
 .indicators .in_next .next_val { border: 0; }
-/* line 89, main.scss */
-.indicators .in_level .level_header { margin-top: 16px; margin-left: 6px; }
 /* line 93, main.scss */
-.indicators .in_level .level_val { margin-left: 32px; }
+.indicators .in_level .level_val { margin-left: 25px; }
 
 /* line 100, main.scss */
 .counter { background: #000; width: 218px; box-sizing: border-box; border: 3px solid #9cfcf0; border-radius: 3px; margin: 0 auto; }
@@ -51,3 +45,66 @@ body { background: #252525; margin: 0; }
 .level0 table tr .figure_class_2 .block_item { background: url("/assets/blue-glow.png") no-repeat; background-color: #2038ec; }
 /* line 135, main.scss */
 .level0 table tr .figure_class_3 .block_item { border: 2px solid #2038ec; background-color: #fff; }
+
+/* line 148, main.scss */
+.level1 table tr .figure_class_1 .block_item { background: url("/assets/blue-glow.png") no-repeat; background-color: #80d010; }
+/* line 154, main.scss */
+.level1 table tr .figure_class_2 .block_item { background: url("/assets/blue-glow.png") no-repeat; background-color: #00a800; }
+/* line 160, main.scss */
+.level1 table tr .figure_class_3 .block_item { border: 2px solid #00a800; background-color: #fff; }
+
+/* line 173, main.scss */
+.level2 table tr .figure_class_1 .block_item { background: url("/assets/blue-glow.png") no-repeat; background-color: #f478fc; }
+/* line 179, main.scss */
+.level2 table tr .figure_class_2 .block_item { background: url("/assets/blue-glow.png") no-repeat; background-color: #bc00bc; }
+/* line 185, main.scss */
+.level2 table tr .figure_class_3 .block_item { border: 2px solid #bc00bc; background-color: #fff; }
+
+/* line 198, main.scss */
+.level3 table tr .figure_class_1 .block_item { background: url("/assets/blue-glow.png") no-repeat; background-color: #4cdc48; }
+/* line 204, main.scss */
+.level3 table tr .figure_class_2 .block_item { background: url("/assets/blue-glow.png") no-repeat; background-color: #2038ec; }
+/* line 210, main.scss */
+.level3 table tr .figure_class_3 .block_item { border: 2px solid #2038ec; background-color: #fff; }
+
+/* line 223, main.scss */
+.level4 table tr .figure_class_1 .block_item { background: url("/assets/blue-glow.png") no-repeat; background-color: #58f898; }
+/* line 229, main.scss */
+.level4 table tr .figure_class_2 .block_item { background: url("/assets/blue-glow.png") no-repeat; background-color: #e40058; }
+/* line 235, main.scss */
+.level4 table tr .figure_class_3 .block_item { border: 2px solid #e40058; background-color: #fff; }
+
+/* line 248, main.scss */
+.level5 table tr .figure_class_1 .block_item { background: url("/assets/blue-glow.png") no-repeat; background-color: #5c94fc; }
+/* line 254, main.scss */
+.level5 table tr .figure_class_2 .block_item { background: url("/assets/blue-glow.png") no-repeat; background-color: #58f898; }
+/* line 260, main.scss */
+.level5 table tr .figure_class_3 .block_item { border: 2px solid #58f898; background-color: #fff; }
+
+/* line 273, main.scss */
+.level6 table tr .figure_class_1 .block_item { background: url("/assets/blue-glow.png") no-repeat; background-color: #747474; }
+/* line 279, main.scss */
+.level6 table tr .figure_class_2 .block_item { background: url("/assets/blue-glow.png") no-repeat; background-color: #d82800; }
+/* line 285, main.scss */
+.level6 table tr .figure_class_3 .block_item { border: 2px solid #d82800; background-color: #fff; }
+
+/* line 298, main.scss */
+.level7 table tr .figure_class_1 .block_item { background: url("/assets/blue-glow.png") no-repeat; background-color: #a80010; }
+/* line 304, main.scss */
+.level7 table tr .figure_class_2 .block_item { background: url("/assets/blue-glow.png") no-repeat; background-color: #8000f0; }
+/* line 310, main.scss */
+.level7 table tr .figure_class_3 .block_item { border: 2px solid #8000f0; background-color: #fff; }
+
+/* line 323, main.scss */
+.level8 table tr .figure_class_1 .block_item { background: url("/assets/blue-glow.png") no-repeat; background-color: #d82800; }
+/* line 329, main.scss */
+.level8 table tr .figure_class_2 .block_item { background: url("/assets/blue-glow.png") no-repeat; background-color: #2038ec; }
+/* line 335, main.scss */
+.level8 table tr .figure_class_3 .block_item { border: 2px solid #2038ec; background-color: #fff; }
+
+/* line 348, main.scss */
+.level9 table tr .figure_class_1 .block_item { background: url("/assets/blue-glow.png") no-repeat; background-color: #fc9838; }
+/* line 354, main.scss */
+.level9 table tr .figure_class_2 .block_item { background: url("/assets/blue-glow.png") no-repeat; background-color: #d82800; }
+/* line 360, main.scss */
+.level9 table tr .figure_class_3 .block_item { border: 2px solid #d82800; background-color: #fff; }
