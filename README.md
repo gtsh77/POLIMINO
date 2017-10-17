@@ -13,3 +13,4 @@ Some project ideas:
 6. think about what scoring system can be
 
 Screenshot of the latest ALPHA:
+![polimino_nes](https://user-images.githubusercontent.com/8376353/31659927-63054b26-b33e-11e7-9bb3-6397fb78ee58.jpg)
