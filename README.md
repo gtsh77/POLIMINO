@@ -1,7 +1,8 @@
 # POLIMINO
-puzzle based on polimino (not tetromino) with NES89 theme [ALPHA]
+2-D Puzzle Game based on polimino [ALPHA]
 
-PROJECT PROGRESS: https://trello.com/b/vBuHEzTA/2d-battlemino
+PROJECT PROGRESS: https://trello.com/b/vBuHEzTA/2d-polimino<br/>
+LIVE DEMO: http://anton-makridin.ru/work/polimino
 
 Some project ideas:
 
